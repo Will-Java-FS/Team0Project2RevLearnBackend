@@ -40,5 +40,5 @@ public class Forum
 
     @OneToMany(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<?> posts;//ForumPosts
+    private List<ForumPost> posts;//ForumPosts
 }
