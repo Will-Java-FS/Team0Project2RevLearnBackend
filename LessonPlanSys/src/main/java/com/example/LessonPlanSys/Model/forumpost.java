@@ -1,27 +1,26 @@
 package com.example.LessonPlanSys.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "forum_posts")
-public class forumpost {
+public class ForumPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int forumpost_id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "forum_id", nullable = false)
-    private Forum forum;
+    private Forum forum_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -33,11 +32,4 @@ public class forumpost {
     @Column(name="updated_at", nullable = false)
     private Timestamp updated_at;
 
-    public forumpost(int forumpost_id, Forum forum, User user, Timestamp created_at, Timestamp updated_at) {
-        this.forumpost_id = forumpost_id;
-        this.forum = forum;
-        this.user = user;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
 }
