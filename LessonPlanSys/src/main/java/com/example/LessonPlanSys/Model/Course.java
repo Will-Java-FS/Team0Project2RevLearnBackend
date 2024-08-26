@@ -1,7 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
-import java.time.LocalDate;
-
+import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,19 +26,20 @@ public class Course {
     private int id;
 
     @Column(name = "course_name", nullable = false)
-    private String courseName;
+    private String course_name;
 
     @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "teacher_id", nullable = false)
-    private int teacherId;
+    private int teacher_id;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
-    private LocalDate createdAt;
+    private Timestamp created_at;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    private Timestamp updated_at;
 }
+// https://trello.com/c/odeKevEG
