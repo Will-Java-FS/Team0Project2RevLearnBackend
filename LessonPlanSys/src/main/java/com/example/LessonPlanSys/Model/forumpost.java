@@ -1,11 +1,11 @@
 package com.example.LessonPlanSys.Model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +17,7 @@ public class forumpost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int forumpost_id;
 
     @ManyToOne
     @JoinColumn(name = "forum_id", nullable = false)
@@ -28,27 +28,16 @@ public class forumpost {
     private User user;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    private LocalDateTime createdAt;
+    private Timestamp created_at;
 
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name="updated_at", nullable = false)
+    private Timestamp updated_at;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    public forumpost(Long id, Forum forum, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    public forumpost(int forumpost_id, Forum forum, User user, Timestamp created_at, Timestamp updated_at) {
+        this.forumpost_id = forumpost_id;
         this.forum = forum;
         this.user = user;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 }
