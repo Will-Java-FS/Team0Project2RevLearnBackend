@@ -1,21 +1,50 @@
 package com.example.LessonPlanSys.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Builder
 public class User {
 
-    @Getter
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int user_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 255)
+    private String email;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String username;
+
+    @Column(nullable = false, length = 255)
+    private String passwordHash;
+
+    @Column(nullable = false, length = 255)
+    private String firstName;
+
+    @Column(nullable = false, length = 255)
+    private String lastName;
+
+    @Column(nullable = false)
+    private ZonedDateTime createdAt;
+
+    @Column(nullable = false)
+    private ZonedDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Course> courses;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<DiscussionForum> discussionForums;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 }
