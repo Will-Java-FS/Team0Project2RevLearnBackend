@@ -1,4 +1,4 @@
-package com.example.project.model;
+package com.example.LessonPlanSys.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,12 +39,12 @@ public class User {
     @Column(nullable = false)
     private ZonedDateTime updatedAt;
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private List<Course> courses;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Course> courses;
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private List<DiscussionForum> discussionForums;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<DiscussionForum> discussionForums;
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private List<Lesson> lessons;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 }
