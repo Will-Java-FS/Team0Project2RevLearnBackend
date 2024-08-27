@@ -1,0 +1,7 @@
+
+/.idea
+/LessonPlanSys/.idea
+LessonPlanSys/LessonPlanSys.iml
+/LessonPlanSys/target/classes
+LessonPlanSys/src/main/java/com/example/LessonPlanSys/resources/application.properties
+/LessonPlanSys/target
