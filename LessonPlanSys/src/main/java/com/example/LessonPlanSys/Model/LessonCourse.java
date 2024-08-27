@@ -1,7 +1,7 @@
 package com.example.LessonPlanSys.Model;
 
-import com.example.Model.LessonPlan;
-import com.example.Model.Course;
+import com.example.LessonPlanSys.Model.LessonPlan;
+import com.example.LessonPlanSys.Model.Course;
 import jakarta.persistence.*;
 import lombok.Data;
 
