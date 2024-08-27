@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "users")
+@Table(name = "LessonPlans")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class LessonPlan {
     @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="user_id",updatable = false)
+    @Column(name="lesson_plan_id",updatable = false)
     private int lesson_plan_id;
 
     @Getter
@@ -35,11 +35,11 @@ public class LessonPlan {
     @Getter
     @Setter
     @Column(name="created_at")
-    private Timestamp created_at;
+    private Timestamp created_at2;
 
     @Getter
     @Setter
     @Column(name="updated_at")
-    private Timestamp updated_at;
+    private Timestamp updated_at2;
 
 }
