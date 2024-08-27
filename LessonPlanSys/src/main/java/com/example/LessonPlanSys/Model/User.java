@@ -16,7 +16,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    private int user_id;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
@@ -33,18 +34,13 @@ public class User {
     @Column(nullable = false, length = 255)
     private String lastName;
 
-    @Column(nullable = false)
-    private ZonedDateTime createdAt;
+    //@Column(nullable = false)
+    //private ZonedDateTime createdAt;
 
-    @Column(nullable = false)
-    private ZonedDateTime updatedAt;
+    //@Column(nullable = false)
+    //private ZonedDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Course> courses;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Program program;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<DiscussionForum> discussionForums;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
 }

@@ -17,10 +17,10 @@ public class Program {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="program_id", updatable = false)
-    private int id;
+    private int program_id;
 
     @Column(nullable = false)
-    private String programName;
+    private String program_name;
 
     //TODO: Uncomment when Course model is done.
 /*    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY)

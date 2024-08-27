@@ -22,8 +22,8 @@ public class Forum
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private int id;
+    @Column(name = "forum_id", updatable = false)
+    private int forum_id;
 
     @OneToOne(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "course_id", updatable = false)
