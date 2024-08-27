@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,10 +37,10 @@ public class User {
 
 
     @Column(nullable = false)
-    private ZonedDateTime createdAt1;
+    private ZonedDateTime userCreatedAt;
 
     @Column(nullable = false)
-    private ZonedDateTime updatedAt1;
+    private ZonedDateTime userUpdatedAt;
 
     @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", updatable = false)

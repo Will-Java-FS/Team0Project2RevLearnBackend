@@ -38,7 +38,7 @@ public class LessonCourseServiceImpl {
 
     public LessonCourse getLessonCourseByLessonPlanIdAndCourseId(int lesson_plan_id, int course_id) {
         return lcr.findAll().stream()
-                .filter(lc -> lc.getCourse().getId() == course_id
+                .filter(lc -> lc.getCourse().getCourse_id() == course_id
                         && lc.getLessonPlan().getLesson_plan_id() == lesson_plan_id)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("LessonCourse not found"));
@@ -56,7 +56,7 @@ public class LessonCourseServiceImpl {
     public List<LessonPlan> getLessonPlansByCourseId(int course_id) {
 
         return lcr.findAll().stream()
-                .filter(lc -> lc.getCourse().getId() == course_id)
+                .filter(lc -> lc.getCourse().getCourse_id() == course_id)
                 .map(LessonCourse::getLessonPlan)
                 .collect(Collectors.toList());
     }
@@ -81,7 +81,7 @@ public class LessonCourseServiceImpl {
 
     public void deleteLessonCourseLink(int lesson_plan_id, int course_id) {
         Optional<LessonCourse> lessonCourse = lcr.findAll().stream()
-                .filter(lc -> lc.getCourse().getId() == course_id
+                .filter(lc -> lc.getCourse().getCourse_id() == course_id
                         && lc.getLessonPlan().getLesson_plan_id() == lesson_plan_id)
                 .findFirst();
         lessonCourse.ifPresent(lc -> lcr.delete(lc));

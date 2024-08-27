@@ -36,10 +36,10 @@ public class Course {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
-    private Timestamp created_at3;
+    private Timestamp course_created_at;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Timestamp updated_at3;
+    private Timestamp course_updated_at;
 }
 // https://trello.com/c/odeKevEG

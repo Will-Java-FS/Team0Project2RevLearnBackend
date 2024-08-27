@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class enrollments {
+public class Enrollments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "enroll_id", updatable = false)

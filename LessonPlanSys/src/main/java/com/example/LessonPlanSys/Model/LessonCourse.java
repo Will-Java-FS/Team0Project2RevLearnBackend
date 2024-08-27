@@ -21,7 +21,6 @@ public class LessonCourse {
     @JoinColumn(name = "lesson_plan_id")
     private LessonPlan lessonPlan;
 
-
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
