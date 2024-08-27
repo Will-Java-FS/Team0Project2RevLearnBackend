@@ -43,7 +43,7 @@ public class LessonPlanServiceImp implements LessonPlanService{
         LessonPlan olp = lessonPlanRepo.getbyLPID(id);
         if(olp != null)
         {
-            lessonPlanRepo.setLPInfoById(nlp.getTitle(), nlp.getContent(), nlp.getUpdated_at(), id);
+            lessonPlanRepo.setLPInfoById(nlp.getTitle(), nlp.getContent(), nlp.getLp_updated_at(), id);
             return getById(id);
         }
         return null;

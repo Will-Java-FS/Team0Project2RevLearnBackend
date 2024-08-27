@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 public class ForumPost {
 
     @Id
+    @Column(name = "forum_post_id", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int forumpost_id;
 
@@ -27,9 +28,9 @@ public class ForumPost {
     private User user;
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    private Timestamp created_at;
+    private Timestamp post_created_at;
 
     @Column(name="updated_at", nullable = false)
-    private Timestamp updated_at;
+    private Timestamp post_updated_at;
 
 }

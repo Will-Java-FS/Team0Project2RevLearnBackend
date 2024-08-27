@@ -7,13 +7,13 @@ import lombok.*;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import com.example.LessonPlanSys.Model.LessonCourse;
 
 @Entity
 @Table(name = "LessonPlans")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 
 public class LessonPlan {
     @Getter
@@ -35,11 +35,11 @@ public class LessonPlan {
     @Getter
     @Setter
     @Column(name="created_at")
-    private Timestamp created_at2;
+    private Timestamp lp_created_at;
 
     @Getter
     @Setter
     @Column(name="updated_at")
-    private Timestamp updated_at2;
+    private Timestamp lp_updated_at;
 
 }
