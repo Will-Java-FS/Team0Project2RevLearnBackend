@@ -25,21 +25,21 @@ public class Course {
     @Column(name = "id", updatable = false)
     private int id;
 
-    @Column(name = "course_name", nullable = false)
-    private String course_name;
+    @Column(name = "course_name", nullable = false, unique = true)
+    private String courseName;
 
     @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "teacher_id", nullable = false)
-    private int teacher_id;
+    private int teacherId;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 }
 // https://trello.com/c/odeKevEG
