@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LessonPlanServiceImp {
-    LessonPlanRepo lessonPlanRepo;
-    @Autowired
-    public LessonPlanServiceImp(LessonPlanRepo lessonPlanRepo)
-    {
-        this.lessonPlanRepo = lessonPlanRepo;
-    }
+//    LessonPlanRepo lessonPlanRepo;
+//    @Autowired
+//    public LessonPlanServiceImp(LessonPlanRepo lessonPlanRepo)
+//    {
+//        this.lessonPlanRepo = lessonPlanRepo;
+//    }
 
 }

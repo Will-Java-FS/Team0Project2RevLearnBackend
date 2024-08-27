@@ -17,7 +17,7 @@ public class Program {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="program_id", updatable = false)
-    private int id;
+    private int program_id;
 
     @Column(nullable = false)
     private String programName;

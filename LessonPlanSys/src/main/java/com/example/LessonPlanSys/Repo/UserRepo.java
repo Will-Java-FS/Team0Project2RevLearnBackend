@@ -5,5 +5,5 @@ import com.example.LessonPlanSys.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface UserRepo extends JpaRepository<User,Integer>{
-    User findById(int id);
+   // User findById(int id);
 }

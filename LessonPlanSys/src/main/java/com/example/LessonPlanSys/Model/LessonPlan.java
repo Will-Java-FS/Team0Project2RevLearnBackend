@@ -35,11 +35,11 @@ public class LessonPlan {
     @Getter
     @Setter
     @Column(name="created_at")
-    private Timestamp created_at;
+    private Timestamp created_at2;
 
     @Getter
     @Setter
     @Column(name="updated_at")
-    private Timestamp updated_at;
+    private Timestamp updated_at2;
 
 }
