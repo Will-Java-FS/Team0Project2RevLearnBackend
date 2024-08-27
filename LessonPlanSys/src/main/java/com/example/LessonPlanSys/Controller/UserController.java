@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    UserServiceImp userService;
-    @Autowired
-    public UserController(UserServiceImp userService)
-    {
-        this.userService = userService;
-    }
+//    UserServiceImp userService;
+//    @Autowired
+//    public UserController(UserServiceImp userService)
+//    {
+//        this.userService = userService;
+//    }
 }

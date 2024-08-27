@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,16 +10,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "lessonplan_course")
 public class LessonCourse {
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "lessonplans",
-            joinColumns = @JoinColumn(name = "lesson_plan_id"))
-    LessonPlan lessonPlan;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int lesson_course_id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "courses",
-            joinColumns = @JoinColumn(name = "course_id"))
-    Course course;
+    @ManyToOne
+    @JoinColumn(name = "lesson_plan_id")
+    private LessonPlan lessonPlan;
+
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
 }
