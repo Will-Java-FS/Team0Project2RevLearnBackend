@@ -34,17 +34,17 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private ZonedDateTime createdAt;
+    private ZonedDateTime created_at;
 
     @Column(nullable = false)
-    private ZonedDateTime updatedAt;
+    private ZonedDateTime updated_at;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Course> courses;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<Course> courses;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<DiscussionForum> discussionForums;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<Forum> discussionForums;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<LessonPlan> lessons;
 }
