@@ -19,7 +19,7 @@ public class LessonPlan {
     @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="user_id",updatable = false)
+    @Column(name="lesson_plan_id",updatable = false)
     private int lesson_plan_id;
 
     @Getter

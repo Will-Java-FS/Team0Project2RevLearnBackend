@@ -12,5 +12,8 @@ import lombok.*;
 public class enrollments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "enroll_id", updatable = false)
+    private Long enroll_id;
+
+    //ADD FK TO USERS AND COURSES
 }

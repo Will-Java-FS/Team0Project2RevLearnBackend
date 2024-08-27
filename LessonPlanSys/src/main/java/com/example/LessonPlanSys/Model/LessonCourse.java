@@ -12,7 +12,7 @@ public class LessonCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lesson_course_id")
-    private int id;
+    private int lesson_course_id;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "lessonplans",
