@@ -31,5 +31,8 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
+    @PostMapping
+    public Course addCourse(@RequestBody Course course) {
+        return courseService.addCourse(course);
+    }
 }

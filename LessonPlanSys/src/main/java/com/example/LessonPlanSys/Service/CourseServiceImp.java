@@ -27,4 +27,9 @@ public class CourseServiceImp implements CourseService {
     public Optional<Course> getByName(String name) {
         return courseRepo.findByCourseName(name);
     }
+
+    @Override
+    public Course addCourse(Course course) {
+        return courseRepo.save(course);
+    }
 }
