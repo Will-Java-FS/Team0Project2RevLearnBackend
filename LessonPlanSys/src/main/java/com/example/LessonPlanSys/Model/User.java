@@ -42,7 +42,7 @@ public class User {
     @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", updatable = false)
     private List<Course> courses;
-
+//
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<DiscussionForum> discussionForums;
 //

@@ -25,7 +25,7 @@ public class Forum
     @Column(name = "forum_id", updatable = false)
     private int forum_id;
 
-    @OneToOne//(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "course_id", updatable = false)
     private Course course;
 
@@ -38,8 +38,8 @@ public class Forum
     @Column(nullable = false)
     private Timestamp updated_at;
 
-//    @OneToMany//(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonManagedReference
-//    @JoinColumn(name = "forumpost_id", updatable = false)
-//    private List<ForumPost> posts;//ForumPosts
+    @OneToMany(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JoinColumn(name = "forumpost_id", updatable = false)
+    private List<ForumPost> posts;//ForumPosts
 }

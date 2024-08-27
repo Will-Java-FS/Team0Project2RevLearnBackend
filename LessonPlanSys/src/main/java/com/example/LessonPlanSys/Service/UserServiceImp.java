@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImp implements UserService{
-//    UserRepo userRepo;
-//    @Autowired
-//    public UserServiceImp(UserRepo userRepo)
-//    {
-//        this.userRepo = userRepo;
-//    }
+    UserRepo userRepo;
+    @Autowired
+    public UserServiceImp(UserRepo userRepo)
+    {
+        this.userRepo = userRepo;
+    }
 
 }
