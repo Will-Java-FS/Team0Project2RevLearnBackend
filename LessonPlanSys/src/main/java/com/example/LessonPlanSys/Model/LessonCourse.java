@@ -2,11 +2,16 @@ package com.example.LessonPlanSys.Model;
 
 import com.example.LessonPlanSys.Model.LessonPlan;
 import com.example.LessonPlanSys.Model.Course;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class LessonCourse {
 
     @Id
@@ -21,7 +26,7 @@ public class LessonCourse {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "courses",
-     joinColumns = @JoinColumn(name = "course_id"))
+            joinColumns = @JoinColumn(name = "course_id"))
     Course course;
 
 }
