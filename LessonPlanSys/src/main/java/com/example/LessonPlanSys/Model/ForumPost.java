@@ -18,13 +18,13 @@ public class ForumPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int forumpost_id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "forum_id", nullable = false)
-//    private Forum forum_id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "forum_id", nullable = false)
+    private Forum forum_id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "created_at", updatable = false, nullable = false)
     private Timestamp created_at;
