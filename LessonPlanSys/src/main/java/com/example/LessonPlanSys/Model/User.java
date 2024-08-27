@@ -24,8 +24,8 @@ public class User {
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-    @Column(nullable = false, length = 255)
-    private String passwordHash;
+    //@Column(nullable = false, length = 255)
+    //private String passwordHash;
 
     @Column(nullable = false, length = 255)
     private String firstName;
@@ -33,18 +33,13 @@ public class User {
     @Column(nullable = false, length = 255)
     private String lastName;
 
-    @Column(nullable = false)
-    private ZonedDateTime createdAt;
+    //@Column(nullable = false)
+    //private ZonedDateTime createdAt;
 
-    @Column(nullable = false)
-    private ZonedDateTime updatedAt;
+    //@Column(nullable = false)
+    //private ZonedDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Course> courses;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Program program;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<DiscussionForum> discussionForums;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
 }
