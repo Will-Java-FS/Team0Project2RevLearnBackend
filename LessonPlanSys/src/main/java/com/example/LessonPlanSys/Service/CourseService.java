@@ -11,4 +11,6 @@ public interface CourseService {
     Optional<Course> getById(int id);
     Optional<Course> getByName(String name);
     Course addCourse(Course course);
+    boolean deleteCourse(int id);
+
 }

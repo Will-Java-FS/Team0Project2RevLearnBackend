@@ -32,4 +32,13 @@ public class CourseServiceImp implements CourseService {
     public Course addCourse(Course course) {
         return courseRepo.save(course);
     }
+
+    @Override
+    public boolean deleteCourse(int id) {
+        if (courseRepo.existsById(id)) {
+            courseRepo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
