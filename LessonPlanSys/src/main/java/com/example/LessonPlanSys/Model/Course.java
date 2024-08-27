@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private int id;
+    @Column(name = "course_id", updatable = false)
+    private int course_id;
 
     @Column(name = "course_name", nullable = false, unique = true)
     private String courseName;
@@ -36,10 +36,12 @@ public class Course {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
-    private Timestamp createdAt;
+
+    private Timestamp course_created_at;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private Timestamp course_updated_at;
+
 }
 // https://trello.com/c/odeKevEG
