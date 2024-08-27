@@ -16,7 +16,7 @@ public class ForumPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int forumpost_id;
 
     @ManyToOne
     @JoinColumn(name = "forum_id", nullable = false)

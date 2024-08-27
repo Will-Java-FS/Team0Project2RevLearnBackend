@@ -26,8 +26,8 @@ public class Forum
     private int forum_id;
 
     @OneToOne(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "course_id", updatable = false)
-    private int course_id;
+    @JoinColumn(name = "course_id", updatable = false)
+    private Course course;
 
     @Column(nullable = false, unique = true)
     private String title;
@@ -40,5 +40,6 @@ public class Forum
 
     @OneToMany(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @JoinColumn(name = "forumpost_id", updatable = false)
     private List<ForumPost> posts;//ForumPosts
 }
