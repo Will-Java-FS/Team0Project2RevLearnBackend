@@ -1,6 +1,7 @@
 package com.example.LessonPlanSys.Controller;
 
 import com.example.LessonPlanSys.Model.Course;
+import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,13 @@ public class CourseController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "An error occurred while deleting the course: " + e.getMessage()));
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") int id, @RequestBody Course course) {
+        Course updatedProgram = courseService.updateCourse(id, course);
+        return (updatedProgram != null)
+                ? new ResponseEntity<>(updatedProgram, HttpStatus.OK)
+                : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

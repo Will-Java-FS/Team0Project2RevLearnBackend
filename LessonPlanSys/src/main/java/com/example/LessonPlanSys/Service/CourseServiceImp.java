@@ -1,6 +1,7 @@
 package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.Course;
+import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Repo.CourseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,16 @@ public class CourseServiceImp implements CourseService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Course updateCourse(int id, Course updatedCourse) {
+        Course existingCourse = courseRepo.findById(id).orElse(null);
+        if (existingCourse == null) return null;
+
+        existingCourse.setCourseName(updatedCourse.getCourseName());
+        existingCourse.setDescription(updatedCourse.getDescription());
+        existingCourse.setTeacherId(updatedCourse.getTeacherId());
+        return courseRepo.save(existingCourse);
     }
 }
