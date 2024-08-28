@@ -14,5 +14,5 @@ public interface CourseService {
     Course addCourse(Course course);
     boolean deleteCourse(int id);
     Course updateCourse(int id, Course updatedCourse);
-
+    Optional<List<Course>> getCoursesByProgramId(int id);
 }
