@@ -25,8 +25,8 @@ public class Course {
 
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "program_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id", nullable = false)
     private Program program;
 
     @Getter
@@ -54,9 +54,5 @@ public class Course {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Timestamp course_updated_at;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_id", nullable = false)
-    private Program program;
 }
 // https://trello.com/c/odeKevEG
