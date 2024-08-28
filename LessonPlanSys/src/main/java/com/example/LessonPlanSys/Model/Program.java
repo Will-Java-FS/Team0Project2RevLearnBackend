@@ -2,7 +2,6 @@ package com.example.LessonPlanSys.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.*;
 
 import java.util.List;
