@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +23,11 @@ public class Course {
     @Column(name = "course_id", updatable = false)
     private int course_id;
 
-//    @Getter
-//    @Setter
-//    @JoinColumn(name = "program_id")
-//    private Program program;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "program_id")
+    private Program program;
 
     @Getter
     @Setter

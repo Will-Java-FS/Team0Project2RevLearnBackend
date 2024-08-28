@@ -60,9 +60,9 @@ public class User {
     @Column(nullable = false)
     private Timestamp userUpdatedAt;
 
-    /*@Getter
+    @Getter
     @OneToOne//(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "program_id", updatable = false)
-    private Program program;*/
+    private Program program;
 
 }
