@@ -9,7 +9,7 @@ import com.example.LessonPlanSys.Model.LessonPlan;
 
 import com.example.LessonPlanSys.Repo.LessonCourseRepo;
 import com.example.LessonPlanSys.Repo.LessonPlanRepo;
-//import com.example.LessonPlanSys.Repo.CourseRepo;
+import com.example.LessonPlanSys.Repo.CourseRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +21,8 @@ public class LessonCourseServiceImpl {
     @Autowired
     LessonPlanRepo lr;
 
-//    @Autowired
-//    CourseRepo cr;
+    @Autowired
+    CourseRepo cr;
 
     @Autowired
     LessonCourseRepo lcr;
@@ -45,7 +45,6 @@ public class LessonCourseServiceImpl {
     }
 
     public List<Course> getCoursesByLessonPlanId(int lesson_plan_id) {
-
         // FindAll -> convert to stream -> filter by lessonPlanId -> Map from LessonCourse to Course -> return list
         return lcr.findAll().stream()
                 .filter(lc -> lc.getLessonPlan().getLesson_plan_id() == lesson_plan_id)
@@ -54,7 +53,6 @@ public class LessonCourseServiceImpl {
     }
 
     public List<LessonPlan> getLessonPlansByCourseId(int course_id) {
-
         return lcr.findAll().stream()
                 .filter(lc -> lc.getCourse().getCourse_id() == course_id)
                 .map(LessonCourse::getLessonPlan)
@@ -62,24 +60,24 @@ public class LessonCourseServiceImpl {
     }
 
 
-//    public LessonCourse addLessonCourseLink(int lessonPlanId, int courseId) {
-//        LessonPlan lessonPlan = lr.findById(lessonPlanId)
-//                .orElseThrow(() -> new RuntimeException("LessonPlan not found"));
-//
-//        Course course = cr.findById(courseId)
-//                .orElseThrow(() -> new RuntimeException("Course not found"));
-//
-//        LessonCourse lessonCourse = new LessonCourse();
-//
-//        if (lessonPlan != null && course != null) {
-//            lessonCourse.setLessonPlan(lessonPlan);
-//            lessonCourse.setCourse(course);
-//            return lcr.save(lessonCourse);
-//        }
-//        return null;
-//    }
+    public LessonCourse addLessonToCourse(int lessonPlanId, int courseId) {
+        LessonPlan lessonPlan = lr.findById(lessonPlanId)
+                .orElseThrow(() -> new RuntimeException("LessonPlan not found"));
 
-    public void deleteLessonCourseLink(int lesson_plan_id, int course_id) {
+        Course course = cr.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        LessonCourse lessonCourse = new LessonCourse();
+
+        if (lessonPlan != null && course != null) {
+            lessonCourse.setLessonPlan(lessonPlan);
+            lessonCourse.setCourse(course);
+            return lcr.save(lessonCourse);
+        }
+        return null;
+    }
+
+    public void deleteLessonFromCourse(int lesson_plan_id, int course_id) {
         Optional<LessonCourse> lessonCourse = lcr.findAll().stream()
                 .filter(lc -> lc.getCourse().getCourse_id() == course_id
                         && lc.getLessonPlan().getLesson_plan_id() == lesson_plan_id)
