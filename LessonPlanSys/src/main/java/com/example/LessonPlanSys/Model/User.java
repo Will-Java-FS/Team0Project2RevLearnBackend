@@ -65,7 +65,7 @@ public class User {
 //    private List<Course> courses;
     @Getter
     @JoinColumn(name = "program_id", updatable = false)
-    @OneToOne/*(mappedBy = "user", cascade = CascadeType.ALL)*/
+    @ManyToOne/*(mappedBy = "user", cascade = CascadeType.ALL)*/
     private Program program;
 
 }
