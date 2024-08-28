@@ -45,4 +45,9 @@ public class ForumPost {
     @Column(name="updated_at", nullable = false)
     private Timestamp post_updated_at;
 
+    @Getter
+    @Setter
+    @Column(name = "post_text",  nullable = false)
+    private String post_text;
+
 }
