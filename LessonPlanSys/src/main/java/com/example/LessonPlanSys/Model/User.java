@@ -42,11 +42,11 @@ public class User {
     @Column(nullable = false)
     private ZonedDateTime userUpdatedAt;
 
-    @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", updatable = false)
-    private List<Course> courses;
+//    @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", updatable = false)
+//    private Course courses;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne//(mappedBy = "user", cascade = CascadeType.ALL)
     private Program program;
 
 }

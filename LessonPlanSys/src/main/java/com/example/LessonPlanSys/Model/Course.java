@@ -1,15 +1,11 @@
 package com.example.LessonPlanSys.Model;
 
 import java.sql.Timestamp;
+
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,5 +39,8 @@ public class Course {
     @Column(name = "updated_at")
     private Timestamp course_updated_at;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id", nullable = false)
+    private Program program;
 }
 // https://trello.com/c/odeKevEG
