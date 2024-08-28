@@ -36,10 +36,9 @@ public class LessonCourseController {
     @GetMapping("/{lesson_course_id}")
     public ResponseEntity<LessonCourse> getLessonCourseById(@PathVariable int lesson_course_id) {
         LessonCourse lessonCourse = lcs.getLessonCourseById(lesson_course_id);
-        if (lessonCourse == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(lessonCourse);
+        return lessonCourse == null
+            ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+            : ResponseEntity.status(HttpStatus.OK).body(lessonCourse);
     }
 
 //    @GetMapping("/course/{course_id}/lesson/{lesson_plan_id}")
@@ -57,10 +56,9 @@ public class LessonCourseController {
     @GetMapping("/course/{course_id}")
     public ResponseEntity<List<LessonPlan>> getLessonsByCourseId(@PathVariable int course_id) {
         Optional<Course> course = cs.getById(course_id);
-        if (course.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(lcs.getLessonPlansByCourseId(course_id));
+        return course.isEmpty()
+            ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+            : ResponseEntity.status(HttpStatus.OK).body(lcs.getLessonPlansByCourseId(course_id));
     }
 
     // TODO: Getting errors from LessonPlanRepo Custom Queries
