@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import com.example.LessonPlanSys.Model.LessonCourse;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "LessonPlans")
@@ -34,11 +36,13 @@ public class LessonPlan {
 
     @Getter
     @Setter
+    @CreationTimestamp
     @Column(name="created_at")
     private Timestamp lp_created_at;
 
     @Getter
     @Setter
+    @UpdateTimestamp
     @Column(name="updated_at")
     private Timestamp lp_updated_at;
 

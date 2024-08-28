@@ -3,9 +3,11 @@ package com.example.LessonPlanSys.Service;
 import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Repo.ProgramRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProgramServiceImpl implements ProgramService {
     @Autowired
     ProgramRepo pr;

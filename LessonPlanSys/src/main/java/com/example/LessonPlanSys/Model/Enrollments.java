@@ -12,18 +12,26 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Enrollments {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "enroll_id")
+    private int enroll_id;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private List<User> users;
+    private User user;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private List<Course> courses;
+    private Course course;
 
+    @Getter
+    @Setter
     @Column(nullable = false, length = 255)
     private String status;
 }
