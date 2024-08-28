@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+
+    private int user_id;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
@@ -33,19 +35,18 @@ public class User {
     @Column(nullable = false, length = 255)
     private String lastName;
 
-    @Column(nullable = false)
-    private ZonedDateTime createdAt1;
 
     @Column(nullable = false)
-    private ZonedDateTime updatedAt1;
+    private ZonedDateTime userCreatedAt;
+
+    @Column(nullable = false)
+    private ZonedDateTime userUpdatedAt;
 
     @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", updatable = false)
     private List<Course> courses;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<DiscussionForum> discussionForums;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Lesson> lessons;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Program program;
+
 }

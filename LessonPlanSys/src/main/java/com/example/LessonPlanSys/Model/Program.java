@@ -20,7 +20,7 @@ public class Program {
     private int program_id;
 
     @Column(nullable = false)
-    private String programName;
+    private String program_name;
 
     //TODO: Uncomment when Course model is done.
 /*    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY)

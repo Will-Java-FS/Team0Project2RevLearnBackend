@@ -29,7 +29,7 @@ public class ProgramServiceImpl implements ProgramService {
         }
 
         //TODO: Adjust so that the courses are also copied over
-        existingProgram.setProgramName(newProgram.getProgramName());
+        existingProgram.setProgram_name(newProgram.getProgram_name());
         //existingProgram.setProgramCourses(newProgram.getProgramCourses());
 
         return pr.save(existingProgram);
