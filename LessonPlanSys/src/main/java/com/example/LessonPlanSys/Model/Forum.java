@@ -25,20 +25,21 @@ public class Forum
     @Column(name = "forum_id", updatable = false)
     private int forum_id;
 
-    @OneToOne(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "course_id", updatable = false)
-    private int course_id;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id", updatable = false)
+    private Course course;
 
     @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)
-    private Timestamp created_at;
+    private Timestamp forum_created_at;
 
     @Column(nullable = false)
-    private Timestamp updated_at;
+    private Timestamp forum_updated_at;
 
-    @OneToMany(mappedBy = "discussionforums", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @JoinColumn(name = "forumpost_id", updatable = false)
     private List<ForumPost> posts;//ForumPosts
 }

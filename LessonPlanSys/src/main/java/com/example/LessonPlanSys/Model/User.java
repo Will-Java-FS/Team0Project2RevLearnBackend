@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,11 +35,16 @@ public class User {
     @Column(nullable = false, length = 255)
     private String lastName;
 
-    //@Column(nullable = false)
-    //private ZonedDateTime createdAt;
 
-    //@Column(nullable = false)
-    //private ZonedDateTime updatedAt;
+    @Column(nullable = false)
+    private ZonedDateTime userCreatedAt;
+
+    @Column(nullable = false)
+    private ZonedDateTime userUpdatedAt;
+
+    @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", updatable = false)
+    private List<Course> courses;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Program program;
