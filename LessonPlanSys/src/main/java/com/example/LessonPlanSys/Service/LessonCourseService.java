@@ -11,6 +11,6 @@ public interface LessonCourseService {
 
     List<Course> getCoursesByLessonPlanId(int lesson_plan_id);
     List<LessonPlan> getLessonPlansByCourseId(int course_id);
-    Optional<LessonCourse> getLessonCourseById(int lesson_course_id);
+    LessonCourse getLessonCourseById(int lesson_course_id);
 
 }

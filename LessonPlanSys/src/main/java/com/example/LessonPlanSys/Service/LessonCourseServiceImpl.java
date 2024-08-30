@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LessonCourseServiceImpl {
+public class LessonCourseServiceImpl implements LessonCourseService {
 
     @Autowired
     LessonPlanRepo lr;
