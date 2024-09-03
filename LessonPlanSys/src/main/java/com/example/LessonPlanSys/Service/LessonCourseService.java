@@ -5,7 +5,6 @@ import com.example.LessonPlanSys.Model.LessonCourse;
 import com.example.LessonPlanSys.Model.LessonPlan;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LessonCourseService {
 

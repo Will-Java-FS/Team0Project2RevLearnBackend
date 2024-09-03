@@ -2,7 +2,6 @@ package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.LessonPlan;
 import com.example.LessonPlanSys.Repo.LessonPlanRepo;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
