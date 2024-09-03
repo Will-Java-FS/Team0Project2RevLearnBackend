@@ -63,7 +63,9 @@ public class User {
 //    @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id", updatable = false)
 //    private List<Course> courses;
+
     @Getter
+    @Setter
     @JoinColumn(name = "program_id", updatable = false)
     @ManyToOne/*(mappedBy = "user", cascade = CascadeType.ALL)*/
     private Program program;
