@@ -3,29 +3,20 @@ package com.example.LessonPlanSys.Controller;
 import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.LessonCourse;
 import com.example.LessonPlanSys.Model.LessonPlan;
-import com.example.LessonPlanSys.Service.LessonCourseServiceImpl;
-import com.example.LessonPlanSys.Service.LessonPlanService;
-import com.example.LessonPlanSys.Service.CourseServiceImp;
+import com.example.LessonPlanSys.Service.LessonCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
 public class LessonCourseController {
 
     @Autowired
-    LessonPlanService ls;
-
-    @Autowired
-    CourseServiceImp cs;
-
-    @Autowired
-    LessonCourseServiceImpl lcs;
+    LessonCourseService lcs;
 
     @GetMapping("/lesson-course")
     public ResponseEntity<List<LessonCourse>> getAll() {
