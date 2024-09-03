@@ -62,4 +62,13 @@ public class EnrollmentsController {
             return ResponseEntity.status(200).build();
         }
     }
+
+    @GetMapping("enrollments/status/{enrollmentID}")
+    public ResponseEntity<Double> getEnrollmentCompletion(@PathVariable int enrollmentID)
+    {
+        Enrollments enr = enrollmentsService.getEnrollmentByID(enrollmentID);
+
+        double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUser_id(), enr.getCourse().getCourse_id());
+        return ResponseEntity.status(200).body(comp);
+    }
 }

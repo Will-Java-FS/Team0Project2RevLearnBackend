@@ -13,4 +13,6 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 
     @Query(value = "SELECT * FROM courses where program_id = ?1", nativeQuery = true)
     Optional<List<Course>> findAllCoursesByProgramId(Integer programId);
+
+
 }
