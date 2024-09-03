@@ -56,6 +56,11 @@ public class User {
 
     @Getter
     @Setter
+    @Column(nullable = false)
+    private String role;
+
+    @Getter
+    @Setter
     @UpdateTimestamp
     @Column(nullable = false)
     private Timestamp userUpdatedAt;
@@ -65,7 +70,9 @@ public class User {
 //    private List<Course> courses;
     @Getter
     @JoinColumn(name = "program_id", updatable = false)
-    @ManyToOne/*(mappedBy = "user", cascade = CascadeType.ALL)*/
+    @ManyToOne//(mappedBy = "user", cascade = CascadeType.ALL)
     private Program program;
+
+
 
 }
