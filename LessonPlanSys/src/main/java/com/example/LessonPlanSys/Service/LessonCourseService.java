@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface LessonCourseService {
 
+    LessonCourse getLessonCourseById(int lesson_course_id);
     List<Course> getCoursesByLessonPlanId(int lesson_plan_id);
     List<LessonPlan> getLessonPlansByCourseId(int course_id);
-    LessonCourse getLessonCourseById(int lesson_course_id);
 
 }
