@@ -18,11 +18,11 @@ public class Enrollments {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private List<User> users;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private List<Course> courses;
+    private Course course;
 
     @Column(nullable = false, length = 255)
     private String status;

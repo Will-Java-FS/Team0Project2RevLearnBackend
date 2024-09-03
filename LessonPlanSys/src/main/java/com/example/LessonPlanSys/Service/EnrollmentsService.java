@@ -29,6 +29,14 @@ public class EnrollmentsService {
         return enrollmentsRepo.findById(id).get();
     }
 
+    public List<Enrollments> getEnrollmentsByStudentID(Integer id) {
+        return enrollmentsRepo.getEnrollmentsByStudentID(id);
+    }
+
+    public List<Enrollments> getEnrollmentsByCourseID(Integer id) {
+        return enrollmentsRepo.getEnrollmentsByCourseID(id);
+    }
+
     public int deleteEnrollment(Integer id) {
         Optional<Enrollments> enrollment = enrollmentsRepo.findById(id);
         if(enrollment.isPresent()) {

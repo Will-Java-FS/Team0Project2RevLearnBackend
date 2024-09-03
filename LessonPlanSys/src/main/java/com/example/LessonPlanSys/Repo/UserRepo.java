@@ -13,7 +13,7 @@ public interface UserRepo extends JpaRepository<User,Integer>{
     @Query(value = "SELECT * FROM users", nativeQuery = true)
     List<User> getAllUsers();
 
-    @Query(value = "SELECT * FROM users WHERE user_id = ?1")
+    @Query(value = "SELECT * FROM users WHERE user_id = ?1", nativeQuery = true)
     User getUserByUId(int id);
 
 

@@ -35,6 +35,18 @@ public class EnrollmentsController {
         return ResponseEntity.status(200).body(enrollment);
     }
 
+    @GetMapping("enrollments/{studentID}")
+    public ResponseEntity<List<Enrollments>> getEnrollmentsByStudentID(@PathVariable Integer id) {
+        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByStudentID(id);
+        return ResponseEntity.status(200).body(enrollments);
+    }
+
+    @GetMapping("enrollments/{courseID}")
+    public ResponseEntity<List<Enrollments>> getEnrollmentsByCourseID(@PathVariable Integer id) {
+        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByCourseID(id);
+        return ResponseEntity.status(200).body(enrollments);
+    }
+
     @PatchMapping("enrollments/{enrollmentID}")
     public ResponseEntity<Enrollments> updateEnrollment(@PathVariable Integer id, @RequestBody Enrollments enrollment) {
         Enrollments updatedEnrollment = enrollmentsService.updateEnrollment(id, enrollment);
