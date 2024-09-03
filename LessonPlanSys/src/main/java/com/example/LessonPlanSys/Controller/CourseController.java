@@ -1,7 +1,7 @@
 package com.example.LessonPlanSys.Controller;
 
 import com.example.LessonPlanSys.Model.Course;
-import com.example.LessonPlanSys.Model.Program;
+//import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,9 +2,7 @@ package com.example.LessonPlanSys.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,17 +12,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Program {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="program_id", updatable = false)
     private int program_id;
 
-    @Column(nullable = false)
+
+    @Getter
+    @Setter
+    @Column(name = "program_name", nullable = false)
     private String program_name;
 
-    //TODO: Uncomment when Course model is done.
-/*    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Course> courses;*/
-
+    private List<Course> courses;
 }

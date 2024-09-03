@@ -3,35 +3,31 @@ package com.example.LessonPlanSys.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "enrollments")
+@Table(name="userLessonStatus")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Enrollments {
+@NoArgsConstructor
+public class UserLessonStatus {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "enroll_id")
-    private int enroll_id;
+    private Integer id;
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "lesson_plan_id")
+    private LessonPlan lessonPlan;
 
     @Getter
     @Setter
-    @Column(nullable = false, length = 255)
-    private String status;
+    @Column(name = "complete")
+    private boolean isComplete;
 }
