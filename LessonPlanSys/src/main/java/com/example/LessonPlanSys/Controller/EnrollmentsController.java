@@ -50,4 +50,23 @@ public class EnrollmentsController {
             return ResponseEntity.status(200).build();
         }
     }
+    @PatchMapping("/enrollments/status/{enrollmentID}")
+    public ResponseEntity<Enrollments> updateEnrollmentStatus(@PathVariable Integer enrollmentID, @RequestBody Enrollments updates) {
+
+        Enrollments existingEnrollment = enrollmentsService.getEnrollmentByID(enrollmentID);
+
+        if (existingEnrollment == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (updates.getStatus()!=null) {
+            existingEnrollment.setStatus(updates.getStatus());
+        }
+
+
+        Enrollments updatedEnrollment = enrollmentsService.updateEnrollment(enrollmentID, existingEnrollment);
+
+
+        return ResponseEntity.ok(updatedEnrollment);
+    }
 }

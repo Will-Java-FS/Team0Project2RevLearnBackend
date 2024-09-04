@@ -44,8 +44,7 @@ public class UserController {
 //        this.userService = userService;
 //    }
 
-    @Autowired
-    UserService userService;
+
 
     // Get list of all users
     @GetMapping

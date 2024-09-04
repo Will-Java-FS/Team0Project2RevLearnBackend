@@ -37,15 +37,15 @@ public class LessonPlanServiceImp implements LessonPlanService{
          lessonPlanRepo.deleteById(id);
     }
 
-    @Override
-    @Transactional
-    public LessonPlan updateLessonPlan(LessonPlan nlp, int id) {
-        LessonPlan olp = lessonPlanRepo.getbyLPID(id);
-        if(olp != null)
-        {
-            lessonPlanRepo.setLPInfoById(nlp.getTitle(), nlp.getContent(), nlp.getLp_updated_at(), id);
-            return getById(id);
-        }
-        return null;
-    }
+//    @Override
+//    @Transactional
+//    public LessonPlan updateLessonPlan(LessonPlan nlp, int id) {
+//        LessonPlan olp = lessonPlanRepo.getbyLPID(id);
+//        if(olp != null)
+//        {
+//            lessonPlanRepo.setLPInfoById(nlp.getTitle(), nlp.getContent(), nlp.getLp_updated_at(), id);
+//            return getById(id);
+//        }
+//        return null;
+// }
 }
