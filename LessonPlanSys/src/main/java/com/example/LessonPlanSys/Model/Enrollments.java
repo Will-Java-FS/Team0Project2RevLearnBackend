@@ -33,5 +33,10 @@ public class Enrollments {
     @Getter
     @Setter
     @Column(nullable = false, length = 255)
-    private String status;
+    private String enrollment_status;
+
+    @Getter
+    @Setter
+    @Column(nullable = false, length = 255)
+    private String payment_status;
 }
