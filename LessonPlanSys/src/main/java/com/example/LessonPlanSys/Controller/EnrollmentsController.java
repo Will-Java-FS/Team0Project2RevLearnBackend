@@ -71,4 +71,10 @@ public class EnrollmentsController {
         double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUser_id(), enr.getCourse().getCourse_id());
         return ResponseEntity.status(200).body(comp);
     }
+
+    @GetMapping("enrollments/completed/{studentID}")
+    public ResponseEntity<List<Enrollments>> getCompletedEnrollmentsByStudentID(@PathVariable("studentID") int studentID) {
+        List<Enrollments> enrollments = enrollmentsService.getCompletedEnrollmentsByStudentID(studentID);
+        return ResponseEntity.status(200).body(enrollments);
+    }
 }
