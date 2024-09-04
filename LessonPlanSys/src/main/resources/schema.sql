@@ -1,7 +1,3 @@
--- Fix the schema to use discussionforums instead of discussion_forums or make the forum model use discussion_forums
--- Add valid entries to discussionforums table to match forum_posts table
--- Add role column to users table
-
 -- Create the schema if it does not exist
 CREATE SCHEMA IF NOT EXISTS project2;
 
@@ -21,7 +17,6 @@ CREATE SEQUENCE IF NOT EXISTS discussionforums_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS lesson_courses_lesson_course_id_seq;
 
-CREATE SEQUENCE IF NOT EXISTS teachers_id_seq;
 
 -- Drop tables if they exist
 DROP TABLE IF EXISTS user_lesson_status CASCADE;
@@ -35,8 +30,6 @@ DROP TABLE IF EXISTS lesson_plans CASCADE;
 DROP TABLE IF EXISTS forum_posts CASCADE;
 
 DROP TABLE IF EXISTS enrollments CASCADE;
-
-DROP TABLE IF EXISTS discussion_forums CASCADE;
 
 DROP TABLE IF EXISTS discussionforums CASCADE;
 
@@ -149,17 +142,10 @@ CREATE TABLE
 
 CREATE UNIQUE INDEX IF NOT EXISTS lesson_courses_pkey ON lesson_courses (lesson_course_id);
 
-CREATE TABLE
-    IF NOT EXISTS teachers (
-        id INTEGER NOT NULL DEFAULT nextval ('teachers_id_seq') PRIMARY KEY,
-        first_name VARCHAR NOT NULL,
-        last_name VARCHAR NOT NULL,
-        email VARCHAR NOT NULL UNIQUE
-    );
 
 CREATE TABLE
     IF NOT EXISTS user_lesson_status (
-        id INTEGER NOT NULL PRIMARY KEY,
+        user_lesson_id INTEGER NOT NULL PRIMARY KEY,
         complete BOOLEAN NOT NULL,
         lesson_plan_id INTEGER,
         user_id INTEGER,
@@ -167,4 +153,4 @@ CREATE TABLE
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS user_lesson_status_pkey ON user_lesson_status (id);
+CREATE UNIQUE INDEX IF NOT EXISTS user_lesson_status_pkey ON user_lesson_status (user_lesson_id);
