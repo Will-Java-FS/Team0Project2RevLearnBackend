@@ -9,19 +9,25 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserLessonStatus {
-
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Getter
+    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @Getter
+    @Setter
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lesson_plan_id")
     private LessonPlan lessonPlan;
 
+    @Getter
+    @Setter
     @Column(name = "complete")
-    private Boolean isComplete;
+    private boolean isComplete;
 }

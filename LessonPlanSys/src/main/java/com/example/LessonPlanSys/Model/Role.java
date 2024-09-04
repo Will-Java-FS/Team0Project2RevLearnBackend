@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -16,10 +17,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Roles")
 public class Role {
-
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long role_id;
+    @Column
+    private int role_id;
 
 
     @Column(name = "role_name", unique = true, nullable = false, length = 20)

@@ -35,13 +35,13 @@ public class EnrollmentsController {
         return ResponseEntity.status(200).body(enrollment);
     }
 
-    @GetMapping("enrollments/{studentID}")
+    @GetMapping("enrollments/courses/{studentID}")
     public ResponseEntity<List<Enrollments>> getEnrollmentsByStudentID(@PathVariable Integer id) {
         List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByStudentID(id);
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("enrollments/{courseID}")
+    @GetMapping("enrollments/students/{courseID}")
     public ResponseEntity<List<Enrollments>> getEnrollmentsByCourseID(@PathVariable Integer id) {
         List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByCourseID(id);
         return ResponseEntity.status(200).body(enrollments);

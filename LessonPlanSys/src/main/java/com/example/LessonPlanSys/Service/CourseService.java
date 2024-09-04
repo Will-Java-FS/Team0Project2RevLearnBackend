@@ -1,7 +1,7 @@
 package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.Course;
-import com.example.LessonPlanSys.Model.Program;
+//import com.example.LessonPlanSys.Model.Program;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +14,5 @@ public interface CourseService {
     Course addCourse(Course course);
     boolean deleteCourse(int id);
     Course updateCourse(int id, Course updatedCourse);
-
+    Optional<List<Course>> getCoursesByProgramId(int id);
 }
