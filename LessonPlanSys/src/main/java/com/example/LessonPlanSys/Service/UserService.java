@@ -15,6 +15,7 @@ public interface UserService {
     List<User>getAllUsersByRole(String role);
 
     User getUsersByRoleandId(int userId, String role);
+
     User updateUserById(int id, User nUser);
 
     User enrollUserInProgram(int user_id, int program_id);
