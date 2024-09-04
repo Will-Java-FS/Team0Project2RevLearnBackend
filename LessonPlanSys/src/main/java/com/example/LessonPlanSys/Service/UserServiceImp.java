@@ -1,16 +1,21 @@
 package com.example.LessonPlanSys.Service;
 
+import com.example.LessonPlanSys.Exception.NotFoundException;
 import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Model.User;
 import com.example.LessonPlanSys.Repo.ProgramRepo;
 import com.example.LessonPlanSys.Repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService, UserDetailsService {
     UserRepo userRepo;
     ProgramRepo programRepo;
     @Autowired
@@ -73,4 +78,17 @@ public class UserServiceImp implements UserService{
         return null;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws NotFoundException {
+        Optional<User> user = userRepo.findByUsername(username);
+        if (user.isPresent()) {
+            return org.springframework.security.core.userdetails.User.builder()
+                .username(user.get().getUsername())
+                .password(user.get().getPasswordHash())
+                .roles(user.get().getRole()) // Set roles if applicable
+                .build();
+        } else {
+            throw new NotFoundException("User not found with username: " + username);
+        }
+    }
 }
