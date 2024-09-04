@@ -75,6 +75,4 @@ public class User {
     @ManyToOne//(mappedBy = "user", cascade = CascadeType.ALL)
     private Program program;
 
-
-
 }
