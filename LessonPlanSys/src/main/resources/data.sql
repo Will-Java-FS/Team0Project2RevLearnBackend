@@ -100,7 +100,7 @@ VALUES
 
 -- Insert demo data into discussionforums table
 INSERT INTO
-    discussionforums (id, course_id, title, forum_created_at, forum_updated_at)
+    discussionforums (forum_id, course_id, title, forum_created_at, forum_updated_at)
 VALUES
     (
         nextval ('discussionforums_id_seq'),

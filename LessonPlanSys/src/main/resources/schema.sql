@@ -89,7 +89,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS courses_pkey ON courses (course_id);
 
 CREATE TABLE
     IF NOT EXISTS discussionforums (
-        id INTEGER NOT NULL DEFAULT nextval ('discussionforums_id_seq') PRIMARY KEY,
+        forum_id INTEGER NOT NULL DEFAULT nextval ('discussionforums_id_seq') PRIMARY KEY,
         course_id INTEGER NOT NULL,
         title VARCHAR NOT NULL,
         forum_created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -99,7 +99,7 @@ CREATE TABLE
 
 CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_title_key ON discussionforums (title);
 
-CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_pkey ON discussionforums (id);
+CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_pkey ON discussionforums (forum_id);
 
 CREATE TABLE
     IF NOT EXISTS enrollments (
@@ -121,7 +121,7 @@ CREATE TABLE
         post_text TEXT NOT NULL,
         forum_id INTEGER,
         user_id INTEGER,
-        CONSTRAINT fk_forum FOREIGN KEY (forum_id) REFERENCES discussionforums (id),
+        CONSTRAINT fk_forum FOREIGN KEY (forum_id) REFERENCES discussionforums (forum_id),
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 
