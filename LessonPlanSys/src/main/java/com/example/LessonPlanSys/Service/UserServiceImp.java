@@ -25,10 +25,10 @@ public class UserServiceImp implements UserService{
         return userRepo.getAllUsers();
     }
 
-    @Override
+   @Override
     public User getUserByUID(int id) {
         return userRepo.getUserByUId(id);
-    }
+   }
 
     @Override
     public User addUser(User nUser) {
@@ -41,11 +41,21 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public List<User> getAllUsersByRole(String role) {
+        return userRepo.findByRole(role);
+    }
+
+    @Override
+    public User getUsersByRoleandId(int user_id, String role) {
+        return userRepo.findByUser_idAndRole(user_id,role);
+    }
+
+   @Override
     public User updateUserById(int id, User nUser) {
         User oUser = userRepo.getUserByUId(id);
         if(oUser != null)
         {
-            userRepo.save(nUser);
+           userRepo.save(nUser);
             return getUserByUID(id);
         }
         return null;
