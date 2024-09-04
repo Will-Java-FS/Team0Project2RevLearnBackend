@@ -1,4 +1,4 @@
-
+--data.sql
 INSERT INTO
     programs (program_id, program_name)
 VALUES
@@ -126,11 +126,11 @@ VALUES
 
 -- Insert demo data into enrollments table
 INSERT INTO
-    enrollments (enroll_id, status, course_id, user_id)
+    enrollments (enroll_id, enrollment_status, payment_status, course_id, user_id)
 VALUES
-    (1, 'active', 1, 1),
-    (2, 'completed', 2, 2),
-    (3, 'active', 3, 3);
+    (1, 'active', 'paid', 1, 1),
+    (2, 'completed', 'paid', 2, 2),
+    (3, 'active', 'pending', 3, 3);
 
 -- Insert demo data into forum_posts table
 INSERT INTO

@@ -1,3 +1,4 @@
+--schema.sql
 -- Create the schema if it does not exist
 CREATE SCHEMA IF NOT EXISTS project2;
 
@@ -97,7 +98,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_pkey ON discussionforums (for
 CREATE TABLE
     IF NOT EXISTS enrollments (
         enroll_id INTEGER NOT NULL PRIMARY KEY,
-        status VARCHAR NOT NULL,
+        enrollment_status VARCHAR(255) NOT NULL,
+        payment_status VARCHAR(255) NOT NULL,
         course_id INTEGER,
         user_id INTEGER,
         CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (course_id),
