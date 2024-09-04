@@ -1,11 +1,9 @@
---data.sql
--- Insert sample data
--- Insert data into programs
+
 INSERT INTO
     programs (program_id, program_name)
 VALUES
     (1, 'Computer Science'),
-    (2, 'Data Science');
+    (2, 'Data Science'),
     (3, 'Cybersecurity');
 
 -- Insert demo data into users table
@@ -19,6 +17,7 @@ INSERT INTO
         user_created_at,
         user_updated_at,
         username,
+        role,
         program_id
     )
 VALUES
@@ -27,9 +26,9 @@ VALUES
         'john.doe@example.com',
         'John',
         'Doe',
-        'hashedpassword123',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP,
+        'hashedpassword1',
+        NOW (),
+        NOW (),
         'johndoe',
         'teacher',
         1
@@ -39,13 +38,12 @@ VALUES
         'jane.smith@example.com',
         'Jane',
         'Smith',
-        'hashedpassword456',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP,
+        'hashedpassword2',
+        NOW (),
+        NOW (),
         'janesmith',
-        2
         'student',
-        1
+        2
     ),
     (
         3,
@@ -83,10 +81,10 @@ VALUES
     ),
     (
         2,
-        'Advanced Data Analysis',
+        'Data Science 101',
         NOW (),
         NOW (),
-        'In-depth data analysis techniques.',
+        'Introduction to Data Science concepts.',
         1,
         2
     ),
@@ -102,7 +100,7 @@ VALUES
 
 -- Insert demo data into discussionforums table
 INSERT INTO
-    discussionforums (forum_id, course_id, title, forum_created_at, forum_updated_at)
+    discussionforums (id, course_id, title, forum_created_at, forum_updated_at)
 VALUES
     (
         nextval ('discussionforums_id_seq'),
@@ -128,36 +126,11 @@ VALUES
 
 -- Insert demo data into enrollments table
 INSERT INTO
-    discussionforums (
-        forum_id,
-        course_id,
-        title,
-        forum_created_at,
-        forum_updated_at
-    )
-
+    enrollments (enroll_id, status, course_id, user_id)
 VALUES
-    (
-        1,
-        1,
-        'General Discussion',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-    ),
-    (
-        2,
-        1,
-        'Homework Help',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-    ),
-    (
-        3,
-        2,
-        'Project Ideas',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-    );
+    (1, 'active', 1, 1),
+    (2, 'completed', 2, 2),
+    (3, 'active', 3, 3);
 
 -- Insert demo data into forum_posts table
 INSERT INTO
@@ -195,14 +168,6 @@ VALUES
         3
     );
 
--- Insert data into enrollments
-INSERT INTO
-    enrollments (enroll_id, enrollment_status, payment_status, course_id, user_id)
-VALUES
-    (1, 'active', 'paid', 1, 1),
-    (2, 'completed', 'paid', 2, 2),
-    (3, 'active', 'pending', 3, 3);
-
 -- Insert demo data into lesson_plans table
 INSERT INTO
     lesson_plans (
@@ -239,26 +204,49 @@ VALUES
 INSERT INTO
     lesson_courses (lesson_course_id, lesson_plan_id, course_id)
 VALUES
-    (1, 1, 1),
-    (2, 2, 2),
-    (3, 3, 3);
+    (
+        nextval ('lesson_courses_lesson_course_id_seq'),
+        1,
+        1
+    ),
+    (
+        nextval ('lesson_courses_lesson_course_id_seq'),
+        2,
+        2
+    ),
+    (
+        nextval ('lesson_courses_lesson_course_id_seq'),
+        3,
+        3
+    );
 
--- Insert demo data into user_lesson_status table
+-- Insert demo data into teachers table
 INSERT INTO
     teachers (id, first_name, last_name, email)
 VALUES
     (
-        1,
-        'Alice',
-        'Johnson',
-        'alice.johnson@example.com'
+        nextval ('teachers_id_seq'),
+        'John',
+        'Doe',
+        'john.doe@teacher.com'
     ),
-    (2, 'Bob', 'Brown', 'bob.brown@example.com');
+    (
+        nextval ('teachers_id_seq'),
+        'Jane',
+        'Smith',
+        'jane.smith@teacher.com'
+    ),
+    (
+        nextval ('teachers_id_seq'),
+        'Sam',
+        'Wilson',
+        'sam.wilson@teacher.com'
+    );
 
--- Insert data into user_lesson_status
+-- Insert demo data into user_lesson_status table
 INSERT INTO
-    user_lesson_status (user_lesson_id, complete, lesson_plan_id, user_id)
+    user_lesson_status (id, complete, lesson_plan_id, user_id)
 VALUES
     (1, TRUE, 1, 1),
-    (2, FALSE, 2, 2);
+    (2, FALSE, 2, 2),
     (3, TRUE, 3, 3);
