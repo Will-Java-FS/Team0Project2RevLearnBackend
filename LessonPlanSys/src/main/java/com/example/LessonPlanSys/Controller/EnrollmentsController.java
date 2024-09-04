@@ -17,43 +17,43 @@ public class EnrollmentsController {
         this.enrollmentsService = enrollmentsService;
     }
 
-    @PostMapping("enrollments")
+    @PostMapping("/enrollments")
     public ResponseEntity<Enrollments> addEnrollment(@RequestBody Enrollments enrollment) {
         enrollmentsService.addEnrollment(enrollment);
         return ResponseEntity.status(200).body(enrollment);
     }
 
-    @GetMapping("enrollments")
+    @GetMapping("/enrollments")
     public ResponseEntity<List<Enrollments>> getAllEnrollments() {
         List<Enrollments> enrollments = enrollmentsService.getAllEnrollments();
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("enrollments/{enrollmentID}")
+    @GetMapping("/enrollments/{enrollmentID}")
     public ResponseEntity<Enrollments> getEnrollmentByID(@PathVariable Integer id) {
         Enrollments enrollment = enrollmentsService.getEnrollmentByID(id);
         return ResponseEntity.status(200).body(enrollment);
     }
 
-    @GetMapping("enrollments/courses/{studentID}")
+    @GetMapping("/enrollments/courses/{studentID}")
     public ResponseEntity<List<Enrollments>> getEnrollmentsByStudentID(@PathVariable Integer id) {
         List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByStudentID(id);
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("enrollments/students/{courseID}")
+    @GetMapping("/enrollments/students/{courseID}")
     public ResponseEntity<List<Enrollments>> getEnrollmentsByCourseID(@PathVariable Integer id) {
         List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByCourseID(id);
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @PatchMapping("enrollments/{enrollmentID}")
+    @PatchMapping("/enrollments/{enrollmentID}")
     public ResponseEntity<Enrollments> updateEnrollment(@PathVariable Integer id, @RequestBody Enrollments enrollment) {
         Enrollments updatedEnrollment = enrollmentsService.updateEnrollment(id, enrollment);
         return ResponseEntity.status(200).body(updatedEnrollment);
     }
 
-    @DeleteMapping("enrollments/{enrollmentID}")
+    @DeleteMapping("/enrollments/{enrollmentID}")
     public ResponseEntity<Integer> deleteEnrollment(@PathVariable Integer id) {
         int enrollmentsDeleted = enrollmentsService.deleteEnrollment(id);
         if(enrollmentsDeleted > 0) {
@@ -63,7 +63,7 @@ public class EnrollmentsController {
         }
     }
 
-    @GetMapping("enrollments/status/{enrollmentID}")
+    @GetMapping("/enrollments/status/{enrollmentID}")
     public ResponseEntity<Double> getEnrollmentCompletion(@PathVariable int enrollmentID)
     {
         Enrollments enr = enrollmentsService.getEnrollmentByID(enrollmentID);
@@ -72,7 +72,7 @@ public class EnrollmentsController {
         return ResponseEntity.status(200).body(comp);
     }
 
-    @GetMapping("enrollments/completed/{studentID}")
+    @GetMapping("/enrollments/completed/{studentID}")
     public ResponseEntity<List<Enrollments>> getCompletedEnrollmentsByStudentID(@PathVariable("studentID") int studentID) {
         List<Enrollments> enrollments = enrollmentsService.getCompletedEnrollmentsByStudentID(studentID);
         return ResponseEntity.status(200).body(enrollments);
