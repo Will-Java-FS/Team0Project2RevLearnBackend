@@ -22,12 +22,12 @@ public class UserServiceImp implements UserService{
 
     @Override
     public List<User> getAllUsers() {
-        return userRepo.getAllUsers();
+        return userRepo.findAll();
     }
 
    @Override
     public User getUserByUID(int id) {
-        return userRepo.getUserByUId(id);
+        return userRepo.findById(id).orElse(null);
    }
 
     @Override
@@ -52,7 +52,7 @@ public class UserServiceImp implements UserService{
 
    @Override
     public User updateUserById(int id, User nUser) {
-        User oUser = userRepo.getUserByUId(id);
+        User oUser = userRepo.findById(id).orElse(null);
         if(oUser != null)
         {
            userRepo.save(nUser);
@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService{
     @Override
     public User enrollUserInProgram(int user_id, int program_id) {
         Program newProgram = programRepo.findById(program_id).orElse(null);
-        User student = userRepo.getUserByUId(user_id);
+        User student = userRepo.findById(user_id).orElse(null);
         if (newProgram != null && student != null) {
             student.setProgram(newProgram);
             return userRepo.save(student);

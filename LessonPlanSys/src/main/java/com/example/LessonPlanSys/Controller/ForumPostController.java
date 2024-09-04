@@ -28,6 +28,10 @@ public class ForumPostController {
     public ResponseEntity<Optional<ForumPost>> getForumPostById(@PathVariable int forumpost_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByForumpost_id(forumpost_id));
     }
+    @GetMapping("/user/{user_id}")
+    public ResponseEntity<List<ForumPost>> getForumPostByUserId(@PathVariable int user_id){
+        return ResponseEntity.status(HttpStatus.OK).body(fps.findByUser_id(user_id));
+    }
 
     @PostMapping
     public ResponseEntity<ForumPost> addForumPost(@RequestBody ForumPost forumpost) {

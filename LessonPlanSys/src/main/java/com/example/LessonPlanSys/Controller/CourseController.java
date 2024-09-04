@@ -2,7 +2,10 @@ package com.example.LessonPlanSys.Controller;
 
 import com.example.LessonPlanSys.Model.Course;
 //import com.example.LessonPlanSys.Model.Program;
+import com.example.LessonPlanSys.Model.ForumPost;
+import com.example.LessonPlanSys.Model.User;
 import com.example.LessonPlanSys.Service.CourseService;
+import com.example.LessonPlanSys.Service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +19,12 @@ import java.util.Map;
 public class CourseController {
 
     CourseService courseService;
+    UserServiceImp us;
     @Autowired
-    public CourseController(CourseService courseService)
+    public CourseController(CourseService courseService, UserServiceImp us)
     {
         this.courseService = courseService;
+        this.us=us;
     }
 
     @GetMapping
@@ -58,5 +63,15 @@ public class CourseController {
         return (updatedProgram != null)
                 ? new ResponseEntity<>(updatedProgram, HttpStatus.OK)
                 : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    @PostMapping("add/{user_id}")
+    public Course addCourseteacher(@RequestBody Course course, @PathVariable int user_id) {
+       User user=us.getUserByUID(user_id);
+       if(user.getRole().equals("teacher")) {
+          return courseService.addCourse(course);
+       }
+       else {
+           return null;
+       }
     }
 }
