@@ -27,7 +27,7 @@ public class EnrollmentsService {
     }
 
     public Enrollments getEnrollmentByID(Integer id) {
-        return enrollmentsRepo.findById(id).get();
+        return enrollmentsRepo.findById(id).orElse(null);
     }
 
     public List<Enrollments> getEnrollmentsByStudentID(Integer id) {

@@ -202,20 +202,20 @@ VALUES
 
 -- Insert demo data into lesson_courses table
 INSERT INTO
-    lesson_courses (lesson_course_id, lesson_plan_id, course_id)
+    lesson_plan_course (lesson_course_id, lesson_plan_id, course_id)
 VALUES
     (
-        nextval ('lesson_courses_lesson_course_id_seq'),
+        nextval ('lesson_course_id_seq'),
         1,
         1
     ),
     (
-        nextval ('lesson_courses_lesson_course_id_seq'),
+        nextval ('lesson_course_id_seq'),
         2,
         2
     ),
     (
-        nextval ('lesson_courses_lesson_course_id_seq'),
+        nextval ('lesson_course_id_seq'),
         3,
         3
     );

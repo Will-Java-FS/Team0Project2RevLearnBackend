@@ -19,8 +19,8 @@ public class ProgramController {
     private final CourseService courseService;
 
     // GET Program by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Program> getProgram(@PathVariable("id") int id) {
+    @GetMapping("/{program_id}")
+    public ResponseEntity<Program> getProgram(@PathVariable("program_id") int id) {
         return programService.getProgram(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -34,15 +34,15 @@ public class ProgramController {
     }
 
     // Update program
-    @PutMapping("/{id}")
-    public ResponseEntity<Program> updateProgram(@PathVariable("id") int id, @RequestBody Program program) {
+    @PutMapping("/{program_id}")
+    public ResponseEntity<Program> updateProgram(@PathVariable("program_id") int id, @RequestBody Program program) {
         return programService.updateProgram(id, program)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // Delete program
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{program_id}")
     public ResponseEntity<Program> deleteProgram(@PathVariable("id") int id) {
         programService.deleteProgram(id);
         return ResponseEntity.noContent().build();
@@ -55,8 +55,8 @@ public class ProgramController {
     }
 
     // Get all associated courses
-    @GetMapping ("/{id}/courses")
-    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("id") int id) {
+    @GetMapping ("/{program_id}/courses")
+    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
         return courseService.getCoursesByProgramId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
