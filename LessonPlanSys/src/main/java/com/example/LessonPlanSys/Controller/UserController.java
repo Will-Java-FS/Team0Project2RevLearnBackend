@@ -3,6 +3,7 @@ package com.example.LessonPlanSys.Controller;
 
 import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.User;
+import com.example.LessonPlanSys.Service.UserService;
 import com.example.LessonPlanSys.Service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    UserServiceImp userService;
+    UserService userService;
 
     @Autowired
     public UserController(UserServiceImp userService) {
@@ -36,16 +37,6 @@ public class UserController {
     ResponseEntity<User> getuserbyrole(@PathVariable int user_id, @PathVariable String role) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUsersByRoleandId(user_id, role));
     }
-    // Previous controller
-//    UserServiceImp userService;
-//    @Autowired
-//    public UserController(UserServiceImp userService)
-//    {
-//        this.userService = userService;
-//    }
-
-    @Autowired
-    UserService userService;
 
     // Get list of all users
     @GetMapping

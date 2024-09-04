@@ -2,6 +2,7 @@ package com.example.LessonPlanSys.Model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Course {
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id", nullable = false)
+    @JsonBackReference
     private Program program;
 
     @Getter
