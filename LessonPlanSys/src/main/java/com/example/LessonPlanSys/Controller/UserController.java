@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
+    @Autowired
     UserServiceImp userService;
 
     @Autowired
@@ -43,9 +43,6 @@ public class UserController {
 //    {
 //        this.userService = userService;
 //    }
-
-    @Autowired
-    UserService userService;
 
     // Get list of all users
     @GetMapping
