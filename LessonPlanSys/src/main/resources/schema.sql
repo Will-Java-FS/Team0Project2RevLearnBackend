@@ -1,3 +1,7 @@
+-- Fix the schema to use discussionforums instead of discussion_forums or make the forum model use discussion_forums
+-- Add valid entries to discussionforums table to match forum_posts table
+-- Add role column to users table
+
 -- Create the schema if it does not exist
 CREATE SCHEMA IF NOT EXISTS project2;
 
@@ -6,22 +10,18 @@ SET
     search_path TO project2;
 
 -- Drop sequences if they exist
-DROP SEQUENCE IF EXISTS discussion_forums_id_seq CASCADE;
+DROP SEQUENCE IF EXISTS discussionforums_id_seq CASCADE;
 
 DROP SEQUENCE IF EXISTS lesson_courses_lesson_course_id_seq CASCADE;
 
 DROP SEQUENCE IF EXISTS teachers_id_seq CASCADE;
 
-DROP SEQUENCE IF EXISTS enrollments_id_seq CASCADE;
-
 -- Create sequences
-CREATE SEQUENCE IF NOT EXISTS discussion_forums_id_seq;
+CREATE SEQUENCE IF NOT EXISTS discussionforums_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS lesson_courses_lesson_course_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS teachers_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS enrollments_id_seq;
 
 -- Drop tables if they exist
 DROP TABLE IF EXISTS user_lesson_status CASCADE;
@@ -37,6 +37,8 @@ DROP TABLE IF EXISTS forum_posts CASCADE;
 DROP TABLE IF EXISTS enrollments CASCADE;
 
 DROP TABLE IF EXISTS discussion_forums CASCADE;
+
+DROP TABLE IF EXISTS discussionforums CASCADE;
 
 DROP TABLE IF EXISTS courses CASCADE;
 
@@ -64,6 +66,7 @@ CREATE TABLE
         user_updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
         username VARCHAR NOT NULL UNIQUE,
         program_id INTEGER,
+        role VARCHAR NOT NULL,
         CONSTRAINT fk_program FOREIGN KEY (program_id) REFERENCES programs (program_id)
     );
 
@@ -86,21 +89,21 @@ CREATE UNIQUE INDEX IF NOT EXISTS courses_pkey ON courses (course_id);
 
 CREATE TABLE
     IF NOT EXISTS discussionforums (
-        forum_id INTEGER NOT NULL DEFAULT nextval ('discussion_forums_id_seq') PRIMARY KEY,
+        id INTEGER NOT NULL DEFAULT nextval ('discussionforums_id_seq') PRIMARY KEY,
         course_id INTEGER NOT NULL,
         title VARCHAR NOT NULL,
-        forum_created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        forum_updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        forum_created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        forum_updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (course_id)
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS discussion_forums_title_key ON discussionforums (title);
+CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_title_key ON discussionforums (title);
 
-CREATE UNIQUE INDEX IF NOT EXISTS discussion_forums_pkey ON discussionforums (forum_id);
+CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_pkey ON discussionforums (id);
 
 CREATE TABLE
     IF NOT EXISTS enrollments (
-        enroll_id INTEGER NOT NULL DEFAULT nextval ('enrollments_id_seq') PRIMARY KEY,
+        enroll_id INTEGER NOT NULL PRIMARY KEY,
         status VARCHAR NOT NULL,
         course_id INTEGER,
         user_id INTEGER,
@@ -118,7 +121,7 @@ CREATE TABLE
         post_text TEXT NOT NULL,
         forum_id INTEGER,
         user_id INTEGER,
-        CONSTRAINT fk_forum FOREIGN KEY (forum_id) REFERENCES discussionforums (forum_id),
+        CONSTRAINT fk_forum FOREIGN KEY (forum_id) REFERENCES discussionforums (id),
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 
