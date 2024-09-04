@@ -20,8 +20,8 @@ public class UserLessonStatusServiceImp implements UserLessonStatusService{
 
     @Override
     public UserLessonStatus createUserLessonStatus (UserLessonStatus userLessonStatus){
-        if(userLessonStatusRepo.existsById(userLessonStatus.getId())){
-            throw new AlreadyExistsException("UserLessonStatus with id" + userLessonStatus.getId() +
+        if(userLessonStatusRepo.existsById(userLessonStatus.getUser_lesson_id())){
+            throw new AlreadyExistsException("UserLessonStatus with id" + userLessonStatus.getUser_lesson_id() +
                     " already exists.");
         }
         return userLessonStatusRepo.save(userLessonStatus);
@@ -50,7 +50,7 @@ public class UserLessonStatusServiceImp implements UserLessonStatusService{
         if(!userLessonStatusRepo.existsById(id)){
             throw new NotFoundException("UserLessonStatus with id" + id + " not found.");
         }
-        userLessonStatus.setId(id);
+        userLessonStatus.setUser_lesson_id(id);
         return userLessonStatusRepo.save(userLessonStatus);
     }
 

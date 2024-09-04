@@ -43,7 +43,7 @@ VALUES
         NOW (),
         'janesmith',
         'student',
-        2
+        1
     ),
     (
         3,
@@ -220,32 +220,9 @@ VALUES
         3
     );
 
--- Insert demo data into teachers table
-INSERT INTO
-    teachers (id, first_name, last_name, email)
-VALUES
-    (
-        nextval ('teachers_id_seq'),
-        'John',
-        'Doe',
-        'john.doe@teacher.com'
-    ),
-    (
-        nextval ('teachers_id_seq'),
-        'Jane',
-        'Smith',
-        'jane.smith@teacher.com'
-    ),
-    (
-        nextval ('teachers_id_seq'),
-        'Sam',
-        'Wilson',
-        'sam.wilson@teacher.com'
-    );
-
 -- Insert demo data into user_lesson_status table
 INSERT INTO
-    user_lesson_status (id, complete, lesson_plan_id, user_id)
+    user_lesson_status (user_lesson_id, complete, lesson_plan_id, user_id)
 VALUES
     (1, TRUE, 1, 1),
     (2, FALSE, 2, 2),
