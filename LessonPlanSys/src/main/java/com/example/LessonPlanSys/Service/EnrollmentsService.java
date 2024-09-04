@@ -82,5 +82,9 @@ public class EnrollmentsService {
         return count/total;
     }
 
+    public List<Enrollments> getCompletedEnrollmentsByStudentID(int id) {
+        return enrollmentsRepo.getCompletedEnrollmentsByStudentID(id);
+    }
+
  
 }
