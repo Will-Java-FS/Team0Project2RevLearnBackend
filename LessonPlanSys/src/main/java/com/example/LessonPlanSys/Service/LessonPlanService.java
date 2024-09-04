@@ -14,5 +14,5 @@ public interface LessonPlanService {
 
     void deleteLessonPlan(int id);
 
-   // LessonPlan updateLessonPlan(LessonPlan nlp, int id);
+    LessonPlan updateLessonPlan(int id, LessonPlan updatedLessonPla);
 }

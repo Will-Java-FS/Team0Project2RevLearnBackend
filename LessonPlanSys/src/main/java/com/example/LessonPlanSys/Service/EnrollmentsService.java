@@ -1,6 +1,7 @@
 package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.Enrollments;
+import com.example.LessonPlanSys.Model.UserLessonStatus;
 import com.example.LessonPlanSys.Repo.EnrollmentsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,14 @@ public class EnrollmentsService {
         return enrollmentsRepo.findById(id).get();
     }
 
+    public List<Enrollments> getEnrollmentsByStudentID(Integer id) {
+        return enrollmentsRepo.getEnrollmentsByStudentID(id);
+    }
+
+    public List<Enrollments> getEnrollmentsByCourseID(Integer id) {
+        return enrollmentsRepo.getEnrollmentsByCourseID(id);
+    }
+
     public int deleteEnrollment(Integer id) {
         Optional<Enrollments> enrollment = enrollmentsRepo.findById(id);
         if(enrollment.isPresent()) {
@@ -43,8 +52,11 @@ public class EnrollmentsService {
         Optional<Enrollments> optionalEnrollment = enrollmentsRepo.findById(id);
         if(optionalEnrollment.isPresent()) {
             Enrollments enrollment = optionalEnrollment.get();
-            if(updatedEnrollment.getStatus() != null) {
-                enrollment.setStatus(updatedEnrollment.getStatus());
+            if(updatedEnrollment.getEnrollment_status() != null) {
+                enrollment.setEnrollment_status(updatedEnrollment.getEnrollment_status());
+            }
+            if(updatedEnrollment.getPayment_status() != null) {
+                enrollment.setPayment_status(updatedEnrollment.getPayment_status());
             }
             enrollmentsRepo.save(enrollment);
             return enrollment;
@@ -52,4 +64,27 @@ public class EnrollmentsService {
             return null;
         }
     }
+
+
+    public double getCourseCompletionPerc(int user_id, int course_id) {
+        List<Boolean> ULS = enrollmentsRepo.getAllULS(user_id,course_id);
+        //System.out.println(ULS.size() + "Lessons found");
+        double count = 0;
+        double total = 0;
+        for(boolean item : ULS)
+        {
+            total += 1;
+            if(item)
+            {
+                count += 1;
+            }
+        }
+        return count/total;
+    }
+
+    public List<Enrollments> getCompletedEnrollmentsByStudentID(int id) {
+        return enrollmentsRepo.getCompletedEnrollmentsByStudentID(id);
+    }
+
+ 
 }

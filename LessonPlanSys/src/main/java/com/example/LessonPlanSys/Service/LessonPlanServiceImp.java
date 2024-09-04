@@ -2,10 +2,10 @@ package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.LessonPlan;
 import com.example.LessonPlanSys.Repo.LessonPlanRepo;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -19,16 +19,18 @@ public class LessonPlanServiceImp implements LessonPlanService{
 
     @Override
     public List<LessonPlan> getAll() {
-        return lessonPlanRepo.getAllLessonPlans();
+        return lessonPlanRepo.findAll();
     }
 
     @Override
     public LessonPlan getById(int id) {
-        return lessonPlanRepo.getbyLPID(id);
+        return lessonPlanRepo.findById(id).orElse(null);
     }
 
     @Override
     public LessonPlan addLessonPlan(LessonPlan nlp) {
+        nlp.setLp_updated_at(new Timestamp(System.currentTimeMillis()));
+        nlp.setLp_created_at(new Timestamp(System.currentTimeMillis()));
         return lessonPlanRepo.save(nlp);
     }
 
@@ -37,15 +39,17 @@ public class LessonPlanServiceImp implements LessonPlanService{
          lessonPlanRepo.deleteById(id);
     }
 
-//    @Override
-//    @Transactional
-//    public LessonPlan updateLessonPlan(LessonPlan nlp, int id) {
-//        LessonPlan olp = lessonPlanRepo.getbyLPID(id);
-//        if(olp != null)
-//        {
-//            lessonPlanRepo.setLPInfoById(nlp.getTitle(), nlp.getContent(), nlp.getLp_updated_at(), id);
-//            return getById(id);
-//        }
-//        return null;
-// }
+    @Override
+    public LessonPlan updateLessonPlan(int id, LessonPlan updatedLessonPlan) {
+        LessonPlan lessonPlan = getById(id);
+        if (lessonPlan == null || id != updatedLessonPlan.getLesson_plan_id()) {
+            return null;
+        }
+
+        lessonPlan.setContent(updatedLessonPlan.getContent());
+        lessonPlan.setTitle(updatedLessonPlan.getTitle());
+        lessonPlan.setLp_updated_at(new Timestamp(System.currentTimeMillis()));
+
+        return lessonPlanRepo.save(lessonPlan);
+    }
 }
