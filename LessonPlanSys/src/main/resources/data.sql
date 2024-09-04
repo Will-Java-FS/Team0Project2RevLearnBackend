@@ -1,12 +1,12 @@
---data.sql
+-- Insert sample data
+-- Insert data into programs
 INSERT INTO
     programs (program_id, program_name)
 VALUES
     (1, 'Computer Science'),
-    (2, 'Data Science'),
-    (3, 'Cybersecurity');
+    (2, 'Data Science');
 
--- Insert demo data into users table
+-- Insert data into users
 INSERT INTO
     users (
         user_id,
@@ -17,7 +17,6 @@ INSERT INTO
         user_created_at,
         user_updated_at,
         username,
-        role,
         program_id
     )
 VALUES
@@ -26,11 +25,10 @@ VALUES
         'john.doe@example.com',
         'John',
         'Doe',
-        'hashedpassword1',
-        NOW (),
-        NOW (),
+        'hashedpassword123',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
         'johndoe',
-        'teacher',
         1
     ),
     (
@@ -38,27 +36,14 @@ VALUES
         'jane.smith@example.com',
         'Jane',
         'Smith',
-        'hashedpassword2',
-        NOW (),
-        NOW (),
+        'hashedpassword456',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
         'janesmith',
-        'student',
-        1
-    ),
-    (
-        3,
-        'sam.wilson@example.com',
-        'Sam',
-        'Wilson',
-        'hashedpassword3',
-        NOW (),
-        NOW (),
-        'samwilson',
-        'student',
-        3
+        2
     );
 
--- Insert demo data into courses table
+-- Insert data into courses
 INSERT INTO
     courses (
         course_id,
@@ -73,66 +58,55 @@ VALUES
     (
         1,
         'Introduction to Programming',
-        NOW (),
-        NOW (),
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
         'Learn the basics of programming.',
         1,
         1
     ),
     (
         2,
-        'Data Science 101',
-        NOW (),
-        NOW (),
-        'Introduction to Data Science concepts.',
-        1,
-        2
-    ),
-    (
-        3,
-        'Cybersecurity Fundamentals',
-        NOW (),
-        NOW (),
-        'Basics of cybersecurity.',
-        1,
-        3
-    );
-
--- Insert demo data into discussionforums table
-INSERT INTO
-    discussionforums (forum_id, course_id, title, forum_created_at, forum_updated_at)
-VALUES
-    (
-        nextval ('discussionforums_id_seq'),
-        1,
-        'Programming Basics Discussion',
-        NOW (),
-        NOW ()
-    ),
-    (
-        nextval ('discussionforums_id_seq'),
+        'Advanced Data Analysis',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'In-depth data analysis techniques.',
         2,
-        'Data Science Tips and Tricks',
-        NOW (),
-        NOW ()
-    ),
-    (
-        nextval ('discussionforums_id_seq'),
-        3,
-        'Cybersecurity News and Updates',
-        NOW (),
-        NOW ()
+        2
     );
 
--- Insert demo data into enrollments table
+-- Insert data into discussionforums
 INSERT INTO
-    enrollments (enroll_id, enrollment_status, payment_status, course_id, user_id)
+    discussionforums (
+        forum_id,
+        course_id,
+        title,
+        forum_created_at,
+        forum_updated_at
+    )
 VALUES
-    (1, 'active', 'paid', 1, 1),
-    (2, 'completed', 'paid', 2, 2),
-    (3, 'active', 'pending', 3, 3);
+    (
+        1,
+        1,
+        'General Discussion',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        2,
+        1,
+        'Homework Help',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        3,
+        2,
+        'Project Ideas',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    );
 
--- Insert demo data into forum_posts table
+-- Insert data into forum_posts
 INSERT INTO
     forum_posts (
         forum_post_id,
@@ -145,30 +119,37 @@ INSERT INTO
 VALUES
     (
         1,
-        NOW (),
-        NOW (),
-        'I have a question about variables in Python.',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'What’s the best way to start learning Python?',
         1,
         1
     ),
     (
         2,
-        NOW (),
-        NOW (),
-        'What libraries are essential for data science?',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'Does anyone have tips for the upcoming homework?',
         2,
-        2
+        1
     ),
     (
         3,
-        NOW (),
-        NOW (),
-        'How to secure a server against DDoS attacks?',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'I have an idea for a data visualization project.',
         3,
-        3
+        2
     );
 
--- Insert demo data into lesson_plans table
+-- Insert data into enrollments
+INSERT INTO
+    enrollments (enroll_id, status, course_id, user_id)
+VALUES
+    (1, 'Enrolled', 1, 1),
+    (2, 'Completed', 2, 2);
+
+-- Insert data into lesson_plans
 INSERT INTO
     lesson_plans (
         lesson_plan_id,
@@ -180,50 +161,41 @@ INSERT INTO
 VALUES
     (
         1,
-        'Lesson content for Introduction to Programming.',
-        NOW (),
-        NOW (),
-        'Programming Basics'
+        'Introduction to variables and data types.',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'Lesson 1: Basics'
     ),
     (
         2,
-        'Lesson content for Data Science 101.',
-        NOW (),
-        NOW (),
-        'Data Science Overview'
-    ),
-    (
-        3,
-        'Lesson content for Cybersecurity Fundamentals.',
-        NOW (),
-        NOW (),
-        'Cybersecurity Introduction'
+        'Advanced data manipulation techniques.',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        'Lesson 2: Data Analysis'
     );
 
--- Insert demo data into lesson_courses table
+-- Insert data into lesson_courses
 INSERT INTO
     lesson_courses (lesson_course_id, lesson_plan_id, course_id)
 VALUES
-    (
-        nextval ('lesson_courses_lesson_course_id_seq'),
-        1,
-        1
-    ),
-    (
-        nextval ('lesson_courses_lesson_course_id_seq'),
-        2,
-        2
-    ),
-    (
-        nextval ('lesson_courses_lesson_course_id_seq'),
-        3,
-        3
-    );
+    (1, 1, 1),
+    (2, 2, 2);
 
--- Insert demo data into user_lesson_status table
+-- Insert data into teachers
 INSERT INTO
-    user_lesson_status (user_lesson_id, complete, lesson_plan_id, user_id)
+    teachers (id, first_name, last_name, email)
+VALUES
+    (
+        1,
+        'Alice',
+        'Johnson',
+        'alice.johnson@example.com'
+    ),
+    (2, 'Bob', 'Brown', 'bob.brown@example.com');
+
+-- Insert data into user_lesson_status
+INSERT INTO
+    user_lesson_status (id, complete, lesson_plan_id, user_id)
 VALUES
     (1, TRUE, 1, 1),
-    (2, FALSE, 2, 2),
-    (3, TRUE, 3, 3);
+    (2, FALSE, 2, 2);
