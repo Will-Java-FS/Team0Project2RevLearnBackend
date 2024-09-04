@@ -4,7 +4,7 @@ import com.example.LessonPlanSys.Model.LessonPlan;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
