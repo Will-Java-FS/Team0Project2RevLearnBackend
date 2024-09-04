@@ -45,8 +45,8 @@ public class UserController {
     }
 
     // Get user by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") int id) {
+    @GetMapping("/{user_id}")
+    public ResponseEntity<User> getUser(@PathVariable("user_id") int id) {
         User retrievedUser = userService.getUserByUID(id);
         return retrievedUser == null
                 ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
@@ -61,8 +61,8 @@ public class UserController {
     }
 
     // Update a user
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
+    @PutMapping("/{user_id}")
+    public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user) {
         User updatedUser = userService.updateUserById(id, user);
         return updatedUser == null
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
@@ -70,8 +70,8 @@ public class UserController {
     }
 
     // Delete a user
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("user_id") int id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
