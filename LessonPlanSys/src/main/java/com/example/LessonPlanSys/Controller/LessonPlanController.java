@@ -20,11 +20,13 @@ public class LessonPlanController {
         this.lessonPlanService = lessonPlanService;
     }
 
+    // Get all Lessons
     @GetMapping
     public ResponseEntity<List<LessonPlan>> getAllLessonPlans() {
         return ResponseEntity.status(HttpStatus.OK).body(lessonPlanService.getAll());
     }
 
+    // Get lesson by ID
     @GetMapping("/{lesson_id}")
     public ResponseEntity<LessonPlan> getLessonPlan(@PathVariable int lesson_id) {
         LessonPlan lessonPlan = lessonPlanService.getById(lesson_id);
@@ -33,6 +35,7 @@ public class LessonPlanController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    // Add lesson
     @PostMapping
     public ResponseEntity<LessonPlan> addLessonPlan(@RequestBody LessonPlan lessonPlan) {
         LessonPlan alreadyExists = lessonPlanService.getById(lessonPlan.getLesson_plan_id());
@@ -41,6 +44,7 @@ public class LessonPlanController {
             : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    // Update lesson, ids must match
     @PutMapping("/{lesson_id}")
     public ResponseEntity<LessonPlan> updateLessonPlan(@PathVariable int lesson_id,
                                                        @RequestBody LessonPlan lessonPlan) {
@@ -56,6 +60,7 @@ public class LessonPlanController {
                 : ResponseEntity.status(HttpStatus.OK).body(lp);
     }
 
+    // Delete lesson by ID
     @DeleteMapping("/{lesson_id}")
     public ResponseEntity<Void> deleteLessonPlan(@PathVariable int lesson_id) {
         lessonPlanService.deleteLessonPlan(lesson_id);

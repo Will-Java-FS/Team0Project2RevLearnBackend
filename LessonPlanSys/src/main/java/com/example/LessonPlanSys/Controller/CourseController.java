@@ -1,30 +1,38 @@
 package com.example.LessonPlanSys.Controller;
 
-import com.example.LessonPlanSys.Model.Course;
-//import com.example.LessonPlanSys.Model.Program;
-import com.example.LessonPlanSys.Model.ForumPost;
-import com.example.LessonPlanSys.Model.User;
-import com.example.LessonPlanSys.Service.CourseService;
-import com.example.LessonPlanSys.Service.UserServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.LessonPlanSys.Model.Course;
+import com.example.LessonPlanSys.Model.User;
+import com.example.LessonPlanSys.Service.CourseService;
+import com.example.LessonPlanSys.Service.UserServiceImp;
+
 @RestController
 @RequestMapping("/course")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CourseController {
 
     CourseService courseService;
     UserServiceImp us;
+
     @Autowired
-    public CourseController(CourseService courseService, UserServiceImp us)
-    {
+    public CourseController(CourseService courseService, UserServiceImp us) {
         this.courseService = courseService;
-        this.us=us;
+        this.us = us;
     }
 
     @GetMapping
@@ -52,7 +60,8 @@ public class CourseController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Course not found"));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "An error occurred while deleting the course: " + e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An error occurred while deleting the course: " + e.getMessage()));
         }
     }
 
@@ -63,14 +72,14 @@ public class CourseController {
                 ? new ResponseEntity<>(updatedProgram, HttpStatus.OK)
                 : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
     @PostMapping("add/{user_id}")
     public Course addCourseteacher(@RequestBody Course course, @PathVariable int user_id) {
-       User user=us.getUserByUID(user_id);
-       if(user.getRole().equals("teacher")) {
-          return courseService.addCourse(course);
-       }
-       else {
-           return null;
-       }
+        User user = us.getUserByUID(user_id);
+        if (user.getRole().equals("teacher")) {
+            return courseService.addCourse(course);
+        } else {
+            return null;
+        }
     }
 }

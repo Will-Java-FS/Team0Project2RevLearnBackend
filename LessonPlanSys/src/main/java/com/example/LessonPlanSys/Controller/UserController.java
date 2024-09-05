@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -42,7 +43,7 @@ public class UserController {
 
     @GetMapping("/{user_id}/{role}")
     ResponseEntity<User> getuserbyrole(@PathVariable int user_id, @PathVariable String role) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsersByRoleandId(user_id, role));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByRoleAndId(user_id, role));
     }
 
     // Get list of all users
@@ -64,8 +65,8 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user) {
 
-        user.setUserCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        user.setUserUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        user.setUserCreatedAt(ZonedDateTime.now());
+        user.setUserUpdatedAt(ZonedDateTime.now());
         User savedUser = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
@@ -74,7 +75,7 @@ public class UserController {
     @PutMapping("update/{user_id}/{program_id}")
     public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user,@PathVariable int program_id) {
         User existingUser = userService.getUserByUID(id);
-        existingUser.setUserUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        existingUser.setUserUpdatedAt(ZonedDateTime.now());
         existingUser.setUsername(user.getUsername());
         existingUser.setPasswordHash(user.getPasswordHash());
         User updatedUser = userService.updateUserById(id, existingUser);

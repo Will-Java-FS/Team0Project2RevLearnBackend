@@ -1,32 +1,29 @@
 package com.example.LessonPlanSys.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="programs")
+@Table(name = "programs") // Ensure correct table and schema names
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // Prevents serialization errors
+@AllArgsConstructor
+@Builder
 public class Program {
-    @Getter
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="program_id", updatable = false)
-    private int program_id;
+    @Column(name = "program_id", updatable = false)
+    private Integer programId;
 
-
-    @Getter
-    @Setter
     @Column(name = "program_name", nullable = false)
-    private String program_name;
-
-    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Course> courses;
+    private String programName;
 }

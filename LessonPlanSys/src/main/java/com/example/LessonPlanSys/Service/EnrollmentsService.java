@@ -1,7 +1,9 @@
 package com.example.LessonPlanSys.Service;
 
+import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.Enrollments;
 import com.example.LessonPlanSys.Model.UserLessonStatus;
+import com.example.LessonPlanSys.Repo.CourseRepo;
 import com.example.LessonPlanSys.Repo.EnrollmentsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,12 @@ import java.util.Optional;
 @Service
 public class EnrollmentsService {
     EnrollmentsRepo enrollmentsRepo;
+    CourseRepo courseRepo;
 
     @Autowired
-    public EnrollmentsService(EnrollmentsRepo enrollmentsRepo) {
+    public EnrollmentsService(EnrollmentsRepo enrollmentsRepo, CourseRepo courseRepo) {
         this.enrollmentsRepo = enrollmentsRepo;
+        this.courseRepo = courseRepo;
     }
 
     public Enrollments addEnrollment(Enrollments enrollment) {
@@ -24,6 +28,14 @@ public class EnrollmentsService {
 
     public List<Enrollments> getAllEnrollments() {
         return enrollmentsRepo.findAll();
+    }
+
+    public List<Course> getAvailableCourses() {
+        return courseRepo.findAll();
+    }
+
+    public Enrollments getTeacherOfCourse(Integer id) {
+        return enrollmentsRepo.getTeacherOfCourse(id);
     }
 
     public Enrollments getEnrollmentByID(Integer id) {

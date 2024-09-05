@@ -1,14 +1,22 @@
 package com.example.LessonPlanSys.Model;
 
+import java.time.ZonedDateTime;
 
-import jakarta.persistence.*;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
@@ -17,62 +25,39 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class User {
-    @Getter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", updatable = false)
-    private int user_id;
 
-    @Getter
-    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Use IDENTITY strategy
+    @Column(name = "user_id", updatable = false)
+    private int userId;
+
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Getter
-    @Setter
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-    @Getter
-    @Setter
     @Column(nullable = false, length = 255)
     private String passwordHash;
 
-    @Getter
-    @Setter
     @Column(nullable = false, length = 255)
     private String firstName;
 
-    @Getter
-    @Setter
     @Column(nullable = false, length = 255)
     private String lastName;
 
-    @Getter
-    @Setter
     @CreationTimestamp
-    @Column(nullable = false)
-    private Timestamp userCreatedAt;
+    @Column(nullable = false, updatable = false)
+    private ZonedDateTime userCreatedAt;
 
-    @Getter
-    @Setter
     @Column(nullable = false)
     private String role;
 
-    @Getter
-    @Setter
     @UpdateTimestamp
     @Column(nullable = false)
-    private Timestamp userUpdatedAt;
+    private ZonedDateTime userUpdatedAt;
 
-//    @OneToMany//(mappedBy = "user", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", updatable = false)
-//    private List<Course> courses;
-
-    @Getter
-    @Setter
-    @JoinColumn(name = "program_id", updatable = false)
-    @ManyToOne//(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "program_id", nullable = true)
     private Program program;
-
 }
