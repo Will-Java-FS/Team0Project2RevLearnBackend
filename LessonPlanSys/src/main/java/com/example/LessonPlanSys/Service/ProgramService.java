@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ProgramService {
     Optional<Program> getProgram(int id);
     Program addProgram(Program program);
-    Optional<Program> updateProgram(int id, Program program);
+    Program updateProgram(int id, Program program);
     void deleteProgram(int id);
     List<Program> getAllPrograms();
     //List<Course> getAllCourses();
