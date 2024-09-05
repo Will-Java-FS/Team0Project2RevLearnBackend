@@ -37,8 +37,8 @@ public class ForumController {
     public ResponseEntity<Forum> addForum( @PathVariable int course_id, @RequestBody Forum forum) {
         Course course = csi.getById(course_id);
         forum.setCourse(course);
-        forum.setForum_created_at(Timestamp.valueOf(LocalDateTime.now()));
-        forum.setForum_updated_at(Timestamp.valueOf(LocalDateTime.now()));
+        forum.setForumCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        //forum.getForumUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         Forum createdForum = fs.addForum(forum);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdForum);
     }

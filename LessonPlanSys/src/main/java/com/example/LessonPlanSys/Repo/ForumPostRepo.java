@@ -11,4 +11,5 @@ import java.util.List;
 public interface ForumPostRepo extends JpaRepository<ForumPost, Integer> {
     @Query(value = "SELECT * FROM ForumPost WHERE user_id=?1", nativeQuery = true )
     List<ForumPost> findByUser_id(int userId);
+
 }

@@ -72,8 +72,8 @@ public class UserController {
     }
 
     // Update a user's username and password
-    @PutMapping("update/{user_id}/{program_id}")
-    public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user,@PathVariable int program_id) {
+    @PutMapping("update/{user_id}")
+    public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user) {
         User existingUser = userService.getUserByUID(id);
         existingUser.setUserUpdatedAt(ZonedDateTime.now());
         existingUser.setUsername(user.getUsername());
