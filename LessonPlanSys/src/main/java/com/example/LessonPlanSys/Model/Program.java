@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "programs", schema = "project2Andrew") // Ensure correct table and schema names
+@Table(name = "programs") // Ensure correct table and schema names
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

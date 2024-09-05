@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "discussionforums", schema = "project2") // Adjust table name and schema as necessary
+@Table(name = "discussionforums") // Adjust table name and schema as necessary
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
