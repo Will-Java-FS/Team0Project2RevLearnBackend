@@ -78,39 +78,6 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-
-<<<<<<< HEAD
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
-        try {
-            User user = userService.getUserByUID(id);
-            return ResponseEntity.ok(user);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        try {
-            User updatedUser = userService.updateUserById(id, user);
-            return ResponseEntity.ok(updatedUser);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
-        try {
-            userService.deleteUserById(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-=======
     // Get user by ID
     @GetMapping("/{user_id}")
     public ResponseEntity<User> getUser(@PathVariable("user_id") int id) {
@@ -136,17 +103,9 @@ public class UserController {
                 : ResponseEntity.ok(updatedUser);
     }
 
-    // Delete a user
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("user_id") int id) {
-        userService.deleteUserById(id);
-        return ResponseEntity.noContent().build();
->>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
-    }
-
     @PutMapping("/{userId}/enroll/{programId}")
     public ResponseEntity<User> enrollUserInProgram(@PathVariable("userId") int userId,
-            @PathVariable("programId") int programId) {
+                                                    @PathVariable("programId") int programId) {
         try {
             User updatedUser = userService.enrollUserInProgram(userId, programId);
             return ResponseEntity.ok(updatedUser);

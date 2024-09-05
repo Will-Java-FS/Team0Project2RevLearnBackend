@@ -69,7 +69,7 @@ public class EnrollmentsController {
     {
         Enrollments enr = enrollmentsService.getEnrollmentByID(enrollId);
 
-        double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUser_id(), enr.getCourse().getCourse_id());
+        double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUserId(), enr.getCourse().getCourse_id());
         return ResponseEntity.status(200).body(comp);
     }
 

@@ -67,14 +67,14 @@ public class EnrollmentsService {
 
 
     public double getCourseCompletionPerc(int user_id, int course_id) {
-        List<Boolean> ULS = enrollmentsRepo.getAllULS(user_id,course_id);
+        List<UserLessonStatus> ULS = enrollmentsRepo.getAllULS(user_id,course_id);
         //System.out.println(ULS.size() + "Lessons found");
         double count = 0;
         double total = 0;
-        for(boolean item : ULS)
+        for(UserLessonStatus item : ULS)
         {
             total += 1;
-            if(item)
+            if(item.isComplete())
             {
                 count += 1;
             }
