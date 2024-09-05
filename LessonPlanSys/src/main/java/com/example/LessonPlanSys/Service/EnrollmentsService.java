@@ -5,6 +5,7 @@ import com.example.LessonPlanSys.Model.Enrollments;
 import com.example.LessonPlanSys.Model.UserLessonStatus;
 import com.example.LessonPlanSys.Repo.CourseRepo;
 import com.example.LessonPlanSys.Repo.EnrollmentsRepo;
+import com.example.LessonPlanSys.Repo.UserLessonStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,13 @@ import java.util.Optional;
 @Service
 public class EnrollmentsService {
     EnrollmentsRepo enrollmentsRepo;
+    UserLessonStatusRepo userLessonStatusRepo;
     CourseRepo courseRepo;
 
     @Autowired
-    public EnrollmentsService(EnrollmentsRepo enrollmentsRepo, CourseRepo courseRepo) {
+    public EnrollmentsService(EnrollmentsRepo enrollmentsRepo, UserLessonStatusRepo userLessonStatusRepo, CourseRepo courseRepo) {
         this.enrollmentsRepo = enrollmentsRepo;
+        this.userLessonStatusRepo = userLessonStatusRepo;
         this.courseRepo = courseRepo;
     }
 
@@ -79,7 +82,7 @@ public class EnrollmentsService {
 
 
     public double getCourseCompletionPerc(int user_id, int course_id) {
-        List<UserLessonStatus> ULS = enrollmentsRepo.getAllULS(user_id,course_id);
+        List<UserLessonStatus> ULS = userLessonStatusRepo.getAllULS(user_id,course_id);
         //System.out.println(ULS.size() + "Lessons found");
         double count = 0;
         double total = 0;
