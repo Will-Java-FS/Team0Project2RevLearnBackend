@@ -2,10 +2,6 @@ package com.example.LessonPlanSys.Controller;
 
 import java.util.List;
 
-import com.example.LessonPlanSys.Model.Course;
-import com.example.LessonPlanSys.Model.User;
-import com.example.LessonPlanSys.Service.UserService;
-import com.example.LessonPlanSys.Service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
+import com.example.LessonPlanSys.Model.User;
+import com.example.LessonPlanSys.Service.UserService; // Import Program model if needed
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/user")
