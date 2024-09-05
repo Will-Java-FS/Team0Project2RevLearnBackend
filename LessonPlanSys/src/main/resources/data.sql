@@ -1,229 +1,130 @@
---data.sql
+-- Insert demo data into programs table
 INSERT INTO
-    programs (program_id, program_name)
+    programs (program_name)
 VALUES
-    (1, 'Computer Science'),
-    (2, 'Data Science'),
-    (3, 'Cybersecurity');
+    ('Computer Science');
+
+INSERT INTO
+    programs (program_name)
+VALUES
+    ('Mathematics');
+
+INSERT INTO
+    programs (program_name)
+VALUES
+    ('Literature');
 
 -- Insert demo data into users table
 INSERT INTO
     users (
-        user_id,
         email,
+        username,
+        password_hash,
         first_name,
         last_name,
-        password_hash,
-        user_created_at,
-        user_updated_at,
-        username,
         role,
         program_id
     )
 VALUES
     (
-        1,
         'john.doe@example.com',
+        'johndoe',
+        'hashedpassword1',
         'John',
         'Doe',
-        'hashedpassword1',
-        NOW (),
-        NOW (),
-        'johndoe',
-        'teacher',
+        'student',
         1
     ),
     (
-        2,
         'jane.smith@example.com',
+        'janesmith',
+        'hashedpassword2',
         'Jane',
         'Smith',
-        'hashedpassword2',
-        NOW (),
-        NOW (),
-        'janesmith',
-        'student',
-        1
+        'teacher',
+        2
     ),
     (
-        3,
-        'sam.wilson@example.com',
-        'Sam',
-        'Wilson',
+        'admin@example.com',
+        'admin',
         'hashedpassword3',
-        NOW (),
-        NOW (),
-        'samwilson',
-        'student',
-        3
+        'Admin',
+        'User',
+        'admin',
+        NULL
     );
 
 -- Insert demo data into courses table
 INSERT INTO
-    courses (
-        course_id,
-        course_name,
-        created_at,
-        updated_at,
-        description,
-        teacher_id,
-        program_id
-    )
+    courses (course_name, description, teacher_id, program_id)
 VALUES
     (
-        1,
         'Introduction to Programming',
-        NOW (),
-        NOW (),
-        'Learn the basics of programming.',
-        1,
+        'Learn the basics of programming using Python.',
+        2,
         1
     ),
     (
+        'Calculus I',
+        'Introduction to differential and integral calculus.',
         2,
-        'Data Science 101',
-        NOW (),
-        NOW (),
-        'Introduction to Data Science concepts.',
-        1,
         2
-    ),
-    (
-        3,
-        'Cybersecurity Fundamentals',
-        NOW (),
-        NOW (),
-        'Basics of cybersecurity.',
-        1,
-        3
     );
 
 -- Insert demo data into discussionforums table
 INSERT INTO
-    discussionforums (forum_id, course_id, title, forum_created_at, forum_updated_at)
+    discussionforums (course_id, title)
 VALUES
-    (
-        nextval ('discussionforums_id_seq'),
-        1,
-        'Programming Basics Discussion',
-        NOW (),
-        NOW ()
-    ),
-    (
-        nextval ('discussionforums_id_seq'),
-        2,
-        'Data Science Tips and Tricks',
-        NOW (),
-        NOW ()
-    ),
-    (
-        nextval ('discussionforums_id_seq'),
-        3,
-        'Cybersecurity News and Updates',
-        NOW (),
-        NOW ()
-    );
+    (1, 'Introduction to Programming Forum'),
+    (2, 'Calculus I Forum');
 
 -- Insert demo data into enrollments table
 INSERT INTO
-    enrollments (enroll_id, enrollment_status, payment_status, course_id, user_id)
-VALUES
-    (1, 'active', 'paid', 1, 1),
-    (2, 'completed', 'paid', 2, 2),
-    (3, 'active', 'pending', 3, 3);
-
--- Insert demo data into forum_posts table
-INSERT INTO
-    forum_posts (
-        forum_post_id,
-        created_at,
-        updated_at,
-        post_text,
-        forum_id,
+    enrollments (
+        enrollment_status,
+        payment_status,
+        course_id,
         user_id
     )
 VALUES
+    ('active', 'paid', 1, 1),
+    ('active', 'unpaid', 2, 1);
+
+-- Insert demo data into forum_posts table
+INSERT INTO
+    forum_posts (post_text, forum_id, user_id)
+VALUES
     (
+        'Welcome to the Introduction to Programming Forum!',
         1,
-        NOW (),
-        NOW (),
-        'I have a question about variables in Python.',
-        1,
-        1
-    ),
-    (
-        2,
-        NOW (),
-        NOW (),
-        'What libraries are essential for data science?',
-        2,
         2
     ),
-    (
-        3,
-        NOW (),
-        NOW (),
-        'How to secure a server against DDoS attacks?',
-        3,
-        3
-    );
+    ('When is the first assignment due?', 1, 1),
+    ('How do I solve problem 3?', 2, 1);
 
 -- Insert demo data into lesson_plans table
 INSERT INTO
-    lesson_plans (
-        lesson_plan_id,
-        content,
-        created_at,
-        updated_at,
-        title
-    )
+    lesson_plans (content, title)
 VALUES
     (
-        1,
-        'Lesson content for Introduction to Programming.',
-        NOW (),
-        NOW (),
-        'Programming Basics'
+        'Lesson 1: Introduction to Variables and Data Types',
+        'Variables and Data Types'
     ),
     (
-        2,
-        'Lesson content for Data Science 101.',
-        NOW (),
-        NOW (),
-        'Data Science Overview'
-    ),
-    (
-        3,
-        'Lesson content for Cybersecurity Fundamentals.',
-        NOW (),
-        NOW (),
-        'Cybersecurity Introduction'
+        'Lesson 2: Control Structures in Python',
+        'Control Structures'
     );
 
 -- Insert demo data into lesson_courses table
 INSERT INTO
-    lesson_plan_course (lesson_course_id, lesson_plan_id, course_id)
+    lesson_courses (lesson_plan_id, course_id)
 VALUES
-    (
-        nextval ('lesson_course_id_seq'),
-        1,
-        1
-    ),
-    (
-        nextval ('lesson_course_id_seq'),
-        2,
-        2
-    ),
-    (
-        nextval ('lesson_course_id_seq'),
-        3,
-        3
-    );
+    (1, 1),
+    (2, 1);
 
 -- Insert demo data into user_lesson_status table
 INSERT INTO
-    user_lesson_status (user_lesson_id, complete, lesson_plan_id, user_id)
+    user_lesson_status (complete, lesson_plan_id, user_id)
 VALUES
-    (1, TRUE, 1, 1),
-    (2, FALSE, 2, 2),
-    (3, TRUE, 3, 3);
+    (false, 1, 1),
+    (true, 2, 1);
