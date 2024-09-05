@@ -39,4 +39,8 @@ public class ForumPostService {
         }
         return null;
     }
+
+    public List<ForumPost> findByUser_id(int userId) {
+        return fpr.findByUser_id(userId);
+    }
 }

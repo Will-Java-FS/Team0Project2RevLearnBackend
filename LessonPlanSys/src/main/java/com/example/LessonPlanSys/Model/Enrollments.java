@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Prevents serialization errors
 public class Enrollments {
     @Getter
     @Id
@@ -33,5 +35,10 @@ public class Enrollments {
     @Getter
     @Setter
     @Column(nullable = false, length = 255)
-    private String status;
+    private String enrollment_status;
+
+    @Getter
+    @Setter
+    @Column(nullable = false, length = 255)
+    private String payment_status;
 }
