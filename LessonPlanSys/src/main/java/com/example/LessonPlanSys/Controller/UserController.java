@@ -6,16 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.LessonPlanSys.Model.User;
@@ -95,6 +85,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    // Get user by ID
     @GetMapping("/{user_id}")
     public ResponseEntity<User> getUser(@PathVariable("user_id") int id) {
         User retrievedUser = userService.getUserByUID(id);
@@ -125,7 +116,7 @@ public class UserController {
 
     @PutMapping("/{userId}/enroll/{programId}")
     public ResponseEntity<User> enrollUserInProgram(@PathVariable("userId") int userId,
-            @PathVariable("programId") int programId) {
+                                                    @PathVariable("programId") int programId) {
         try {
             User updatedUser = userService.enrollUserInProgram(userId, programId);
             return ResponseEntity.ok(updatedUser);
