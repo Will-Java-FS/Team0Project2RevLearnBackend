@@ -8,19 +8,23 @@ SET
 -- Drop sequences if they exist
 DROP SEQUENCE IF EXISTS discussionforums_id_seq CASCADE;
 
-DROP SEQUENCE IF EXISTS lesson_courses_lesson_course_id_seq CASCADE;
+DROP SEQUENCE IF EXISTS lesson_course_id_seq CASCADE;
 
 DROP SEQUENCE IF EXISTS teachers_id_seq CASCADE;
 
 -- Create sequences
 CREATE SEQUENCE IF NOT EXISTS discussionforums_id_seq;
 
-CREATE SEQUENCE IF NOT EXISTS lesson_courses_lesson_course_id_seq;
+CREATE SEQUENCE IF NOT EXISTS lesson_course_id_seq;
 
 -- Drop tables if they exist
 DROP TABLE IF EXISTS user_lesson_status CASCADE;
 
 DROP TABLE IF EXISTS lesson_courses CASCADE;
+
+DROP TABLE IF EXISTS lesson_plan_course CASCADE;
+
+DROP TABLE IF EXISTS lesson_plan CASCADE;
 
 DROP TABLE IF EXISTS lesson_plans CASCADE;
 
@@ -112,15 +116,25 @@ CREATE TABLE
         title VARCHAR NOT NULL
     );
 
+<<<<<<< HEAD
+=======
+CREATE UNIQUE INDEX IF NOT EXISTS lesson_plan_pkey ON lesson_plans (lesson_plan_id);
+
+>>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
 CREATE TABLE
-    IF NOT EXISTS lesson_courses (
-        lesson_course_id INTEGER NOT NULL DEFAULT nextval ('lesson_courses_lesson_course_id_seq') PRIMARY KEY,
+    IF NOT EXISTS lesson_plan_course (
+        lesson_course_id INTEGER NOT NULL DEFAULT nextval ('lesson_course_id_seq') PRIMARY KEY,
         lesson_plan_id INTEGER NOT NULL,
         course_id INTEGER NOT NULL,
         CONSTRAINT fk_lesson_plan FOREIGN KEY (lesson_plan_id) REFERENCES lesson_plans (lesson_plan_id),
         CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (course_id)
     );
 
+<<<<<<< HEAD
+=======
+CREATE UNIQUE INDEX IF NOT EXISTS lesson_plan_course_pkey ON lesson_plan_course (lesson_course_id);
+
+>>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
 CREATE TABLE
     IF NOT EXISTS user_lesson_status (
         user_lesson_id SERIAL PRIMARY KEY,

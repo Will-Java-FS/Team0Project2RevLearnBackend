@@ -79,10 +79,10 @@ public class LessonCourseServiceImpl implements LessonCourseService {
     }
 
     public void deleteLessonFromCourse(int lesson_plan_id, int course_id) {
-        LessonCourse lessonCourse = lcr.findByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
-        if (lessonCourse != null) {
-            lcr.delete(lessonCourse);
-        }
+//        LessonCourse lessonCourse = lcr.findByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
+//        if (lessonCourse != null) {
+//            lcr.delete(lessonCourse);
+//        }
     }
 
 }

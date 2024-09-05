@@ -117,10 +117,30 @@ VALUES
 
 -- Insert demo data into lesson_courses table
 INSERT INTO
+<<<<<<< HEAD
     lesson_courses (lesson_plan_id, course_id)
 VALUES
     (1, 1),
     (2, 1);
+=======
+    lesson_plan_course (lesson_course_id, lesson_plan_id, course_id)
+VALUES
+    (
+        nextval ('lesson_course_id_seq'),
+        1,
+        1
+    ),
+    (
+        nextval ('lesson_course_id_seq'),
+        2,
+        2
+    ),
+    (
+        nextval ('lesson_course_id_seq'),
+        3,
+        3
+    );
+>>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
 
 -- Insert demo data into user_lesson_status table
 INSERT INTO

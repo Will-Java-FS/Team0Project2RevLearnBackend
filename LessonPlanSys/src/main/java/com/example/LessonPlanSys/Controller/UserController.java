@@ -79,6 +79,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+<<<<<<< HEAD
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
         try {
@@ -109,6 +110,38 @@ public class UserController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+=======
+    // Get user by ID
+    @GetMapping("/{user_id}")
+    public ResponseEntity<User> getUser(@PathVariable("user_id") int id) {
+        User retrievedUser = userService.getUserByUID(id);
+        return retrievedUser == null
+                ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+                : ResponseEntity.status(HttpStatus.OK).body(retrievedUser);
+    }
+
+    // Add a new user
+    @PostMapping()
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User savedUser = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    // Update a user
+    @PutMapping("/{user_id}")
+    public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user) {
+        User updatedUser = userService.updateUserById(id, user);
+        return updatedUser == null
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+                : ResponseEntity.ok(updatedUser);
+    }
+
+    // Delete a user
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("user_id") int id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
+>>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
     }
 
     @PutMapping("/{userId}/enroll/{programId}")

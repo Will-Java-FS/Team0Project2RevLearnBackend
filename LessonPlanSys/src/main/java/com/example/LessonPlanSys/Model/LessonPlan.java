@@ -12,7 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "LessonPlans")
+@Table(name = "lesson_plans")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
