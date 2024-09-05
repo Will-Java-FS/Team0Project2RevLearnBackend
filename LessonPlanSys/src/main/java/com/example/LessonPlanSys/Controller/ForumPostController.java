@@ -37,17 +37,17 @@ public class ForumPostController {
     public ResponseEntity<List<ForumPost>> getAllForumPost(){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findAll());
     }
-    @GetMapping("/{forumpost_id}")
-    public ResponseEntity<Optional<ForumPost>> getForumPostById(@PathVariable int forumpost_id){
+    @GetMapping("/{forum_post_id}")
+    public ResponseEntity<Optional<ForumPost>> getForumPostById(@PathVariable("forum_post_id") int forumpost_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByForumpost_id(forumpost_id));
     }
     @GetMapping("/user/{user_id}")
-    public ResponseEntity<List<ForumPost>> getForumPostByUserId(@PathVariable int user_id){
+    public ResponseEntity<List<ForumPost>> getForumPostByUserId(@PathVariable("user_id") int user_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByUser_id(user_id));
     }
 
     @PostMapping("/{user_id}/{forum_id}")
-    public ResponseEntity<ForumPost> addForumPost(@RequestBody ForumPost forumpost, @PathVariable int user_id, @PathVariable int forum_id){
+    public ResponseEntity<ForumPost> addForumPost(@RequestBody ForumPost forumpost, @PathVariable("user_id") int user_id, @PathVariable("forum_id") int forum_id){
         User user  = usi.getUserByUID(user_id);
         forumpost.setUser(user);
         Forum forum = fsi.getForum(forum_id);
@@ -58,15 +58,15 @@ public class ForumPostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(forumpost);
     }
 
-    @DeleteMapping("/{forumpost_id}")
+    @DeleteMapping("/{forum_post_id}")
     public ResponseEntity<Void> deleteForumPost(@PathVariable int forumpost_id) {
         fps.deleteForumPost(forumpost_id);
         return ResponseEntity.noContent().build();
 
     }
 
-    @PutMapping("/{forumpost_id}/{user_id}/{forum_id}")
-    public ResponseEntity<ForumPost> updateForumPost(@PathVariable int forumpost_id,@PathVariable int user_id, @PathVariable int forum_id, @RequestBody ForumPost forumPost) {
+    @PutMapping("/{forum_post_id}/{user_id}/{forum_id}")
+    public ResponseEntity<ForumPost> updateForumPost(@PathVariable("forum_post_id") int forumpost_id, @PathVariable("user_id") int user_id, @PathVariable("forum_id") int forum_id, @RequestBody ForumPost forumPost) {
         User user  = usi.getUserByUID(user_id);
         forumPost.setUser(user);
         Forum forum = fsi.getForum(forum_id);
