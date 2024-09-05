@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/programs")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor // Generates a constructor with all the fields
 public class ProgramController {
     private final ProgramService programService;
@@ -46,8 +46,8 @@ public class ProgramController {
 
     // Update program
     @PutMapping("/{program_id}")
-    public ResponseEntity<Program> updateProgram(@PathVariable("program_id") int id, @RequestBody Program program) {
-        Program updatedProgram = programService.updateProgram(id, program);
+    public ResponseEntity<Program> updateProgram(@PathVariable("program_id") int programId, @RequestBody Program program) {
+        Program updatedProgram = programService.updateProgram(programId, program);
         if (updatedProgram == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
@@ -57,8 +57,8 @@ public class ProgramController {
 
     // Delete program
     @DeleteMapping("/{program_id}")
-    public ResponseEntity<Program> deleteProgram(@PathVariable("id") int id) {
-        programService.deleteProgram(id);
+    public ResponseEntity<Program> deleteProgram(@PathVariable("program_id") int programId) {
+        programService.deleteProgram(programId);
         return ResponseEntity.noContent().build();
     }
 
@@ -70,8 +70,8 @@ public class ProgramController {
 
     // Get all associated courses
     @GetMapping("/{program_id}/courses")
-    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
-        return courseService.getCoursesByProgramId(id)
+    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int programId) {
+        return courseService.getCoursesByProgramId(programId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
