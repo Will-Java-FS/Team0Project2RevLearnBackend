@@ -27,7 +27,7 @@ public class EnrollmentsService {
     }
 
     public Enrollments getEnrollmentByID(Integer id) {
-        return enrollmentsRepo.findById(id).get();
+        return enrollmentsRepo.findById(id).orElse(null);
     }
 
     public List<Enrollments> getEnrollmentsByStudentID(Integer id) {
@@ -52,8 +52,11 @@ public class EnrollmentsService {
         Optional<Enrollments> optionalEnrollment = enrollmentsRepo.findById(id);
         if(optionalEnrollment.isPresent()) {
             Enrollments enrollment = optionalEnrollment.get();
-            if(updatedEnrollment.getStatus() != null) {
-                enrollment.setStatus(updatedEnrollment.getStatus());
+            if(updatedEnrollment.getEnrollment_status() != null) {
+                enrollment.setEnrollment_status(updatedEnrollment.getEnrollment_status());
+            }
+            if(updatedEnrollment.getPayment_status() != null) {
+                enrollment.setPayment_status(updatedEnrollment.getPayment_status());
             }
             enrollmentsRepo.save(enrollment);
             return enrollment;
@@ -77,6 +80,10 @@ public class EnrollmentsService {
             }
         }
         return count/total;
+    }
+
+    public List<Enrollments> getCompletedEnrollmentsByStudentID(int id) {
+        return enrollmentsRepo.getCompletedEnrollmentsByStudentID(id);
     }
 
  

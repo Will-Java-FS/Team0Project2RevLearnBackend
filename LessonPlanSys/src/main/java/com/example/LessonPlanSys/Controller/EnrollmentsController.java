@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/enrollments")
 public class EnrollmentsController {
     private EnrollmentsService enrollmentsService;
 
@@ -17,45 +18,45 @@ public class EnrollmentsController {
         this.enrollmentsService = enrollmentsService;
     }
 
-    @PostMapping("enrollments")
+    @PostMapping
     public ResponseEntity<Enrollments> addEnrollment(@RequestBody Enrollments enrollment) {
         enrollmentsService.addEnrollment(enrollment);
         return ResponseEntity.status(200).body(enrollment);
     }
 
-    @GetMapping("enrollments")
+    @GetMapping
     public ResponseEntity<List<Enrollments>> getAllEnrollments() {
         List<Enrollments> enrollments = enrollmentsService.getAllEnrollments();
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("enrollments/{enrollmentID}")
-    public ResponseEntity<Enrollments> getEnrollmentByID(@PathVariable Integer id) {
-        Enrollments enrollment = enrollmentsService.getEnrollmentByID(id);
+    @GetMapping("/{enroll_id}")
+    public ResponseEntity<Enrollments> getEnrollmentByID(@PathVariable("enroll_id") Integer enrollId) {
+        Enrollments enrollment = enrollmentsService.getEnrollmentByID(enrollId);
         return ResponseEntity.status(200).body(enrollment);
     }
 
-    @GetMapping("enrollments/{studentID}")
-    public ResponseEntity<List<Enrollments>> getEnrollmentsByStudentID(@PathVariable Integer id) {
-        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByStudentID(id);
+    @GetMapping("/courses/{student_id}")
+    public ResponseEntity<List<Enrollments>> getEnrollmentsByStudentID(@PathVariable("student_id") Integer studentId) {
+        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByStudentID(studentId);
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("enrollments/{courseID}")
-    public ResponseEntity<List<Enrollments>> getEnrollmentsByCourseID(@PathVariable Integer id) {
-        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByCourseID(id);
+    @GetMapping("/students/{course_id}")
+    public ResponseEntity<List<Enrollments>> getEnrollmentsByCourseID(@PathVariable("course_id") Integer courseId) {
+        List<Enrollments> enrollments = enrollmentsService.getEnrollmentsByCourseID(courseId);
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @PatchMapping("enrollments/{enrollmentID}")
-    public ResponseEntity<Enrollments> updateEnrollment(@PathVariable Integer id, @RequestBody Enrollments enrollment) {
-        Enrollments updatedEnrollment = enrollmentsService.updateEnrollment(id, enrollment);
+    @PatchMapping("/{enroll_id}")
+    public ResponseEntity<Enrollments> updateEnrollment(@PathVariable("enroll_id") Integer enrollId, @RequestBody Enrollments enrollment) {
+        Enrollments updatedEnrollment = enrollmentsService.updateEnrollment(enrollId, enrollment);
         return ResponseEntity.status(200).body(updatedEnrollment);
     }
 
-    @DeleteMapping("enrollments/{enrollmentID}")
-    public ResponseEntity<Integer> deleteEnrollment(@PathVariable Integer id) {
-        int enrollmentsDeleted = enrollmentsService.deleteEnrollment(id);
+    @DeleteMapping("/{enroll_id}")
+    public ResponseEntity<Integer> deleteEnrollment(@PathVariable("enroll_id") Integer enrollId) {
+        int enrollmentsDeleted = enrollmentsService.deleteEnrollment(enrollId);
         if(enrollmentsDeleted > 0) {
             return ResponseEntity.status(200).body(1);
         } else {
@@ -63,12 +64,18 @@ public class EnrollmentsController {
         }
     }
 
-    @GetMapping("enrollments/status/{enrollmentID}")
-    public ResponseEntity<Double> getEnrollmentCompletion(@PathVariable int enrollmentID)
+    @GetMapping("/status/{enroll_id}")
+    public ResponseEntity<Double> getEnrollmentCompletion(@PathVariable("enroll_id") int enrollId)
     {
-        Enrollments enr = enrollmentsService.getEnrollmentByID(enrollmentID);
+        Enrollments enr = enrollmentsService.getEnrollmentByID(enrollId);
 
         double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUser_id(), enr.getCourse().getCourse_id());
         return ResponseEntity.status(200).body(comp);
+    }
+
+    @GetMapping("/completed/{student_id}")
+    public ResponseEntity<List<Enrollments>> getCompletedEnrollmentsByStudentID(@PathVariable("student_id") int studentId) {
+        List<Enrollments> enrollments = enrollmentsService.getCompletedEnrollmentsByStudentID(studentId);
+        return ResponseEntity.status(200).body(enrollments);
     }
 }

@@ -25,7 +25,7 @@ public class ForumPost {
     @Setter
     @ManyToOne
     @JoinColumn(name = "forum_id", nullable = false)
-    private Forum forum_id;
+    private Forum forum;
 
     @Getter
     @Setter

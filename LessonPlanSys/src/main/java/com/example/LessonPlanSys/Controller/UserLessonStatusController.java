@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-
+@RequestMapping("/status")
 @RestController
 public class UserLessonStatusController {
 
@@ -20,13 +20,13 @@ public class UserLessonStatusController {
         this.userLessonStatusService = userLessonStatusService;
     }
 
-    @PostMapping("/status")
+    @PostMapping
     public ResponseEntity<UserLessonStatus> createUserLessonStatus(@RequestBody UserLessonStatus userLessonStatus){
         UserLessonStatus created = userLessonStatusService.createUserLessonStatus(userLessonStatus);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping("/status")
+    @GetMapping
     public ResponseEntity<List<UserLessonStatus>> getAllUserLessonStatuses(){
         try {
             List<UserLessonStatus> statuses = userLessonStatusService.getAllUserLessonStatus();

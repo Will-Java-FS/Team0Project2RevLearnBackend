@@ -68,8 +68,10 @@ public class LessonCourseServiceImpl implements LessonCourseService {
         Course course = cr.findById(course_id)
                 .orElse(null);
 
+        LessonCourse existingLessonCourse = getLessonCourseByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
+
         // LessonPlan and Course should already exist
-        if (lessonPlan != null && course != null) {
+        if (lessonPlan != null && course != null && existingLessonCourse == null) {
             LessonCourse lessonCourse = new LessonCourse();
             lessonCourse.setLessonPlan(lessonPlan);
             lessonCourse.setCourse(course);
@@ -79,7 +81,7 @@ public class LessonCourseServiceImpl implements LessonCourseService {
     }
 
     public void deleteLessonFromCourse(int lesson_plan_id, int course_id) {
-        LessonCourse lessonCourse = lcr.findByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
+        LessonCourse lessonCourse = getLessonCourseByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
         if (lessonCourse != null) {
             lcr.delete(lessonCourse);
         }
