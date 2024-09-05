@@ -20,6 +20,11 @@ import com.example.LessonPlanSys.Service.CourseService;
 import com.example.LessonPlanSys.Service.ProgramService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/programs")
@@ -66,11 +71,10 @@ public class ProgramController {
     }
 
     // Get all associated courses
-    @GetMapping ("/{program_id}/courses")
+    @GetMapping("/{program_id}/courses")
     ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
         return courseService.getCoursesByProgramId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 }
