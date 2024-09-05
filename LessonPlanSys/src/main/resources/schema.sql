@@ -1,10 +1,9 @@
---schema.sql
 -- Create the schema if it does not exist
-CREATE SCHEMA IF NOT EXISTS project2;
+CREATE SCHEMA IF NOT EXISTS project2Andrew;
 
 -- Set the schema search path
 SET
-    search_path TO project2;
+    search_path TO project2Andrew;
 
 -- Drop sequences if they exist
 DROP SEQUENCE IF EXISTS discussionforums_id_seq CASCADE;
@@ -18,19 +17,16 @@ CREATE SEQUENCE IF NOT EXISTS discussionforums_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS lesson_course_id_seq;
 
-
 -- Drop tables if they exist
 DROP TABLE IF EXISTS user_lesson_status CASCADE;
 
-DROP TABLE IF EXISTS teachers CASCADE;
+DROP TABLE IF EXISTS lesson_plan_course CASCADE;
 
 DROP TABLE IF EXISTS lesson_courses CASCADE;
 
-DROP TABLE IF EXISTS lesson_plan_course CASCADE;
+DROP TABLE IF EXISTS lesson_plans CASCADE;
 
 DROP TABLE IF EXISTS lesson_plan CASCADE;
-
-DROP TABLE IF EXISTS lesson_plans CASCADE;
 
 DROP TABLE IF EXISTS forum_posts CASCADE;
 
@@ -47,43 +43,36 @@ DROP TABLE IF EXISTS programs CASCADE;
 -- Create tables
 CREATE TABLE
     IF NOT EXISTS programs (
-        program_id INTEGER NOT NULL PRIMARY KEY,
+        program_id SERIAL PRIMARY KEY,
         program_name VARCHAR NOT NULL
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS programs_pkey ON programs (program_id);
-
 CREATE TABLE
     IF NOT EXISTS users (
-        user_id INTEGER NOT NULL PRIMARY KEY,
-        email VARCHAR NOT NULL UNIQUE,
-        first_name VARCHAR NOT NULL,
-        last_name VARCHAR NOT NULL,
-        password_hash VARCHAR NOT NULL,
-        user_created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-        user_updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-        username VARCHAR NOT NULL UNIQUE,
-        program_id INTEGER,
-        role VARCHAR NOT NULL,
-        CONSTRAINT fk_program FOREIGN KEY (program_id) REFERENCES programs (program_id)
+        user_id SERIAL PRIMARY KEY,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password_hash VARCHAR(255) NOT NULL,
+        first_name VARCHAR(255) NOT NULL,
+        last_name VARCHAR(255) NOT NULL,
+        user_created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        user_updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        role VARCHAR(255) NOT NULL,
+        program_id INT REFERENCES programs (program_id)
     );
-
-CREATE UNIQUE INDEX IF NOT EXISTS users_pkey ON users (user_id);
 
 CREATE TABLE
     IF NOT EXISTS courses (
-        course_id INTEGER NOT NULL PRIMARY KEY,
+        course_id SERIAL PRIMARY KEY,
         course_name VARCHAR NOT NULL,
-        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
         description TEXT,
         teacher_id INTEGER,
         program_id INTEGER,
         CONSTRAINT fk_program FOREIGN KEY (program_id) REFERENCES programs (program_id),
         CONSTRAINT fk_teacher FOREIGN KEY (teacher_id) REFERENCES users (user_id)
     );
-
-CREATE UNIQUE INDEX IF NOT EXISTS courses_pkey ON courses (course_id);
 
 CREATE TABLE
     IF NOT EXISTS discussionforums (
@@ -95,13 +84,9 @@ CREATE TABLE
         CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (course_id)
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_title_key ON discussionforums (title);
-
-CREATE UNIQUE INDEX IF NOT EXISTS discussionforums_pkey ON discussionforums (forum_id);
-
 CREATE TABLE
     IF NOT EXISTS enrollments (
-        enroll_id INTEGER NOT NULL PRIMARY KEY,
+        enroll_id SERIAL PRIMARY KEY,
         enrollment_status VARCHAR(255) NOT NULL,
         payment_status VARCHAR(255) NOT NULL,
         course_id INTEGER,
@@ -110,13 +95,11 @@ CREATE TABLE
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS enrollments_pkey ON enrollments (enroll_id);
-
 CREATE TABLE
     IF NOT EXISTS forum_posts (
-        forum_post_id INTEGER NOT NULL PRIMARY KEY,
-        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        forum_post_id SERIAL PRIMARY KEY,
+        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
         post_text TEXT NOT NULL,
         forum_id INTEGER,
         user_id INTEGER,
@@ -124,14 +107,12 @@ CREATE TABLE
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 
-CREATE UNIQUE INDEX IF NOT EXISTS forum_posts_pkey ON forum_posts (forum_post_id);
-
 CREATE TABLE
     IF NOT EXISTS lesson_plans (
-        lesson_plan_id INTEGER NOT NULL PRIMARY KEY,
+        lesson_plan_id SERIAL PRIMARY KEY,
         content TEXT NOT NULL,
-        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
         title VARCHAR NOT NULL
     );
 
@@ -150,12 +131,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS lesson_plan_course_pkey ON lesson_plan_course 
 
 CREATE TABLE
     IF NOT EXISTS user_lesson_status (
-        user_lesson_id INTEGER NOT NULL PRIMARY KEY,
+        user_lesson_id SERIAL PRIMARY KEY,
         complete BOOLEAN NOT NULL,
         lesson_plan_id INTEGER,
         user_id INTEGER,
         CONSTRAINT fk_lesson_plan FOREIGN KEY (lesson_plan_id) REFERENCES lesson_plans (lesson_plan_id),
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
-
-CREATE UNIQUE INDEX IF NOT EXISTS user_lesson_status_pkey ON user_lesson_status (user_lesson_id);
