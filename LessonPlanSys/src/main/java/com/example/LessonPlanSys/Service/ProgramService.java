@@ -11,5 +11,4 @@ public interface ProgramService {
     Program updateProgram(int id, Program program);
     void deleteProgram(int id);
     List<Program> getAllPrograms();
-    //List<Course> getAllCourses();
 }
