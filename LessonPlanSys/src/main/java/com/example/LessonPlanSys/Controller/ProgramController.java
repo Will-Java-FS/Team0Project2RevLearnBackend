@@ -4,6 +4,7 @@ import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Service.CourseService;
 import com.example.LessonPlanSys.Service.ProgramService;
+import com.example.LessonPlanSys.Service.ProgramServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,13 @@ import java.util.List;
 @RequestMapping("/programs")
 @RequiredArgsConstructor    // Generates a constructor with all the fields
 public class ProgramController {
-    private final ProgramService programService;
+    private final ProgramServiceImpl programService;
     private final CourseService courseService;
 
     // GET Program by ID
     @GetMapping("/{program_id}")
     public ResponseEntity<Program> getProgram(@PathVariable("program_id") int id) {
-        return programService.getProgram(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.status(HttpStatus.OK).body(programService.getProgram(id));
     }
 
     // Add program

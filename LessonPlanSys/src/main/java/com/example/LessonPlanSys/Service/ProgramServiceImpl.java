@@ -4,7 +4,6 @@ import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Repo.ProgramRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +16,8 @@ public class ProgramServiceImpl implements ProgramService {
     private final ProgramRepo programRepository;
 
     @Override
-    public Optional<Program> getProgram(int id) {
-        return programRepository.findById(id);
+    public  Program getProgram(int id) {
+        return programRepository.findById(id).orElse(null);
     }
 
     @Override
