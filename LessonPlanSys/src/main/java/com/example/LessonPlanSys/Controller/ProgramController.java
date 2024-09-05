@@ -66,16 +66,10 @@ public class ProgramController {
     }
 
     // Get all associated courses
-<<<<<<< HEAD
-    @GetMapping("/{id}/courses")
-    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("id") int id) {
-=======
-    @GetMapping ("/{program_id}/courses")
+    @GetMapping("/{program_id}/courses")
     ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
->>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
         return courseService.getCoursesByProgramId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 }

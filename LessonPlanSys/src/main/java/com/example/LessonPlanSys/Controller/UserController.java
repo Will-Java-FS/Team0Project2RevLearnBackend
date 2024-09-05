@@ -6,10 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.LessonPlanSys.Model.User;
-import com.example.LessonPlanSys.Service.UserService;
+import com.example.LessonPlanSys.Service.UserService; // Import Program model if needed
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/user")
@@ -27,10 +35,16 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         try {
+            // Basic validation for required fields
             if (user.getEmail() == null || user.getEmail().isEmpty() ||
                     user.getUsername() == null || user.getUsername().isEmpty() ||
-                    user.getPasswordHash() == null) {
-                return ResponseEntity.badRequest().build();
+                    user.getPasswordHash() == null || user.getPasswordHash().isEmpty()) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
+            // Check if the program is provided and valid
+            if (user.getProgram() != null && user.getProgram().getProgramId() == 0) {
+                return ResponseEntity.badRequest().body(null); // or provide a meaningful error message
             }
 
             User createdUser = userService.addUser(user);
@@ -42,7 +56,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login") // Ensure @PostMapping is correctly set for /login
+    @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         try {
             User authenticatedUser = userService.authenticateUser(user.getUsername(), user.getPasswordHash());
@@ -79,39 +93,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-<<<<<<< HEAD
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
-        try {
-            User user = userService.getUserByUID(id);
-            return ResponseEntity.ok(user);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        try {
-            User updatedUser = userService.updateUserById(id, user);
-            return ResponseEntity.ok(updatedUser);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
-        try {
-            userService.deleteUserById(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-=======
-    // Get user by ID
     @GetMapping("/{user_id}")
     public ResponseEntity<User> getUser(@PathVariable("user_id") int id) {
         User retrievedUser = userService.getUserByUID(id);
@@ -120,14 +101,12 @@ public class UserController {
                 : ResponseEntity.status(HttpStatus.OK).body(retrievedUser);
     }
 
-    // Add a new user
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User savedUser = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    // Update a user
     @PutMapping("/{user_id}")
     public ResponseEntity<User> updateUser(@PathVariable("user_id") int id, @RequestBody User user) {
         User updatedUser = userService.updateUserById(id, user);
@@ -136,12 +115,10 @@ public class UserController {
                 : ResponseEntity.ok(updatedUser);
     }
 
-    // Delete a user
     @DeleteMapping("/{user_id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("user_id") int id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
->>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
     }
 
     @PutMapping("/{userId}/enroll/{programId}")
