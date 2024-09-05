@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/programs")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor // Generates a constructor with all the fields
 public class ProgramController {
     private final ProgramService programService;
