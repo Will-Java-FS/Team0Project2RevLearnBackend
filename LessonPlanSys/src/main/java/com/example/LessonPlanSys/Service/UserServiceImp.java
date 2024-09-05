@@ -47,7 +47,7 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User getUsersByRoleandId(int user_id, String role) {
-        return userRepo.findByUser_idAndRole(user_id,role);
+        return userRepo.findByUserIdAndRole(user_id,role);
     }
 
     @Override
@@ -71,6 +71,21 @@ public class UserServiceImp implements UserService{
 
         }
         return null;
+    }
+
+    @Override
+    public User authenticateUser(String username, String password) {
+        User user = userRepo.findByUsername(username);
+        if (user != null && user.getPasswordHash().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    @Override
+    public String generateAuthToken(User user) {
+        // Implement your token generation logic here
+        return "generated_token";
     }
 
 }

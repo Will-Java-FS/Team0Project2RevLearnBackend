@@ -82,7 +82,7 @@ public class UserController {
     @GetMapping("/{id}/role/{role}")
     public ResponseEntity<User> getUserByRoleAndId(@PathVariable("id") int userId, @PathVariable String role) {
         try {
-            User user = userService.getUserByRoleAndId(userId, role);
+            User user = userService.getUsersByRoleandId(userId, role);
             return ResponseEntity.ok(user);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
