@@ -1,11 +1,7 @@
 package com.example.LessonPlanSys.Repo;
 
 import com.example.LessonPlanSys.Model.LessonCourse;
-import com.example.LessonPlanSys.Model.LessonPlan;
-import com.example.LessonPlanSys.Model.UserLessonStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository

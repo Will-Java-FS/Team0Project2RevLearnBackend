@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "discussionforums", schema = "project2") // Adjust table name and schema as necessary
+@Table(name = "discussionforums") // Adjust table name and schema as necessary
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,10 +33,10 @@ public class Forum {
     private String title;
 
     @Column(name = "forum_created_at", nullable = false)
-    private ZonedDateTime forumCreatedAt;
+    private Timestamp forumCreatedAt;
 
     @Column(name = "forum_updated_at")
-    private ZonedDateTime forumUpdatedAt;
+    private Timestamp forumUpdatedAt;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
