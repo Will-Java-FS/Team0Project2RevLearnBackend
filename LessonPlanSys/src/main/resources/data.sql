@@ -1,20 +1,12 @@
--- Insert demo data into programs table
+-- Insert demo data into programs
 INSERT INTO
     programs (program_name)
 VALUES
-    ('Computer Science');
+    ('Computer Science'),
+    ('Mathematics'),
+    ('History');
 
-INSERT INTO
-    programs (program_name)
-VALUES
-    ('Mathematics');
-
-INSERT INTO
-    programs (program_name)
-VALUES
-    ('Literature');
-
--- Insert demo data into users table
+-- Insert demo data into users
 INSERT INTO
     users (
         email,
@@ -27,58 +19,65 @@ INSERT INTO
     )
 VALUES
     (
-        'john.doe@example.com',
-        'johndoe',
+        'alice@example.com',
+        'alice123',
         'hashedpassword1',
-        'John',
-        'Doe',
-        'student',
+        'Alice',
+        'Smith',
+        'Student',
         1
     ),
     (
-        'jane.smith@example.com',
-        'janesmith',
+        'bob@example.com',
+        'bob456',
         'hashedpassword2',
-        'Jane',
-        'Smith',
-        'teacher',
+        'Bob',
+        'Johnson',
+        'Teacher',
         2
     ),
     (
-        'admin@example.com',
-        'admin',
+        'carol@example.com',
+        'carol789',
         'hashedpassword3',
-        'Admin',
-        'User',
-        'admin',
-        NULL
+        'Carol',
+        'Williams',
+        'Teacher',
+        3
     );
 
--- Insert demo data into courses table
+-- Insert demo data into courses
 INSERT INTO
     courses (course_name, description, teacher_id, program_id)
 VALUES
     (
-        'Introduction to Programming',
-        'Learn the basics of programming using Python.',
+        'Intro to Computer Science',
+        'An introduction to the basics of Computer Science.',
         2,
         1
     ),
     (
-        'Calculus I',
-        'Introduction to differential and integral calculus.',
-        2,
+        'Calculus 101',
+        'Basic principles of calculus.',
+        3,
         2
+    ),
+    (
+        'World History',
+        'A comprehensive overview of world history.',
+        3,
+        3
     );
 
--- Insert demo data into discussionforums table
+-- Insert demo data into discussionforums
 INSERT INTO
     discussionforums (course_id, title)
 VALUES
-    (1, 'Introduction to Programming Forum'),
-    (2, 'Calculus I Forum');
+    (1, 'CS101 General Discussion'),
+    (2, 'Calculus Questions and Answers'),
+    (3, 'History Study Group');
 
--- Insert demo data into enrollments table
+-- Insert demo data into enrollments
 INSERT INTO
     enrollments (
         enrollment_status,
@@ -87,44 +86,59 @@ INSERT INTO
         user_id
     )
 VALUES
-    ('active', 'paid', 1, 1),
-    ('active', 'unpaid', 2, 1);
+    ('Enrolled', 'Paid', 1, 1),
+    ('Enrolled', 'Paid', 2, 1),
+    ('Enrolled', 'Pending', 3, 1);
 
--- Insert demo data into forum_posts table
+-- Insert demo data into forum_posts
 INSERT INTO
     forum_posts (post_text, forum_id, user_id)
 VALUES
     (
-        'Welcome to the Introduction to Programming Forum!',
+        'What are the key topics covered in this course?',
         1,
-        2
+        1
     ),
-    ('When is the first assignment due?', 1, 1),
-    ('How do I solve problem 3?', 2, 1);
+    (
+        'Can someone help me with problem #5 in the homework?',
+        2,
+        1
+    ),
+    (
+        'Looking for study partners for the final exam!',
+        3,
+        1
+    );
 
--- Insert demo data into lesson_plans table
+-- Insert demo data into lesson_plans
 INSERT INTO
     lesson_plans (content, title)
 VALUES
     (
-        'Lesson 1: Introduction to Variables and Data Types',
-        'Variables and Data Types'
+        'Lesson 1 Content: Introduction to Programming',
+        'Introduction to Programming'
     ),
     (
-        'Lesson 2: Control Structures in Python',
-        'Control Structures'
+        'Lesson 2 Content: Data Structures Basics',
+        'Data Structures Basics'
+    ),
+    (
+        'Lesson 3 Content: History of World War II',
+        'History of World War II'
     );
 
--- Insert demo data into lesson_courses table
+-- Insert demo data into lesson_plan_course
 INSERT INTO
-    lesson_courses (lesson_plan_id, course_id)
+    lesson_plan_course (lesson_plan_id, course_id)
 VALUES
     (1, 1),
-    (2, 1);
+    (2, 1),
+    (3, 3);
 
--- Insert demo data into user_lesson_status table
+-- Insert demo data into user_lesson_status
 INSERT INTO
     user_lesson_status (complete, lesson_plan_id, user_id)
 VALUES
-    (false, 1, 1),
-    (true, 2, 1);
+    (TRUE, 1, 1),
+    (FALSE, 2, 1),
+    (TRUE, 3, 1);
