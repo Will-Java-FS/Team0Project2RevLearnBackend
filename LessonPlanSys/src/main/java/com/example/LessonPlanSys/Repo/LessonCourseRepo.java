@@ -10,10 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LessonCourseRepo extends JpaRepository<LessonCourse, Integer> {
-//    @Query("SELECT * " +
-//            "FROM lesson_plan_course lpc " +
-//            "WHERE lpc.course.course_id=:course_id " +
-//            "AND lc.lessonPlan.lesson_plan_id=:lesson_plan_id")
-//    LessonCourse findByLessonPlanIdAndCourseId(@Param("lesson_plan_id") int lesson_plan_id,
-//                                               @Param("course_id") int course_id);
+
 }
