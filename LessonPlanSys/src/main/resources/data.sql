@@ -71,7 +71,7 @@ INSERT INTO
     )
 VALUES
     (
-        1,
+        DEFAULT,
         'Introduction to Programming',
         NOW (),
         NOW (),
@@ -80,7 +80,7 @@ VALUES
         1
     ),
     (
-        2,
+        DEFAULT,
         'Data Science 101',
         NOW (),
         NOW (),
@@ -89,7 +89,7 @@ VALUES
         2
     ),
     (
-        3,
+        DEFAULT,
         'Cybersecurity Fundamentals',
         NOW (),
         NOW (),

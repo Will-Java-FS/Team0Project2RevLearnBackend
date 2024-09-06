@@ -1,10 +1,9 @@
 package com.example.LessonPlanSys.Controller;
 
 import com.example.LessonPlanSys.Model.Course;
-//import com.example.LessonPlanSys.Model.Program;
-import com.example.LessonPlanSys.Model.ForumPost;
 import com.example.LessonPlanSys.Model.User;
 import com.example.LessonPlanSys.Service.CourseService;
+import com.example.LessonPlanSys.Service.ProgramService;
 import com.example.LessonPlanSys.Service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,16 +14,17 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
 
     CourseService courseService;
     UserServiceImp us;
+    ProgramService programService;
     @Autowired
-    public CourseController(CourseService courseService, UserServiceImp us)
-    {
+    public CourseController(CourseService courseService, UserServiceImp us, ProgramService programService) {
         this.courseService = courseService;
         this.us=us;
+        this.programService = programService;
     }
 
     @GetMapping
@@ -39,8 +39,12 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
+    // POST /course?program_id=456
     @PostMapping
-    public Course addCourse(@RequestBody Course course) {
+    public Course addCourse(@RequestBody Course course, @RequestParam int program_id) {
+        course.setCourse_id(null);
+        course.setProgram(programService.getProgram(program_id).orElse(null));
         return courseService.addCourse(course);
     }
 
@@ -66,12 +70,12 @@ public class CourseController {
     }
     @PostMapping("add/{user_id}")
     public Course addCourseteacher(@RequestBody Course course, @PathVariable int user_id) {
-       User user=us.getUserByUID(user_id);
-       if(user.getRole().equals("teacher")) {
-          return courseService.addCourse(course);
-       }
-       else {
-           return null;
-       }
+        User user=us.getUserByUID(user_id);
+        if(user.getRole().equals("teacher")) {
+            return courseService.addCourse(course);
+        }
+        else {
+            return null;
+        }
     }
 }

@@ -72,7 +72,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS users_pkey ON users (user_id);
 
 CREATE TABLE
     IF NOT EXISTS courses (
-        course_id INTEGER NOT NULL PRIMARY KEY,
+        course_id SERIAL PRIMARY KEY,
         course_name VARCHAR NOT NULL,
         created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
