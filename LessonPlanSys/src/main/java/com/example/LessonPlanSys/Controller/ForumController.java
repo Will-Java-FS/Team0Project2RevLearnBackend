@@ -38,7 +38,7 @@ public class ForumController {
         Course course = csi.getById(course_id);
         forum.setCourse(course);
         forum.setForumCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        //forum.getForumUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        forum.setForumUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         Forum createdForum = fs.addForum(forum);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdForum);
     }
@@ -52,9 +52,7 @@ public class ForumController {
 
     @PutMapping("/{forum_id}")
     public ResponseEntity<Forum> updateForum(@PathVariable int forum_id, @RequestBody Forum forum) {
-        Forum existingForum = fs.getForum(forum_id);
-        existingForum.setTitle(forum.getTitle());
-        Forum updatedForum = fs.updateForum(forum_id, existingForum);
+        Forum updatedForum = fs.updateForum(forum_id, forum);
         return updatedForum != null ? ResponseEntity.ok(updatedForum) : ResponseEntity.notFound().build();
     }
 }
