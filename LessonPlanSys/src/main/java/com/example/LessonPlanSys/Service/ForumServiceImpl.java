@@ -42,7 +42,7 @@ public class ForumServiceImpl implements ForumService{
     public Forum updateForum(Integer id, Forum newForum) {
         if(fr.existsById(id)){
             Forum forum = fr.findById(id).get();
-            forum.setForum_updated_at(Timestamp.valueOf(LocalDateTime.now()));
+            forum.setForumUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
             forum.setTitle(newForum.getTitle());
             return fr.save(forum);
         }
@@ -50,13 +50,10 @@ public class ForumServiceImpl implements ForumService{
     }
 
     @Override
-    public Forum addForum(Integer courseId, Forum newForum) {
-        if(fr.courseExists(courseId) == 1){
-            newForum.setForum_created_at(Timestamp.valueOf(LocalDateTime.now()));
-            newForum.setForum_updated_at(Timestamp.valueOf(LocalDateTime.now()));
+    public Forum addForum( Forum newForum) {
             return fr.save(newForum);
-        }
-        return null;
+
+
     }
 
 

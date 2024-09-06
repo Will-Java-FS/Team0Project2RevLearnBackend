@@ -2,7 +2,13 @@ package com.example.LessonPlanSys.Service;
 
 import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Repo.ProgramRepo;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +28,12 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public Program getProgramById(int id) {
-        return programRepo.findById(id).orElseThrow(() -> new RuntimeException("Program not found"));
+    public  Program getProgram(int id) {
+        return programRepo.findById(id).orElse(null);
     }
 
     @Override
-    public Program createProgram(Program program) {
+    public Program addProgram(Program program) {
         return programRepo.save(program);
     }
 
@@ -42,4 +48,5 @@ public class ProgramServiceImpl implements ProgramService {
     public void deleteProgram(int id) {
         programRepo.deleteById(id);
     }
+
 }

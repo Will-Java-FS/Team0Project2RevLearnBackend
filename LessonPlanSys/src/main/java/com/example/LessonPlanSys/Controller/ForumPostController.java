@@ -38,12 +38,16 @@ public class ForumPostController {
         return ResponseEntity.status(HttpStatus.OK).body(fps.findAll());
     }
     @GetMapping("/{forumpost_id}")
-    public ResponseEntity<Optional<ForumPost>> getForumPostById(@PathVariable int forumpost_id){
+    public ResponseEntity<ForumPost> getForumPostById(@PathVariable int forumpost_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByForumpost_id(forumpost_id));
     }
     @GetMapping("/user/{user_id}")
     public ResponseEntity<List<ForumPost>> getForumPostByUserId(@PathVariable int user_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByUser_id(user_id));
+    }
+    @GetMapping("/forum/{forum_id}")
+    public ResponseEntity<List<ForumPost>> getForumPostByForumId(@PathVariable int forum_id){
+        return ResponseEntity.status(HttpStatus.OK).body(fps.findByForum_id(forum_id));
     }
 
     @PostMapping("/{user_id}/{forum_id}")
@@ -67,13 +71,14 @@ public class ForumPostController {
 
     @PutMapping("/{forumpost_id}/{user_id}/{forum_id}")
     public ResponseEntity<ForumPost> updateForumPost(@PathVariable int forumpost_id,@PathVariable int user_id, @PathVariable int forum_id, @RequestBody ForumPost forumPost) {
+        ForumPost existingforumPost = fps.findByForumpost_id(forumpost_id);
         User user  = usi.getUserByUID(user_id);
-        forumPost.setUser(user);
+        existingforumPost.setUser(user);
         Forum forum = fsi.getForum(forum_id);
-        forumPost.setForum(forum);
-        forumPost.setPost_created_at(fps.findByForumpost_id(forumpost_id).get().getPost_created_at());
-        forumPost.setPost_updated_at(Timestamp.valueOf(LocalDateTime.now()));
-        ForumPost updatedForumPost = fps.updateForumPost(forumpost_id, forumPost);
+        existingforumPost.setForum(forum);
+        existingforumPost.setPost_updated_at(Timestamp.valueOf(LocalDateTime.now()));
+        existingforumPost.setPost_text(forumPost.getPost_text());
+        ForumPost updatedForumPost = fps.updateForumPost(forumpost_id, existingforumPost);
         return updatedForumPost != null ? ResponseEntity.ok(updatedForumPost) : ResponseEntity.notFound().build();
     }
 

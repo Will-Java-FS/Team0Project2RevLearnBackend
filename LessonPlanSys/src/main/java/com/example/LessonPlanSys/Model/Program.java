@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "programs", schema = "project2Andrew") // Ensure correct table and schema names
+@Table(name = "programs") // Ensure correct table and schema names
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Prevents serialization errors
 public class Program {
 
     @Id

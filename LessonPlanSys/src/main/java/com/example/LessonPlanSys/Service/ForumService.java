@@ -15,5 +15,5 @@ public interface ForumService
 
     public Forum updateForum(Integer id, Forum newForum);
 
-    public Forum addForum(Integer courseId, Forum newForum);
+    public Forum addForum(Forum newForum);
 }

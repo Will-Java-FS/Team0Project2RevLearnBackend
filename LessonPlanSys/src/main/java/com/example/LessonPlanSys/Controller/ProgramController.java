@@ -47,9 +47,12 @@ public class ProgramController {
     // Update program
     @PutMapping("/{program_id}")
     public ResponseEntity<Program> updateProgram(@PathVariable("program_id") int id, @RequestBody Program program) {
-        return programService.updateProgram(id, program)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Program updatedProgram = programService.updateProgram(id, program);
+        if (updatedProgram == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            return ResponseEntity.ok(updatedProgram);
+        }
     }
 
     // Delete program
@@ -65,17 +68,11 @@ public class ProgramController {
         return ResponseEntity.ok(programService.getAllPrograms());
     }
 
-    // Get all associated courses
-<<<<<<< HEAD
-    @GetMapping("/{id}/courses")
-    ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("id") int id) {
-=======
     @GetMapping ("/{program_id}/courses")
     ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
->>>>>>> 7f8f54475e504848ace76c02eaa7113b6011097c
         return courseService.getCoursesByProgramId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
 
+    }
 }

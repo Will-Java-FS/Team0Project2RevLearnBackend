@@ -1,26 +1,24 @@
 package com.example.LessonPlanSys.Service;
 
-import java.util.List;
-
 import com.example.LessonPlanSys.Model.User;
 
+import java.util.List;
+
 public interface UserService {
-
-    User addUser(User user);
-
     List<User> getAllUsers();
 
     User getUserByUID(int id);
 
+    User addUser(User nUser);
+
     void deleteUserById(int id);
+    List<User>getAllUsersByRole(String role);
 
-    List<User> getAllUsersByRole(String role);
+    User getUsersByRoleandId(int userId, String role);
 
-    User getUserByRoleAndId(int userId, String role);
+    User updateUserById(int id, User nUser);
 
-    User updateUserById(int id, User updatedUser);
-
-    User enrollUserInProgram(int userId, int programId);
+    User enrollUserInProgram(int user_id, int program_id);
 
     User authenticateUser(String username, String password);
 
