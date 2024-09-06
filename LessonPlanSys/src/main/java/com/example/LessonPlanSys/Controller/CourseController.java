@@ -42,9 +42,8 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourse(@PathVariable int id) {
-        return courseService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getById(id));
+
     }
 
     @PostMapping

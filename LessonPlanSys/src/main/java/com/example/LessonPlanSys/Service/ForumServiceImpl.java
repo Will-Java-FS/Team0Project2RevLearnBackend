@@ -50,13 +50,10 @@ public class ForumServiceImpl implements ForumService{
     }
 
     @Override
-    public Forum addForum(Integer courseId, Forum newForum) {
-        if(fr.courseExists(courseId) == 1){
-            newForum.setForumCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-            newForum.setForumUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+    public Forum addForum( Forum newForum) {
             return fr.save(newForum);
-        }
-        return null;
+
+
     }
 
 
