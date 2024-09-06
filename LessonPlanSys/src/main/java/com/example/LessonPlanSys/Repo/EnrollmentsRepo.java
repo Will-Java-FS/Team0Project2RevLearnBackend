@@ -17,7 +17,7 @@ public interface EnrollmentsRepo extends JpaRepository<Enrollments, Integer> {
     List<Enrollments> getEnrollmentsByCourseID(int id);
 
 
-    @Query(value = "SELECT * FROM enrollments WHERE user_id = ?1 AND status = 'completed'", nativeQuery = true)
+    @Query(value = "SELECT * FROM enrollments WHERE user_id = ?1 AND enrollment_status = 'completed'", nativeQuery = true)
     List<Enrollments> getCompletedEnrollmentsByStudentID(int id);
 
     @Query(value = "SELECT c.teacher_id FROM courses c JOIN enrollments e ON c.course_id = e.course_id WHERE e.course_id = ?", nativeQuery = true)
