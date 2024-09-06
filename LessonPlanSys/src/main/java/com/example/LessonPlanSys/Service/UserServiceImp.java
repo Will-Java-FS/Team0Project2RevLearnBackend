@@ -25,10 +25,10 @@ public class UserServiceImp implements UserService{
         return userRepo.findAll();
     }
 
-   @Override
+    @Override
     public User getUserByUID(int id) {
         return userRepo.findById(id).orElse(null);
-   }
+    }
 
     @Override
     public User addUser(User nUser) {
@@ -47,15 +47,15 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User getUsersByRoleandId(int user_id, String role) {
-        return userRepo.findByUser_idAndRole(user_id,role);
+        return userRepo.findByUserIdAndRole(user_id,role);
     }
 
-   @Override
+    @Override
     public User updateUserById(int id, User nUser) {
         User oUser = userRepo.findById(id).orElse(null);
         if(oUser != null)
         {
-           userRepo.save(nUser);
+            userRepo.save(nUser);
             return getUserByUID(id);
         }
         return null;
@@ -71,6 +71,21 @@ public class UserServiceImp implements UserService{
 
         }
         return null;
+    }
+
+    @Override
+    public User authenticateUser(String username, String password) {
+        User user = userRepo.findByUsername(username);
+        if (user != null && user.getPasswordHash().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    @Override
+    public String generateAuthToken(User user) {
+        // Implement your token generation logic here
+        return "generated_token";
     }
 
 }
