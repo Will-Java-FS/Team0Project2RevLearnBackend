@@ -32,9 +32,10 @@ public class ProgramController {
     // GET Program by ID
     @GetMapping("/{program_id}")
     public ResponseEntity<Program> getProgram(@PathVariable("program_id") int id) {
-        return programService.getProgram(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Program retrievedProgram = programService.getProgram(id);
+        return retrievedProgram == null
+                ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+                : ResponseEntity.ok(retrievedProgram);
     }
 
     // Add program
