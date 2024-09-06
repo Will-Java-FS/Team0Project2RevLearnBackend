@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
 
-   User getUserByUID(int id);
+    User getUserByUID(int id);
 
     User addUser(User nUser);
 
@@ -19,4 +19,8 @@ public interface UserService {
     User updateUserById(int id, User nUser);
 
     User enrollUserInProgram(int user_id, int program_id);
+
+    User authenticateUser(String username, String password);
+
+    String generateAuthToken(User user);
 }

@@ -1,5 +1,6 @@
 package com.example.LessonPlanSys.Controller;
 
+import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.Enrollments;
 import com.example.LessonPlanSys.Service.EnrollmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class EnrollmentsController {
     {
         Enrollments enr = enrollmentsService.getEnrollmentByID(enrollId);
 
-        double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUser_id(), enr.getCourse().getCourse_id());
+        double comp = enrollmentsService.getCourseCompletionPerc(enr.getUser().getUserId(), enr.getCourse().getCourse_id());
         return ResponseEntity.status(200).body(comp);
     }
 
@@ -77,5 +78,17 @@ public class EnrollmentsController {
     public ResponseEntity<List<Enrollments>> getCompletedEnrollmentsByStudentID(@PathVariable("student_id") int studentId) {
         List<Enrollments> enrollments = enrollmentsService.getCompletedEnrollmentsByStudentID(studentId);
         return ResponseEntity.status(200).body(enrollments);
+    }
+
+    @GetMapping("courses-available")
+    public ResponseEntity<List<Course>> getAllAvailableCourses() {
+        List<Course> courses = enrollmentsService.getAvailableCourses();
+        return ResponseEntity.status(200).body(courses);
+    }
+
+    @GetMapping("enrollments/teacher/{courseID}")
+    public ResponseEntity<Enrollments> getTeacherOfCourse(@PathVariable Integer id) {
+        Enrollments teacher = enrollmentsService.getTeacherOfCourse(id);
+        return ResponseEntity.status(200).body(teacher);
     }
 }

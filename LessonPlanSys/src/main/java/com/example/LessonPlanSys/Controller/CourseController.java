@@ -1,20 +1,22 @@
 package com.example.LessonPlanSys.Controller;
 
-import com.example.LessonPlanSys.Model.Course;
-import com.example.LessonPlanSys.Model.User;
-import com.example.LessonPlanSys.Service.CourseService;
-import com.example.LessonPlanSys.Service.ProgramService;
-import com.example.LessonPlanSys.Service.UserServiceImp;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import com.example.LessonPlanSys.Model.Course;
+import com.example.LessonPlanSys.Model.User;
+import com.example.LessonPlanSys.Service.CourseService;
+import com.example.LessonPlanSys.Service.ProgramService;
+import com.example.LessonPlanSys.Service.UserServiceImp;
 
 @RestController
 @RequestMapping("/courses")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CourseController {
 
     CourseService courseService;
@@ -39,7 +41,6 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
     // POST /course?program_id=456
     @PostMapping
     public Course addCourse(@RequestBody Course course, @RequestParam int program_id) {
@@ -57,7 +58,8 @@ public class CourseController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Course not found"));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "An error occurred while deleting the course: " + e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An error occurred while deleting the course: " + e.getMessage()));
         }
     }
 
@@ -68,13 +70,13 @@ public class CourseController {
                 ? new ResponseEntity<>(updatedProgram, HttpStatus.OK)
                 : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
     @PostMapping("add/{user_id}")
     public Course addCourseteacher(@RequestBody Course course, @PathVariable int user_id) {
-        User user=us.getUserByUID(user_id);
-        if(user.getRole().equals("teacher")) {
+        User user = us.getUserByUID(user_id);
+        if (user.getRole().equals("teacher")) {
             return courseService.addCourse(course);
-        }
-        else {
+        } else {
             return null;
         }
     }

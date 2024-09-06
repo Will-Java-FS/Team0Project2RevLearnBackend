@@ -1,58 +1,44 @@
 package com.example.LessonPlanSys.Model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
+import java.time.ZonedDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "discussionforums")
+@Table(name = "discussionforums") // Adjust table name and schema as necessary
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Forum
-{
-    @Getter
+@Builder
+public class Forum {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "forum_id", updatable = false)
-    private int forum_id;
+    private Integer forumId;
 
-    @Getter
-    @Setter
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "course_id", updatable = false)
-    private Course course;
-
-    @Getter
-    @Setter
-    @Column(nullable = false, unique = true)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Getter
-    @Setter
-    @CreationTimestamp
-    @Column(nullable = false)
-    private Timestamp forum_created_at;
+    @Column(name = "forum_created_at", nullable = false)
+    private Timestamp forumCreatedAt;
 
-    @Getter
-    @Setter
-    @UpdateTimestamp
-    @Column(nullable = false)
-    private Timestamp forum_updated_at;
+    @Column(name = "forum_updated_at")
+    private Timestamp forumUpdatedAt;
 
-    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    @JoinColumn(name = "forumpost_id", updatable = false)
-    private List<ForumPost> posts;//ForumPosts*/
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 }
