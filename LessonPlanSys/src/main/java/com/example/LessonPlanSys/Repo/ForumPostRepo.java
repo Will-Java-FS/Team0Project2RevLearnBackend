@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ForumPostRepo extends JpaRepository<ForumPost, Integer> {
-    @Query(value = "SELECT * FROM ForumPost WHERE user_id=?1", nativeQuery = true )
+    @Query(value = "SELECT * FROM forum_posts WHERE user_id=?1", nativeQuery = true )
     List<ForumPost> findByUser_id(int userId);
 
+    @Query(value = "SELECT * FROM forum_posts WHERE forum_id=?1", nativeQuery = true )
+    List<ForumPost> findByForum_id(int forumId);
 }
