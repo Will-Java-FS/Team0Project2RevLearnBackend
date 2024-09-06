@@ -45,6 +45,10 @@ public class ForumPostController {
     public ResponseEntity<List<ForumPost>> getForumPostByUserId(@PathVariable int user_id){
         return ResponseEntity.status(HttpStatus.OK).body(fps.findByUser_id(user_id));
     }
+    @GetMapping("/forum/{forum_id}")
+    public ResponseEntity<List<ForumPost>> getForumPostByForumId(@PathVariable int forum_id){
+        return ResponseEntity.status(HttpStatus.OK).body(fps.findByForum_id(forum_id));
+    }
 
     @PostMapping("/{user_id}/{forum_id}")
     public ResponseEntity<ForumPost> addForumPost(@RequestBody ForumPost forumpost, @PathVariable int user_id, @PathVariable int forum_id){
