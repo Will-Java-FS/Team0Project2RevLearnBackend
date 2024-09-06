@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/{user_id}/{role}")
     ResponseEntity<User> getuserbyrole(@PathVariable int user_id, @PathVariable String role) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByRoleAndId(user_id, role));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsersByRoleandId(user_id, role));
     }
 
     // Get list of all users
