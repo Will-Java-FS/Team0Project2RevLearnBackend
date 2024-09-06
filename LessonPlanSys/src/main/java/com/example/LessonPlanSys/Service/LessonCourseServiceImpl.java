@@ -35,7 +35,7 @@ public class LessonCourseServiceImpl implements LessonCourseService {
                 .orElse(null);
     }
 
-    public LessonCourse getLessonCourseByLessonPlanIdAndCourseId(int lesson_plan_id, int course_id) {
+    public LessonCourse getLessonCourseByLessonPlanIdAndCourseId(int course_id, int lesson_plan_id) {
 
         return lcr.findAll().stream()
                 .filter(lc -> lc.getCourse().getCourse_id() == course_id
@@ -61,16 +61,15 @@ public class LessonCourseServiceImpl implements LessonCourseService {
     }
 
 
-    public LessonCourse addLessonToCourse(int lesson_plan_id, int course_id) {
+    public LessonCourse addLessonToCourse(int course_id, int lesson_plan_id) {
         LessonPlan lessonPlan = lr.findById(lesson_plan_id)
                 .orElse(null);
 
         Course course = cr.findById(course_id)
                 .orElse(null);
 
-        LessonCourse existingLessonCourse = getLessonCourseByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
+        LessonCourse existingLessonCourse = getLessonCourseByLessonPlanIdAndCourseId(course_id, lesson_plan_id);
 
-        // LessonPlan and Course should already exist
         if (lessonPlan != null && course != null && existingLessonCourse == null) {
             LessonCourse lessonCourse = new LessonCourse();
             lessonCourse.setLessonPlan(lessonPlan);
@@ -80,8 +79,8 @@ public class LessonCourseServiceImpl implements LessonCourseService {
         return null;
     }
 
-    public void deleteLessonFromCourse(int lesson_plan_id, int course_id) {
-        LessonCourse lessonCourse = getLessonCourseByLessonPlanIdAndCourseId(lesson_plan_id, course_id);
+    public void deleteLessonFromCourse(int course_id, int lesson_plan_id) {
+        LessonCourse lessonCourse = getLessonCourseByLessonPlanIdAndCourseId(course_id, lesson_plan_id);
         if (lessonCourse != null) {
             lcr.delete(lessonCourse);
         }

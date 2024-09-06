@@ -4,6 +4,7 @@ import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.LessonCourse;
 import com.example.LessonPlanSys.Model.LessonPlan;
 import com.example.LessonPlanSys.Service.LessonCourseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,26 +45,26 @@ public class LessonCourseController {
         return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
 
-    @PostMapping("/course/add-lesson/{lesson_plan_id}")
-    public ResponseEntity<LessonCourse> addLessonToCourse(@RequestBody Course course,
+    @PostMapping("/course/{course_id}/add-lesson/{lesson_plan_id}")
+    public ResponseEntity<LessonCourse> addLessonToCourse(@PathVariable int course_id,
                                                           @PathVariable int lesson_plan_id) {
-        LessonCourse lc = lcs.addLessonToCourse(lesson_plan_id, course.getCourse_id());
+        LessonCourse lc = lcs.addLessonToCourse(course_id, lesson_plan_id);
 
         return (lc == null)
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
                 : ResponseEntity.status(HttpStatus.ACCEPTED).body(lc);
     }
 
-    @DeleteMapping("/course/delete-lesson/{lesson_plan_id}")
-    public ResponseEntity<LessonCourse> removeLessonFromCourse(@RequestBody Course course,
+    @DeleteMapping("/course/{course_id}/delete-lesson/{lesson_plan_id}")
+    public ResponseEntity<LessonCourse> removeLessonFromCourse(@PathVariable int course_id,
                                                                @PathVariable int lesson_plan_id) {
-        LessonCourse lc = lcs.getLessonCourseByLessonPlanIdAndCourseId(course.getCourse_id(), lesson_plan_id);
+        LessonCourse lc = lcs.getLessonCourseByLessonPlanIdAndCourseId(course_id, lesson_plan_id);
 
         if (lc != null) {
-            lcs.deleteLessonFromCourse(lc.getLessonPlan().getLesson_plan_id(), lc.getCourse().getCourse_id());
+            lcs.deleteLessonFromCourse(lc.getCourse().getCourse_id(), lc.getLessonPlan().getLesson_plan_id());
             return ResponseEntity.status(HttpStatus.OK).body(lc);
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }
