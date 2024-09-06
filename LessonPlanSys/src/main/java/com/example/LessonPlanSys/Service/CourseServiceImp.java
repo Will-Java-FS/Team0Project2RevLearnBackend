@@ -22,8 +22,8 @@ public class CourseServiceImp implements CourseService {
     }
 
     @Override
-    public Optional<Course> getById(int id) {
-        return courseRepo.findById(id);
+    public Course getById(int id) {
+        return courseRepo.findById(id).orElse(null);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class ForumPostService {
         return fpr.findAll();
     }
 
-    public Optional<ForumPost> findByForumpost_id(int forumpost_id) {
-        return fpr.findById(forumpost_id);
+    public ForumPost findByForumpost_id(int forumpost_id) {
+        return fpr.findById(forumpost_id).orElse(null);
     }
 
     public ForumPost addForumPost(ForumPost forumPost) {
@@ -38,5 +38,13 @@ public class ForumPostService {
             return fpr.save(updatedForumPost);
         }
         return null;
+    }
+
+    public List<ForumPost> findByUser_id(int userId) {
+        return fpr.findByUser_id(userId);
+    }
+
+    public List<ForumPost> findByForum_id(int forumId) {
+        return fpr.findByForum_id(forumId);
     }
 }

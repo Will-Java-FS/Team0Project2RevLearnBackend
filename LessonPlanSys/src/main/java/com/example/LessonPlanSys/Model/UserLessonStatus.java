@@ -12,7 +12,7 @@ public class UserLessonStatus {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer user_lesson_id;
 
     @Getter
     @Setter

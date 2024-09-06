@@ -12,6 +12,15 @@ public interface UserService {
     User addUser(User nUser);
 
     void deleteUserById(int id);
+    List<User>getAllUsersByRole(String role);
+
+    User getUsersByRoleandId(int userId, String role);
 
     User updateUserById(int id, User nUser);
+
+    User enrollUserInProgram(int user_id, int program_id);
+
+    User authenticateUser(String username, String password);
+
+    String generateAuthToken(User user);
 }
