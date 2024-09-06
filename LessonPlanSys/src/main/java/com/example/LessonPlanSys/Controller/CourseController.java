@@ -6,33 +6,27 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.LessonPlanSys.Model.Course;
 import com.example.LessonPlanSys.Model.User;
 import com.example.LessonPlanSys.Service.CourseService;
+import com.example.LessonPlanSys.Service.ProgramService;
 import com.example.LessonPlanSys.Service.UserServiceImp;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 @CrossOrigin(origins = "http://localhost:5173")
 public class CourseController {
 
     CourseService courseService;
     UserServiceImp us;
-
+    ProgramService programService;
     @Autowired
-    public CourseController(CourseService courseService, UserServiceImp us) {
+    public CourseController(CourseService courseService, UserServiceImp us, ProgramService programService) {
         this.courseService = courseService;
-        this.us = us;
+        this.us=us;
+        this.programService = programService;
     }
 
     @GetMapping
@@ -46,8 +40,11 @@ public class CourseController {
 
     }
 
+    // POST /course?program_id=456
     @PostMapping
-    public Course addCourse(@RequestBody Course course) {
+    public Course addCourse(@RequestBody Course course, @RequestParam int program_id) {
+        course.setCourse_id(null);
+        course.setProgram(programService.getProgram(program_id).orElse(null));
         return courseService.addCourse(course);
     }
 
