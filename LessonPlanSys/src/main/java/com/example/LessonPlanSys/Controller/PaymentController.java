@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/payments")
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
     @PostMapping
-    public void createOrder(@RequestBody Payment payment){
+    public void createPayment(@RequestBody Payment payment){
 
         //let's print the message to the console for now
         System.out.println(payment);

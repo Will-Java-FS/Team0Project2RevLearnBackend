@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "forum_id", updatable = false)
+    @Column(name = "payment_id", updatable = false)
     private int id;
 
 //    TODO: implement Foreign key
