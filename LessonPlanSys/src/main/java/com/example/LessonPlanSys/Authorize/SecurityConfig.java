@@ -54,8 +54,8 @@ public class SecurityConfig {
                     "/swagger-ui/**", 
                     "/v3/api-docs/**", 
                     "/auth/**", 
-                    "/login/**", 
-                    "/register/**",
+                    "/user/login", // Allow access to the login endpoint
+                    "/user/register", // Allow access to the registration endpoint
                     "/course/**",
                     "/enrollments/**",
                     "/forum/**",
