@@ -1,3 +1,5 @@
 LessonPlanSys/.vscode/settings.json
 LessonPlanSys/.env
 LessonPlanSys/target/classes/application.properties
+LessonPlanSys/src/main/resources/application-dev.properties
+LessonPlanSys/src/main/resources/application-prod.properties
