@@ -53,6 +53,8 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/swagger-ui/**", 
                     "/v3/api-docs/**", 
+                    "/swagger-ui/**", 
+                    "/v3/api-docs/**", 
                     "/auth/**", 
                     "/user/login", // Allow access to the login endpoint
                     "/user/register", // Allow access to the registration endpoint

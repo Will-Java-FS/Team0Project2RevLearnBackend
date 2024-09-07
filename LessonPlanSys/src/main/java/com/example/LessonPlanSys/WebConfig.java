@@ -10,9 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173", "http://localhost:8080") // Adjust origins to include your Swagger UI host
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed methods
-                .allowedHeaders("*") // Allow all headers
-                .allowCredentials(true); // Allow cookies and credentials
+                .allowedOrigins("http://localhost:5173", "http://localhost:8080") // Include Swagger UI origin
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
