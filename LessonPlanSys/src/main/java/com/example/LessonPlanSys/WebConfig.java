@@ -16,10 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 
-    public class SecurityConfig {
-        @Bean
-        public BCryptPasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
-        }
-    }
+    // public class SecurityConfig {
+    //     @Bean
+    //     public BCryptPasswordEncoder passwordEncoder() {
+    //         return new BCryptPasswordEncoder();
+    //     }
+    // }
 }
