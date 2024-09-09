@@ -44,7 +44,7 @@ public class CourseController {
     @PostMapping
     public Course addCourse(@RequestBody Course course, @RequestParam int program_id) {
         course.setCourse_id(null);
-        course.setProgram(programService.getProgram(program_id).orElse(null));
+        course.setProgram(programService.getProgram(program_id));
         return courseService.addCourse(course);
     }
 
