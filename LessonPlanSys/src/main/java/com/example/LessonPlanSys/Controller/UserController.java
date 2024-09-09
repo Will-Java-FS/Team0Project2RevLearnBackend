@@ -1,28 +1,33 @@
 package com.example.LessonPlanSys.Controller;
 
-import com.example.LessonPlanSys.Authorize.*;
-import com.example.LessonPlanSys.Exception.NotFoundException;
-import com.example.LessonPlanSys.Model.Course;
-import com.example.LessonPlanSys.Model.Program;
-import com.example.LessonPlanSys.Model.User;
-import com.example.LessonPlanSys.Repo.UserRepo;
-import com.example.LessonPlanSys.Service.ProgramServiceImpl;
-import com.example.LessonPlanSys.Service.UserService;
-import com.example.LessonPlanSys.Service.UserServiceImp;
+import java.time.ZonedDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
+import com.example.LessonPlanSys.Authorize.AuthResponse;
+import com.example.LessonPlanSys.Authorize.JwtService;
+import com.example.LessonPlanSys.Authorize.LoginForm;
+import com.example.LessonPlanSys.Exception.NotFoundException;
+import com.example.LessonPlanSys.Model.User;
+import com.example.LessonPlanSys.Repo.UserRepo;
+import com.example.LessonPlanSys.Service.ProgramServiceImpl;
+import com.example.LessonPlanSys.Service.UserServiceImp;
 
 
 @RestController
