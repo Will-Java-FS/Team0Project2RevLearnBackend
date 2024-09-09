@@ -79,7 +79,7 @@ public class UserController {
             if(user == null){
                 throw new NotFoundException("User not found");
             }
-            return new AuthResponse(user.getUsername(), user.getUserId(), user.getRole(), token);
+            return new AuthResponse(token, user.getUsername(), user.getUserId(), user.getRole(), user.getProgram());
         }
         else{
             throw new NotFoundException("Invalid credentials");

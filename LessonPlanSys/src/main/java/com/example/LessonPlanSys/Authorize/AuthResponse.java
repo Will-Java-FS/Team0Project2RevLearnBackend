@@ -1,5 +1,7 @@
 package com.example.LessonPlanSys.Authorize;
 
+import com.example.LessonPlanSys.Model.Program;
+
 import lombok.*;
 
 @Data
@@ -7,8 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 public class AuthResponse {
     
+    private String token;
     private String username;
     private Integer userId;
     private String role;
-    private String token;
+    private Program program;
 }
