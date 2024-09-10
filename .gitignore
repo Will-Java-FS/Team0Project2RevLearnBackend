@@ -4,3 +4,6 @@ LessonPlanSys/target/classes/application.properties
 LessonPlanSys/target/classes/application.properties
 LessonPlanSys/src/main/resources/application-dev.properties
 LessonPlanSys/src/main/resources/application-prod.properties
+LessonPlanSys/secrets/db_password.txt
+LessonPlanSys/secrets/db_url.txt
+LessonPlanSys/secrets/db_username.txt
