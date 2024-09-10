@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,24 +74,40 @@ public class UserController {
     }
 
     // user can login
-    @PostMapping("/login")
-    public AuthResponse loginUser(@RequestBody LoginForm loginForm){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-            loginForm.username(), loginForm.password()));
+@PostMapping("/login")
+public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginForm loginForm) {
+    try {
+        // Authenticate the user using AuthenticationManager
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(loginForm.username(), loginForm.password())
+        );
 
-        if(authentication.isAuthenticated()){
+        // Check if authentication is successful
+        if (authentication.isAuthenticated()) {
+            // Retrieve the user from the repository
             User user = userRepo.findByUsername(loginForm.username());
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthResponse(null, null, null, null, null));
+            }
+
+            // Generate JWT token upon successful authentication
             String token = jwtService.generateToken(userService.loadUserByUsername(loginForm.username()));
 
-            if(user == null){
-                throw new NotFoundException("User not found");
-            }
-            return new AuthResponse(token, user.getUsername(), user.getUserId(), user.getRole(), user.getProgram());
+            // Construct and return the AuthResponse object
+            AuthResponse authResponse = new AuthResponse(token, user.getUsername(), user.getUserId(), user.getRole(), user.getProgram());
+            return ResponseEntity.ok(authResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Invalid credentials", null, null, null, null));
         }
-        else{
-            throw new NotFoundException("Invalid credentials");
-        }
+    } catch (BadCredentialsException e) {
+        // Handle incorrect credentials
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Invalid credentials", null, null, null, null));
+    } catch (Exception e) {
+        // Handle any other exceptions
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new AuthResponse("An error occurred", null, null, null, null));
     }
+}
+
 
     @GetMapping("role/{role}")
     public ResponseEntity<List<User>> getAlluserbyrole(@PathVariable String role) {
