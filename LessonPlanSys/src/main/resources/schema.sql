@@ -1,9 +1,9 @@
 -- Create the schema if it does not exist
-CREATE SCHEMA IF NOT EXISTS project2Andrew;
+CREATE SCHEMA IF NOT EXISTS project2;
 
 -- Set the schema search path
 SET
-    search_path TO project2Andrew;
+    search_path TO project2;
 
 -- Drop sequences if they exist
 DROP SEQUENCE IF EXISTS discussionforums_id_seq CASCADE;

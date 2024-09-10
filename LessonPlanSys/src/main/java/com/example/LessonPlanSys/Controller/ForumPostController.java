@@ -6,6 +6,7 @@ import com.example.LessonPlanSys.Model.Program;
 import com.example.LessonPlanSys.Model.User;
 import com.example.LessonPlanSys.Service.ForumPostService;
 import com.example.LessonPlanSys.Service.ForumServiceImpl;
+import com.example.LessonPlanSys.Service.KafkaForumPostProducer;
 import com.example.LessonPlanSys.Service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,17 @@ public class ForumPostController {
     ForumPostService fps;
     ForumServiceImpl fsi;
     UserServiceImp usi;
+    KafkaForumPostProducer kfp;
+
     @Autowired
-    public ForumPostController(ForumPostService fps, ForumServiceImpl fsi, UserServiceImp usi){
+    public ForumPostController(ForumPostService fps, ForumServiceImpl fsi, UserServiceImp usi, KafkaForumPostProducer kfp){
         this.fps=fps;
         this.fsi=fsi;
         this.usi=usi;
+        this.kfp = kfp;
     }
+
+
 
     @GetMapping
     public ResponseEntity<List<ForumPost>> getAllForumPost(){
@@ -58,7 +64,8 @@ public class ForumPostController {
         forumpost.setForum(forum);
         forumpost.setPost_created_at(Timestamp.valueOf(LocalDateTime.now()));
         forumpost.setPost_updated_at(Timestamp.valueOf(LocalDateTime.now()));
-        fps.addForumPost(forumpost);
+        kfp.sendPost(forumpost);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(forumpost);
     }
 
@@ -78,8 +85,8 @@ public class ForumPostController {
         existingforumPost.setForum(forum);
         existingforumPost.setPost_updated_at(Timestamp.valueOf(LocalDateTime.now()));
         existingforumPost.setPost_text(forumPost.getPost_text());
-        ForumPost updatedForumPost = fps.updateForumPost(forumpost_id, existingforumPost);
-        return updatedForumPost != null ? ResponseEntity.ok(updatedForumPost) : ResponseEntity.notFound().build();
+        kfp.updatePost(forumpost_id, existingforumPost);
+        return ResponseEntity.status(HttpStatus.CREATED).body(existingforumPost);
     }
 
 }
