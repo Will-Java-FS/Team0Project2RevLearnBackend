@@ -26,3 +26,6 @@ services:
       - kafka
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
