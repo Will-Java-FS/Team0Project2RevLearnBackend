@@ -56,7 +56,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(request -> {
                 // Configure CORS
                 var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
-                corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000")); // Replace with your allowed origins
+                corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173")); // Replace with your allowed origins
                 corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 corsConfiguration.setAllowedHeaders(List.of("*"));
                 corsConfiguration.setAllowCredentials(true); // Allow credentials like cookies
@@ -94,7 +94,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000") // Replace with your allowed origins
+                        .allowedOrigins("http://localhost:5173") // Replace with your allowed origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Allow credentials like cookies
