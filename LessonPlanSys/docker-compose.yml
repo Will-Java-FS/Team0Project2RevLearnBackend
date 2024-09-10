@@ -5,16 +5,15 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
+    environment:
+      DB_URL: trng2044-rds-1.chueiwozbnfz.us-east-1.rds.amazonaws.com:5432/Group2
     secrets:
       - db_password
       - db_username
-      - db_url
 
 secrets:
   db_password:
     file: ./secrets/db_password.txt
   db_username:
     file: ./secrets/db_username.txt
-  db_url:
-    file: ./secrets/db_url.txt
