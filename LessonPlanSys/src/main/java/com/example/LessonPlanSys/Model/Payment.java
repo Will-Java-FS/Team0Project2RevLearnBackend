@@ -22,9 +22,12 @@ public class Payment {
     private int id;
 
 //    TODO: implement Foreign key
+    @Column(name = "user_id", nullable = false)
     private int userId;  // Link to the user making the payment
 //    TODO: implement Foreign key
+    @Column(name = "course_id", nullable = false)
     private int courseId; // Link to the course being paid for
+    @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 //    private LocalDateTime paymentDate;
 }

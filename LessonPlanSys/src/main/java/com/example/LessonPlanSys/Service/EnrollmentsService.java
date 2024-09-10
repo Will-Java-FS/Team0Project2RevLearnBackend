@@ -101,5 +101,8 @@ public class EnrollmentsService {
         return enrollmentsRepo.getCompletedEnrollmentsByStudentID(id);
     }
 
+    public int updateEnrollmentStatusToPaid(Integer userId, Integer courseId) {
+        return enrollmentsRepo.updateEnrollmentStatusToPaidByUserIdAndCourseId(userId, courseId);
+    }
  
 }
