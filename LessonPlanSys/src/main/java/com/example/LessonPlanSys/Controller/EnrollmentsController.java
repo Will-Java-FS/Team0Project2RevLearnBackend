@@ -80,13 +80,13 @@ public class EnrollmentsController {
         return ResponseEntity.status(200).body(enrollments);
     }
 
-    @GetMapping("courses-available")
+    @GetMapping("/courses-available")
     public ResponseEntity<List<Course>> getAllAvailableCourses() {
         List<Course> courses = enrollmentsService.getAvailableCourses();
         return ResponseEntity.status(200).body(courses);
     }
 
-    @GetMapping("enrollments/teacher/{courseID}")
+    @GetMapping("/teacher/{courseID}")
     public ResponseEntity<Enrollments> getTeacherOfCourse(@PathVariable Integer id) {
         Enrollments teacher = enrollmentsService.getTeacherOfCourse(id);
         return ResponseEntity.status(200).body(teacher);
