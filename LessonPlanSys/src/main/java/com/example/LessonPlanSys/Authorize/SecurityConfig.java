@@ -1,5 +1,7 @@
 package com.example.LessonPlanSys.Authorize;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.LessonPlanSys.Service.UserServiceImp;
 
@@ -49,15 +53,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // Disable CSRF protection
+            .cors(cors -> cors.configurationSource(request -> {
+                // Configure CORS
+                var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000")); // Replace with your allowed origins
+                corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                corsConfiguration.setAllowedHeaders(List.of("*"));
+                corsConfiguration.setAllowCredentials(true); // Allow credentials like cookies
+                return corsConfiguration;
+            }))
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
                     "/swagger-ui/**", 
                     "/v3/api-docs/**", 
-                    "/swagger-ui/**", 
-                    "/v3/api-docs/**", 
                     "/auth/**", 
-                    "/user/login", // Allow access to the login endpoint
-                    "/user/register", // Allow access to the registration endpoint
+                    "/user/login", 
+                    "/user/register", 
                     "/course/**",
                     "/enrollments/**",
                     "/forum/**",
@@ -67,12 +78,27 @@ public class SecurityConfig {
                     "/programs/**",
                     "/user/**",
                     "/status/**"
-                ).permitAll()  // Allow access to specific endpoints
-                .anyRequest().authenticated()  // Require authentication for all other requests
+                ).permitAll()
+                .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless sessions
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
-
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter before UsernamePasswordAuthenticationFilter
+    
         return http.build();
+    }
+
+    // Define global CORS configuration
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000") // Replace with your allowed origins
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true); // Allow credentials like cookies
+            }
+        };
     }
 }
