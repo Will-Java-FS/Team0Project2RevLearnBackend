@@ -36,9 +36,4 @@ public class Enrollments {
     @Setter
     @Column(nullable = false, length = 255)
     private String enrollment_status;
-
-    @Getter
-    @Setter
-    @Column(nullable = false, length = 255)
-    private String payment_status;
 }

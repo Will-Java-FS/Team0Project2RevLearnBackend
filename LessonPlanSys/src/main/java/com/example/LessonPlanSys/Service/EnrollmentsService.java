@@ -67,9 +67,6 @@ public class EnrollmentsService {
             if(updatedEnrollment.getEnrollment_status() != null) {
                 enrollment.setEnrollment_status(updatedEnrollment.getEnrollment_status());
             }
-            if(updatedEnrollment.getPayment_status() != null) {
-                enrollment.setPayment_status(updatedEnrollment.getPayment_status());
-            }
             enrollmentsRepo.save(enrollment);
             return enrollment;
         } else {
@@ -90,6 +87,10 @@ public class EnrollmentsService {
             {
                 count += 1;
             }
+        }
+        if(total == 0)
+        {
+            return 0;
         }
         return count/total;
     }
