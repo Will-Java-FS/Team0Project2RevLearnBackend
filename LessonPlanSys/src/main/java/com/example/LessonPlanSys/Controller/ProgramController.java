@@ -68,11 +68,11 @@ public class ProgramController {
         return ResponseEntity.ok(programService.getAllPrograms());
     }
 
-    // Get all associated courses
-    @GetMapping("/{program_id}/courses")
+    @GetMapping ("/{program_id}/courses")
     ResponseEntity<List<Course>> getAllCoursesByProgramId(@PathVariable("program_id") int id) {
         return courseService.getCoursesByProgramId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+
     }
 }
