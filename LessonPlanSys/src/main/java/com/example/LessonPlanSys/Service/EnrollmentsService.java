@@ -46,8 +46,12 @@ public class EnrollmentsService {
     }
 
     public List<Enrollments> getEnrollmentsByStudentID(Integer id) {
-        return enrollmentsRepo.getEnrollmentsByStudentID(id);
+        return enrollmentsRepo.findEnrollmentsByUserUserId(id);
     }
+
+//    public List<Enrollments> getEnrollmentsByStudentID(Integer id) {
+//        return enrollmentsRepo.getEnrollmentsByStudentID(id);
+//    }
 
     public List<Enrollments> getEnrollmentsByCourseID(Integer id) {
         return enrollmentsRepo.getEnrollmentsByCourseID(id);

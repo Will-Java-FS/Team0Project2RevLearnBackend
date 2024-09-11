@@ -31,8 +31,23 @@ public class LessonPlan {
 
     @Getter
     @Setter
-    @Column(name="content")
-    private String content;
+    @Column(name="description")
+    private String description;
+
+    @Getter
+    @Setter
+    @Column(name="real_world_application")
+    private String realWorldApplication;
+
+    @Getter
+    @Setter
+    @Column(name="implementation")
+    private String implementation;
+
+    @Getter
+    @Setter
+    @Column(name="summary")
+    private String summary;
 
     @Getter
     @Setter
