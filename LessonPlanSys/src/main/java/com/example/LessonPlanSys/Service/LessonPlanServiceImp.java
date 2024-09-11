@@ -73,7 +73,6 @@ public class LessonPlanServiceImp implements LessonPlanService {
     }
 
 
-    // Because of the new attributes such as implementation and summary, this function is not fully implemented yet.
     @Override
     public LessonPlan updateLessonPlan(int id, LessonPlan updatedLessonPlan) {
         LessonPlan lessonPlan = getById(id);
