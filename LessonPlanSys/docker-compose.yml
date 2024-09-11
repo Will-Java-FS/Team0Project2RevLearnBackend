@@ -1,0 +1,20 @@
+services:
+  lessonplansys:
+    image: lessonplansys
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    secrets:
+      - db_password
+      - db_username
+      - db_url
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_username:
+    file: ./secrets/db_username.txt
+  db_url:
+    file: ./secrets/db_url.txt
