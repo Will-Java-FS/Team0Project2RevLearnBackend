@@ -72,6 +72,7 @@ public class LessonPlanServiceImp implements LessonPlanService {
         lessonPlanRepo.deleteById(lesson_plan_id);
     }
 
+
     @Override
     public LessonPlan updateLessonPlan(int id, LessonPlan updatedLessonPlan) {
         LessonPlan lessonPlan = getById(id);
@@ -79,7 +80,10 @@ public class LessonPlanServiceImp implements LessonPlanService {
             return null;
         }
 
-        lessonPlan.setContent(updatedLessonPlan.getContent());
+        lessonPlan.setDescription(updatedLessonPlan.getDescription());
+        lessonPlan.setRealWorldApplication(updatedLessonPlan.getRealWorldApplication());
+        lessonPlan.setImplementation(updatedLessonPlan.getImplementation());
+        lessonPlan.setSummary(updatedLessonPlan.getSummary());
         lessonPlan.setTitle(updatedLessonPlan.getTitle());
         lessonPlan.setLp_updated_at(new Timestamp(System.currentTimeMillis()));
 
