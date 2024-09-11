@@ -58,7 +58,7 @@ public class SecurityConfig {
                     "/auth/**", 
                     "/user/login", // Allow access to the login endpoint
                     "/user/register", // Allow access to the registration endpoint
-                    "/course/**",
+                    "/courses/**",
                     "/enrollments/**",
                     "/forum/**",
                     "/forumpost/**",
@@ -75,4 +75,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+    
 }
