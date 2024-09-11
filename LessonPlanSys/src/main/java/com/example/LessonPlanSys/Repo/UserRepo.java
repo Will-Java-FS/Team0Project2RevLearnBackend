@@ -17,8 +17,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM users WHERE role = ?1", nativeQuery = true)
     List<User> findAllByRole(String role);
-
-    @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
+    
     User findByUsername(String username);
 
     @Query(value = "SELECT * FROM users WHERE user_id = ?1 AND role = ?2", nativeQuery = true)
