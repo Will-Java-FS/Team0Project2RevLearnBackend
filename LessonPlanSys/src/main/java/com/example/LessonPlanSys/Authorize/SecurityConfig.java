@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.LessonPlanSys.Service.UserServiceImp;
 
@@ -58,7 +60,7 @@ public class SecurityConfig {
                     "/auth/**", 
                     "/user/login", // Allow access to the login endpoint
                     "/user/register", // Allow access to the registration endpoint
-                    "/course/**",
+                    "/courses/**",
                     "/enrollments/**",
                     "/forum/**",
                     "/forumpost/**",
@@ -75,4 +77,17 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+public WebMvcConfigurer webMvcConfigurer() {
+    return new WebMvcConfigurer() {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173") // Replace with your frontend URL
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
+        }
+    };
+}
 }
