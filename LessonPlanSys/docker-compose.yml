@@ -2,31 +2,48 @@
 
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - kafka_network
 
   kafka:
-    image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
     environment:
+      KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    networks:
+      - kafka_network
+    ports:
+      - "9092:9092"
 
   app:
-    build:
+    build: # This section defines the build context for the 'app' service
       context: .
       dockerfile: Dockerfile
     image: my-custom-app:latest
-    ports:
-      - "8080:8080"
     depends_on:
       - kafka
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       DB_URL: ${DB_URL}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       ADDRESS: ${ADDRESS}
+    networks:
+      - kafka_network
+    ports:
+      - "8080:8080"
+
+networks:
+  kafka_network:
+    driver: bridge
+
+
+
