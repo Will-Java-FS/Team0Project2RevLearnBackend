@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 @Service
@@ -76,18 +77,22 @@ public class UserServiceImp implements UserService, UserDetailsService{
         return null;
     }
 
-    public UserDetails loadUserByUsername(String username) throws NotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user != null) {
-            return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPasswordHash())
-                .roles(user.getRole()) // Set roles if applicable
-                .build();
-        } else {
-            throw new NotFoundException("User not found with username: " + username);
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Convert to lowercase for case-insensitive search
+        User user = userRepo.findByUsername(username.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(user.getUsername())
+            .password(user.getPasswordHash())
+            .roles(user.getRole())
+            .build();
     }
+    
+    
+    
 
     @Override
     public User authenticateUser(String username, String password) {

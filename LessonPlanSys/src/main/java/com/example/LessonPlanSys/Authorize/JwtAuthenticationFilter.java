@@ -9,16 +9,25 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.LessonPlanSys.Service.UserServiceImp;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 import java.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Configuration
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     @Autowired
     private JwtService jwtService;
 
@@ -36,23 +45,44 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String jwt = authHeader.substring(7);
-        String username;
+        String username = null;
 
         try {
-            username = jwtService.extractUsername(jwt); // Extract username from the JWT token
-        } catch (Exception e) {
-            // Handle cases where the JWT is invalid or cannot be parsed
-            logger.error("JWT token extraction failed: {}");
+            // Extract username from the JWT token
+            username = jwtService.extractUsername(jwt);
+        } catch (ExpiredJwtException e) {
+            logger.error("JWT token has expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            logger.error("JWT token is unsupported: {}", e.getMessage());
+        } catch (MalformedJwtException e) {
+            logger.error("JWT token is malformed: {}", e.getMessage());
+        } catch (SignatureException e) {
+            logger.error("JWT token signature validation failed: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.error("JWT token is missing or contains illegal arguments: {}", e.getMessage());
+        }
+
+        // If the token extraction failed, continue the filter chain
+        if (username == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
         // Check if the username is not null and the user is not already authenticated
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userServiceImp.loadUserByUsername(username);
+            UserDetails userDetails;
 
-            // Validate the token and check that it matches the UserDetails
-            if (jwtService.isTokenValid(jwt)) {
+            try {
+                // Load user details
+                userDetails = userServiceImp.loadUserByUsername(username);
+            } catch (UsernameNotFoundException ex) {
+                logger.error("User not found with username: {}", username);
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            // Validate the token with the user details
+            if (jwtService.isTokenValid(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
                 

@@ -69,7 +69,7 @@ public class SecurityConfig {
                     "/auth/**", 
                     "/user/login", 
                     "/user/register", 
-                    "/course/**",
+                    "/courses/**",
                     "/enrollments/**",
                     "/forum/**",
                     "/forumpost/**",
