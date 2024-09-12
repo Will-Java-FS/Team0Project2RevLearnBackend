@@ -1,71 +1,62 @@
--- Insert data into programs
-INSERT INTO programs (program_name) VALUES 
-('Program A'),
-('Program B'),
-('Program C'),
-('Program D'),
-('Program E');
+-- Insert STEM programs
+INSERT INTO programs (program_name) VALUES
+('Computer Science'),
+('Mechanical Engineering'),
+('Electrical Engineering'),
+('Civil Engineering'),
+('Biotechnology'),
+('Physics'),
+('Mathematics'),
+('Data Science');
 
--- Insert data into users
-INSERT INTO users (email, username, password_hash, first_name, last_name, role, program_id) VALUES 
-('johndoe@example.com', 'johndoe', 'hashed_password1', 'John', 'Doe', 'student', 1),
-('janedoe@example.com', 'janedoe', 'hashed_password2', 'Jane', 'Doe', 'student', 2),
-('bobsmith@example.com', 'bobsmith', 'hashed_password3', 'Bob', 'Smith', 'teacher', 1),
-('alicejones@example.com', 'alicejones', 'hashed_password4', 'Alice', 'Jones', 'teacher', 3),
-('charliesmith@example.com', 'charliesmith', 'hashed_password5', 'Charlie', 'Smith', 'admin', NULL);
+-- Insert Users
+INSERT INTO users (email, username, password_hash, first_name, last_name, role, program_id)
+VALUES
+('alice.cs@university.edu', 'alicecs', 'hashedpassword1', 'Alice', 'Smith', 'student', 1),
+('bob.eng@university.edu', 'bobeng', 'hashedpassword2', 'Bob', 'Jones', 'student', 2),
+('charlie.phys@university.edu', 'charliephys', 'hashedpassword3', 'Charlie', 'Brown', 'student', 6),
+('david.bio@university.edu', 'davidbio', 'hashedpassword4', 'David', 'Johnson', 'student', 5),
+('emma.math@university.edu', 'emmamath', 'hashedpassword5', 'Emma', 'Davis', 'student', 7),
+('frank.ds@university.edu', 'frankds', 'hashedpassword6', 'Frank', 'Miller', 'student', 8),
+('grace.ee@university.edu', 'graceee', 'hashedpassword7', 'Grace', 'Wilson', 'teacher', 3),
+('hannah.ce@university.edu', 'hannahce', 'hashedpassword8', 'Hannah', 'Moore', 'teacher', 4),
+('ivan.me@university.edu', 'ivanme', 'hashedpassword9', 'Ivan', 'Taylor', 'teacher', 2),
+('julia.ds@university.edu', 'juliads', 'hashedpassword10', 'Julia', 'Anderson', 'teacher', 8);
 
--- Insert data into courses
-INSERT INTO courses (course_name, description, teacher_id, program_id) VALUES 
-('Introduction to Programming', 'Learn the basics of programming.', 3, 1),
-('Advanced Programming', 'Deep dive into advanced programming topics.', 3, 2),
-('Database Systems', 'Introduction to database management systems.', 4, 3),
-('Web Development', 'Learn how to build web applications.', 4, 4),
-('Data Science', 'Learn data analysis and machine learning.', 5, 1);
+-- Insert Courses
+INSERT INTO courses (course_name, description, teacher_id, program_id)
+VALUES
+('Introduction to Computer Science', 'Basics of computer science and programming.', 7, 1),
+('Advanced Algorithms', 'In-depth study of algorithms.', 7, 1),
+('Thermodynamics', 'Study of energy and its transformations.', 9, 2),
+('Structural Analysis', 'Understanding structural engineering principles.', 8, 4),
+('Quantum Physics', 'Advanced concepts in quantum mechanics.', 3, 6),
+('Bioinformatics', 'Combining biology with data science techniques.', 4, 5),
+('Data Mining', 'Techniques for discovering patterns in data.', 10, 8),
+('Machine Learning', 'Introduction to machine learning concepts and algorithms.', 10, 8),
+('Calculus I', 'Basic principles of calculus.', 5, 7),
+('Digital Signal Processing', 'Techniques in digital signal processing.', 7, 3);
 
--- Insert data into discussionforums
-INSERT INTO discussionforums (course_id, title) VALUES 
-(1, 'General Discussion for Intro to Programming'),
-(2, 'Advanced Programming Techniques'),
-(3, 'Database Systems Q&A'),
-(4, 'Web Development Tips and Tricks'),
-(5, 'Data Science Challenges');
-
--- Insert data into enrollments
-INSERT INTO enrollments (enrollment_status, payment_status, course_id, user_id) VALUES 
-('active', 'paid', 1, 1),
-('active', 'paid', 2, 2),
-('completed', 'paid', 3, 3),
-('active', 'unpaid', 4, 4),
-('active', 'paid', 5, 1);
-
--- Insert data into forum_posts
-INSERT INTO forum_posts (post_text, forum_id, user_id) VALUES 
-('What is the best way to start programming?', 1, 1),
-('Can anyone recommend resources for advanced programming?', 2, 2),
-('How do I optimize database queries?', 3, 3),
-('What tools do you use for web development?', 4, 4),
-('What are the latest trends in data science?', 5, 1);
-
--- Insert data into lesson_plans
-INSERT INTO lesson_plans (content, title) VALUES 
-('Introduction to variables, data types, and control structures.', 'Lesson 1: Basics of Programming'),
-('Deep dive into algorithms and data structures.', 'Lesson 2: Advanced Programming Concepts'),
-('Overview of SQL and relational databases.', 'Lesson 1: Introduction to Databases'),
-('Hands-on project: Building a web app from scratch.', 'Lesson 1: Web Development Project'),
-('Exploring machine learning models and their applications.', 'Lesson 1: Introduction to Data Science');
-
--- Insert data into lesson_plan_course
-INSERT INTO lesson_plan_course (lesson_plan_id, course_id) VALUES 
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
-
--- Insert data into user_lesson_status
-INSERT INTO user_lesson_status (complete, lesson_plan_id, user_id) VALUES 
-(TRUE, 1, 1),
-(FALSE, 2, 2),
-(TRUE, 3, 3),
-(TRUE, 4, 4),
-(FALSE, 5, 1);
+-- Insert Enrollments
+INSERT INTO enrollments (enrollment_status, payment_status, course_id, user_id)
+VALUES
+('Enrolled', 'Paid', 1, 1),
+('Enrolled', 'Paid', 2, 1),
+('Enrolled', 'Pending', 3, 2),
+('Enrolled', 'Paid', 4, 2),
+('Enrolled', 'Pending', 5, 3),
+('Enrolled', 'Paid', 6, 4),
+('Enrolled', 'Pending', 7, 5),
+('Enrolled', 'Paid', 8, 6),
+('Enrolled', 'Paid', 9, 2),
+('Enrolled', 'Pending', 10, 1),
+('Enrolled', 'Paid', 1, 3),
+('Enrolled', 'Paid', 2, 4),
+('Enrolled', 'Pending', 3, 5),
+('Enrolled', 'Paid', 4, 6),
+('Enrolled', 'Paid', 5, 1),
+('Enrolled', 'Pending', 6, 2),
+('Enrolled', 'Paid', 7, 3),
+('Enrolled', 'Paid', 8, 4),
+('Enrolled', 'Pending', 9, 5),
+('Enrolled', 'Paid', 10, 6);
