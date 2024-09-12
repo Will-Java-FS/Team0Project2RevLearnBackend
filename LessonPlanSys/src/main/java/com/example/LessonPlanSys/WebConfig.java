@@ -10,16 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173", "http://localhost:8080") // Include Swagger UI origin
+                .allowedOrigins("http://localhost:5173", "http://localhost:8080") // Ensure the origin matches your frontend
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-
-    // public class SecurityConfig {
-    //     @Bean
-    //     public BCryptPasswordEncoder passwordEncoder() {
-    //         return new BCryptPasswordEncoder();
-    //     }
-    // }
 }
